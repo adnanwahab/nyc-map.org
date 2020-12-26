@@ -110,7 +110,7 @@ function loadData () {
   '311-Street-Condition'
   ]
   return Promise.all([
-    load('data/311-Noise---Residential.csv'),
+    load('/public/data/311-Noise---Residential.csv'),
     // load('data/311-Noise---Residential.csv'),
     // load('data/311-PLUMBING.csv'),
     // load('data/311-GENERAL-CONSTRUCTION.csv')

@@ -70,16 +70,17 @@ const Blurb = styled.section`
   background-opacity: .9;
   color: lightgrey;
 `
+/* <label> Show Building Pricing Layer <input type="checkbox" value={checked ? 'unchecked' : 'checked'}
+
+onChange={()=> {console.log(1),setChecked(! checked), props.showBuildings(! checked)}} /></label>*/
 
 const ListView = (props) => {
   let [checked, setChecked] = useState(false)
-  console.log('checked', checked)
   return (
     <Blurb>
       <h1>Map of New York City</h1>
       <p>Suitability Analysis for Appartment Rentals/Buying</p>
-      <label> Show Building Pricing Layer <input type="checkbox" value={checked ? 'unchecked' : 'checked'}
-       onChange={()=> {console.log(1),setChecked(! checked), props.showBuildings(! checked)}} /></label>
+
       <h4>311 complaint - heatmap</h4>
       <List onClick={props.onClick}>
         {buildListItems(props.selectedIndex)}

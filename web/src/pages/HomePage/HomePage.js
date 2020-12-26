@@ -55,7 +55,7 @@ function Root () {
 
   let layers = [new H3HexagonLayer({
       id: 'h3-hexagon-layer' + 123,
-      data: `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/${selection}.json`,
+      data: `data/${selection}.json`,
 
       elevationScale: 20,
       opacity: 0.8,
