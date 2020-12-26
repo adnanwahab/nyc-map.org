@@ -6,26 +6,49 @@ import { HeatmapLayer } from '@deck.gl/aggregation-layers'
 import { csv as requestCSV, json as requestJSON } from 'd3-request'
 import { h3ToGeo } from 'h3-js'
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
+import * as d3 from "d3";
 
-const nyc = [-73.91922208269459, 40.72185277744134]
+import {CSVLoader} from '@loaders.gl/csv';
+import {load} from '@loaders.gl/core';
 
-const geoJson = (data, name) => {
-  return new GeoJsonLayer({
-    id: name,
-    data: data[name],
-    opacity: 0.8,
-    stroked: true,
-    filled: true,
-    extruded: true,
-    wireframe: true,
-    fp64: true,
-    // getFillColor: colorSchemes[name],
-    // getLineColor: colorSchemes[name],
-    getLineColor: [255, 255, 255],
-    lightSettings: LIGHT_SETTINGS,
-    lineWidthScale: 10
-  })
+
+
+const lightSettings = {
+  lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
+  ambientRatio: 0.4,
+  diffuseRatio: 0.6,
+  specularRatio: 0.2,
+  lightsStrength: [0.8, 0.0, 0.8, 0.0],
+  numberOfLights: 2
 }
+const COLOR_SCALE = [
+  // negative
+  [65, 182, 196],
+  [127, 205, 187],
+  [199, 233, 180],
+  [237, 248, 177],
+
+  // positive
+  [255, 255, 204],
+  [255, 237, 160],
+  [254, 217, 118],
+  [254, 178, 76],
+  [253, 141, 60],
+  [252, 78, 42],
+  [227, 26, 28],
+  [189, 0, 38],
+  [128, 0, 38]
+]
+
+const colorScale = x => {
+  const i = Math.round(x * 7) + 4
+  if (x < 0) {
+    return COLOR_SCALE[i] || COLOR_SCALE[0]
+  }
+  return COLOR_SCALE[i] || COLOR_SCALE[COLOR_SCALE.length - 1]
+}
+
+
 
 const colorRange = [
   [1, 152, 189],
@@ -36,123 +59,149 @@ const colorRange = [
   [209, 55, 78]
 ]
 
-const elevationScale = { min: 1, max: 50 }
-
-const heatMap = (data, name) => {
-  const radius = 100
-  const upperPercentile = 90
-  const coverage = 1
-
-  const lightSettings = {
-    lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
-    ambientRatio: 0.4,
-    diffuseRatio: 0.6,
-    specularRatio: 0.2,
-    lightsStrength: [0.8, 0.0, 0.8, 0.0],
-    numberOfLights: 2
-  }
-
-  const layer = new HeatmapLayer({
-    id: 'heatmapLayer',
-    data: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/screen-grid/uber-pickup-locations.json',
-    radiusPixels: 10,
-    threshold: 0,
-    getPosition: d => [d[0], d[1]],
-    getWeight: d => 100,
-    opacity: 1
-  })
-  return layer
-  return new H3HexagonLayer({
-    id: 'h3-hexagon-layer' + 123,
-    data: dat,
-    elevationScale: 20,
-    opacity: 0.8,
-    stroked: true,
-    filled: true,
-    extruded: true,
-    wireframe: true,
-    fp64: true,
-    getHexagon: d => (d.hex9),
-    getFillColor: d => [255, (1 - parseFloat(d.cnt) / 500) * 255, 0],
-    getElevation: d => parseFloat(d.cnt)
-  })
-}
-
-const done = (results) => {
-  const data = {}
-  data.heatmap = results[0]
-  return data
-}
-
-const load = (url) => {
-  return new Promise((resolve, reject) => {
-    const fetch = (url.split('.')[1] == 'json' ? requestJSON : requestCSV)
-    console.log(url)
-    fetch(url)
-      .on('load', resolve)
-      .on('error', reject)
-      .get()
-  })
-}
-function loadData () {
-  const complaints = [
-    '311-Blocked-Driveway',
-    '311-Street-Light-Condition',
-    '311-UNSANITARY-CONDITION',
-    '311-GENERAL-CONSTRUCTION',
-    '311-Water-System',
-    '311-HEAT-HOT-WATER',
-    '311-HEATING',
-    '311-Illegal-Parking',
-    '311-Noise---Residential',
-    '311-Noise---Street-Sidewalk',
-    '311-PLUMBING',
-    '311-Street-Condition'
-  ]
-  return Promise.all([
-    load('/public/data/311-Noise---Residential.csv')
-    // load('data/311-Noise---Residential.csv'),
-    // load('data/311-PLUMBING.csv'),
-    // load('data/311-GENERAL-CONSTRUCTION.csv')
-  ])
-    .then(done)
-}
-
-const processors = {
-  buildings: (data) => {
-    data.buildings = data.buildings
-    // .map(d => [+ d.Longitude, + d.Latitude])
-  },
-  streetRatings: (data) => {
-
-  },
-  '311_requests': (data) => {
-    data['311_requests'] = data['311_requests']
-    console.log(data)
-  // [  ('311-Blocked-Driveway'),
-  //   ('311-Noise---Residential'),
-  //   ('311-PLUMBING'),
-  //   ('311-GENERAL-CONSTRUCTION')]
-    // .map(d => [+ d.Longitude, + d.Latitude])
-  }
-}
-
-const Layers = [
-  ('311-Blocked-Driveway'),
-  ('311-Noise---Residential'),
-  ('311-PLUMBING'),
-  ('311-GENERAL-CONSTRUCTION')
+const complaints = [
+  'Blocked-Driveway',
+  'Street-Light-Condition',
+  'UNSANITARY-CONDITION',
+  'GENERAL-CONSTRUCTION',
+  'Water-System',
+  'HEAT-HOT-WATER',
+  'HEATING',
+  'Illegal-Parking',
+  'Noise---Residential',
+  'Noise---Street-Sidewalk',
+  'PLUMBING',
+  'Street-Condition'
 ]
 
-const LoadLayers = (data) => {
-  window.x = [
-    heatMap(data, '311-Blocked-Driveway')
-    // heatMap(data, '311-Noise---Residential'),
-    // heatMap(data, '311-PLUMBING'),
-    // heatMap(data,'311-GENERAL-CONSTRUCTION')
-  ]
-  return window.x
+const colorHexagon = (d) => {
+  const rgb = d3.rgb(d3.interpolateMagma((d[1] + 50) / 500))
+
+  return [rgb.r, rgb.g, rgb.b]
 }
-LoadLayers.load = loadData
-LoadLayers.layers = Layers
-export default LoadLayers
+
+const makeComplaintLayer = (url) => {
+  return () => {
+    console.log('loading ' + `data/${url}.json`)
+    return new H3HexagonLayer({
+    id: 'h3-hexagon-layer',
+    data: `data/${url}.json`,
+
+    elevationScale: 20,
+    opacity: 0.8,
+    stroked: false,
+    filled: true,
+    extruded: true,
+    wireframe: false,
+    fp64: true,
+    getHexagon: d => d[0],
+    getFillColor: colorHexagon,
+    elevationScale: 1,
+    getElevation: d => d[1]
+  })
+}
+
+}
+
+
+
+const layers = []
+
+let counts = {}
+window.counts = counts
+layers.push({name: 'crimes', fn: async () => {
+  console.log('loading crimes')
+  const data = await load('/data/archive/crimes.csv', CSVLoader);
+  console.log(data)
+
+  return new ScatterplotLayer({
+    id: 'name',
+    pickable: false,
+    getPosition: (d) => [d.Longitude, d.Latitude],
+    getFillColor:  (d) => {
+      let opacity = 255,
+          idx = d.LAW_CAT_CD
+      counts[idx] = 1 + (counts[idx] || 0)
+
+      return {
+          'MISDEMEANOR':[0, 0, 255 , opacity],
+          'FELONY':[200, 0, 200, opacity],
+          'VIOLATION':[255, 0, 0, opacity]
+      }[idx]
+  } ,
+    radiusScale: 5,
+    getRadius: d => 5,
+    data: data,
+    parameters: {
+// prevent flicker from z-fighting
+// [GL.DEPTH_TEST]: false,
+
+// // turn on additive blending to make them look more glowy
+// [GL.BLEND]: true,
+// [GL.BLEND_SRC_RGB]: GL.ONE,
+// [GL.BLEND_DST_RGB]: GL.ONE,
+// [GL.BLEND_EQUATION]: GL.FUNC_ADD,
+},
+    /* pickable: true,
+     * onHover: info => console.log('Hovered:', info),
+     * onClick: info => console.log('Clicked:', info)*/
+})
+
+}})
+
+
+let treeColors = {
+  Poor: 0,
+  Fair: .5,
+  Good: 1,
+}
+
+
+layers.push({name: 'trees', fn: async () => {
+  const data = await load('/data/archive/trees.csv', CSVLoader);
+  console.log(data)
+  return new ScatterplotLayer({
+    id: 'name',
+    getPosition: (d) => [d.longitude, d.latitude],
+    getColor: (d) => { return [100, (treeColors[d.health] || .5) * 200, 100, 255]},
+    radiusScale: 5,
+    getRadius: d => 5,
+    data: data,
+    outline: false,
+    parameters: {
+// prevent flicker from z-fighting
+[GL.DEPTH_TEST]: true,
+
+// turn on additive blending to make them look more glowy
+[GL.BLEND]: true,
+[GL.BLEND_SRC_RGB]: GL.ONE,
+[GL.BLEND_DST_RGB]: GL.ONE,
+[GL.BLEND_EQUATION]: GL.FUNC_ADD,
+},
+})
+}})
+
+layers.push({name: 'buildings', fn: () =>
+  new GeoJsonLayer({
+      id: 'name',
+      data:  `/data/adnan-no-fields.json`,
+      opacity: 0.8,
+      stroked: true,
+      filled: true,
+      extruded: true,
+      getElevation: f => Math.random() * 100,
+      getFillColor:  f => colorScale(Math.random()),
+      getLineColor:  [255, 0, (1 - 1 / 500) * 255],
+      lightSettings: lightSettings,
+      lineWidthScale: 10
+      })
+})
+
+
+
+complaints.forEach(c => layers.push({name: '311-complaint ' + c, fn: makeComplaintLayer(c)}))
+export {layers}
+
+
+
+
