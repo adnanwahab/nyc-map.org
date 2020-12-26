@@ -1,13 +1,13 @@
 import GL from '@luma.gl/constants'
 
 import { ScatterplotLayer, GeoJsonLayer, LineLayer, HexagonLayer } from 'deck.gl'
-import {HeatmapLayer} from '@deck.gl/aggregation-layers';
+import { HeatmapLayer } from '@deck.gl/aggregation-layers'
 
 import { csv as requestCSV, json as requestJSON } from 'd3-request'
-import {h3ToGeo} from "h3-js";
+import { h3ToGeo } from 'h3-js'
+import { H3HexagonLayer } from '@deck.gl/geo-layers'
 
 const nyc = [-73.91922208269459, 40.72185277744134]
-import {H3HexagonLayer} from '@deck.gl/geo-layers';
 
 const geoJson = (data, name) => {
   return new GeoJsonLayer({
@@ -52,15 +52,15 @@ const heatMap = (data, name) => {
     numberOfLights: 2
   }
 
-    const layer = new HeatmapLayer({
+  const layer = new HeatmapLayer({
     id: 'heatmapLayer',
-    data:  'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/screen-grid/uber-pickup-locations.json',
+    data: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/screen-grid/uber-pickup-locations.json',
     radiusPixels: 10,
     threshold: 0,
-    getPosition: d =>   [d[0], d[1]],
+    getPosition: d => [d[0], d[1]],
     getWeight: d => 100,
-  opacity: 1
-  });
+    opacity: 1
+  })
   return layer
   return new H3HexagonLayer({
     id: 'h3-hexagon-layer' + 123,
@@ -75,7 +75,7 @@ const heatMap = (data, name) => {
     getHexagon: d => (d.hex9),
     getFillColor: d => [255, (1 - parseFloat(d.cnt) / 500) * 255, 0],
     getElevation: d => parseFloat(d.cnt)
-  });
+  })
 }
 
 const done = (results) => {
@@ -95,22 +95,22 @@ const load = (url) => {
   })
 }
 function loadData () {
-  let complaints = [
-  '311-Blocked-Driveway',
-  '311-Street-Light-Condition',
-  '311-UNSANITARY-CONDITION',
-  '311-GENERAL-CONSTRUCTION',
-  '311-Water-System',
-  '311-HEAT-HOT-WATER',
-  '311-HEATING',
-  '311-Illegal-Parking',
-  '311-Noise---Residential',
-  '311-Noise---Street-Sidewalk',
-  '311-PLUMBING',
-  '311-Street-Condition'
+  const complaints = [
+    '311-Blocked-Driveway',
+    '311-Street-Light-Condition',
+    '311-UNSANITARY-CONDITION',
+    '311-GENERAL-CONSTRUCTION',
+    '311-Water-System',
+    '311-HEAT-HOT-WATER',
+    '311-HEATING',
+    '311-Illegal-Parking',
+    '311-Noise---Residential',
+    '311-Noise---Street-Sidewalk',
+    '311-PLUMBING',
+    '311-Street-Condition'
   ]
   return Promise.all([
-    load('/public/data/311-Noise---Residential.csv'),
+    load('/public/data/311-Noise---Residential.csv')
     // load('data/311-Noise---Residential.csv'),
     // load('data/311-PLUMBING.csv'),
     // load('data/311-GENERAL-CONSTRUCTION.csv')
@@ -145,9 +145,8 @@ const Layers = [
 ]
 
 const LoadLayers = (data) => {
-
   window.x = [
-    heatMap(data, '311-Blocked-Driveway'),
+    heatMap(data, '311-Blocked-Driveway')
     // heatMap(data, '311-Noise---Residential'),
     // heatMap(data, '311-PLUMBING'),
     // heatMap(data,'311-GENERAL-CONSTRUCTION')

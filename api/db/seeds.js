@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const db = new PrismaClient()
 
-async function main() {
+async function main () {
   // Seed data is database data that needs to exist for your app to run.
   // Ideally this file should be idempotent: running it multiple times
   // will result in the same database state (usually by checking for the

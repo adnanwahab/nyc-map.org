@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-
-
-let complaints = [
-'Blocked-Driveway',
-'Street-Light-Condition',
-'UNSANITARY-CONDITION',
-'GENERAL-CONSTRUCTION',
-'Water-System',
-'HEAT-HOT-WATER',
-'HEATING',
-'Illegal-Parking',
-'Noise---Residential',
-'Noise---Street-Sidewalk',
-'PLUMBING',
-'Street-Condition'
+const complaints = [
+  'Blocked-Driveway',
+  'Street-Light-Condition',
+  'UNSANITARY-CONDITION',
+  'GENERAL-CONSTRUCTION',
+  'Water-System',
+  'HEAT-HOT-WATER',
+  'HEATING',
+  'Illegal-Parking',
+  'Noise---Residential',
+  'Noise---Street-Sidewalk',
+  'PLUMBING',
+  'Street-Condition'
 ]
 const layers = complaints
 
@@ -29,7 +27,7 @@ const makeNameGood = (str) => {
 const Link = styled.a`
   color: white;
   text-decoration: none;
-`;
+`
 
 const buildListItems = (selectedIndex) => {
   return layers.map((title, i) =>
@@ -72,10 +70,10 @@ const Blurb = styled.section`
 `
 /* <label> Show Building Pricing Layer <input type="checkbox" value={checked ? 'unchecked' : 'checked'}
 
-onChange={()=> {console.log(1),setChecked(! checked), props.showBuildings(! checked)}} /></label>*/
+onChange={()=> {console.log(1),setChecked(! checked), props.showBuildings(! checked)}} /></label> */
 
 const ListView = (props) => {
-  let [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false)
   return (
     <Blurb>
       <h1>Map of New York City</h1>

@@ -4,13 +4,13 @@ d3.request('data/weather.bin')
   .on('error', reject)
   .get()
 function parseData (buffer) {
-  var bufferData = new Uint16Array(buffer)
-  var hours = 72
-  var components = 3
-  var l = bufferData.length / (hours * components)
-  var hourlyData = Array(hours)
+  const bufferData = new Uint16Array(buffer)
+  const hours = 72
+  const components = 3
+  const l = bufferData.length / (hours * components)
+  const hourlyData = Array(hours)
 
-  for (var i = 0; i < hours; ++i) {
+  for (let i = 0; i < hours; ++i) {
     hourlyData[i] = createHourlyData(bufferData, i, l, hours, components)
   }
 
@@ -18,10 +18,10 @@ function parseData (buffer) {
 }
 
 function createHourlyData (bufferData, i, l, hours, components) {
-  var len = bufferData.length
-  var array = Array(l)
+  const len = bufferData.length
+  const array = Array(l)
 
-  for (var j = i * components, count = 0; count < l; j += hours * components) {
+  for (let j = i * components, count = 0; count < l; j += hours * components) {
     array[count++] = new Float32Array([bufferData[j], bufferData[j + 1], bufferData[j + 2]])
   }
 

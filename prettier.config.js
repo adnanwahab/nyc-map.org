@@ -10,8 +10,8 @@ module.exports = {
     {
       files: 'Routes.js',
       options: {
-        printWidth: 200,
-      },
-    },
-  ],
+        printWidth: 200
+      }
+    }
+  ]
 }
