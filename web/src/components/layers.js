@@ -67,7 +67,6 @@ const complaints = [
   'Water-System',
   'HEAT-HOT-WATER',
   'HEATING',
-  'Illegal-Parking',
   'Noise---Residential',
   'Noise---Street-Sidewalk',
   'PLUMBING',
@@ -130,7 +129,7 @@ layers.push({name: 'crimes', fn: async () => {
       }[idx]
   } ,
     radiusScale: 5,
-    getRadius: d => 5,
+    getRadius: 5,
     data: data,
     parameters: {
 // prevent flicker from z-fighting
@@ -164,8 +163,8 @@ layers.push({name: 'trees', fn: async () => {
     id: 'name',
     getPosition: (d) => [d.longitude, d.latitude],
     getColor: (d) => { return [100, (treeColors[d.health] || .5) * 200, 100, 255]},
-    radiusScale: 5,
-    getRadius: d => 5,
+    radiusScale: 2,
+    getRadius: 5,
     data: data,
     outline: false,
     parameters: {

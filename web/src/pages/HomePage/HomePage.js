@@ -44,16 +44,12 @@ function Root () {
 
 
   useEffect(() => {
-    console.log('poop')
     let poop = async () => {
       const l = await layers[selection].fn()
       setLayer(l)
     }
     poop()
    }, [selection])
-
-
-
 
 
 
