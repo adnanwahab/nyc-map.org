@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import {layers} from './layers';
-
+import { layers } from './layers'
 
 const makeNameGood = (str) => {
   return str.replace('_', ' ')

@@ -4,7 +4,7 @@ import DeckGL from 'deck.gl'
 import { LayerControls, HEXAGON_CONTROLS } from 'src/components/controls'
 import ListView from 'src/components/list-view.js'
 import styled from 'styled-components'
-import {layers} from 'src/components/layers'
+import { layers } from 'src/components/layers'
 
 const INITIAL_VIEW_STATE = {
   longitude: -73.91922208269459,
@@ -39,19 +39,15 @@ function Root () {
   const _selectLayer = async (e) => {
     console.log(+e.target.id)
     setSelection(e.target.id)
-
   }
 
-
   useEffect(() => {
-    let poop = async () => {
+    const poop = async () => {
       const l = await layers[selection].fn()
       setLayer(l)
     }
     poop()
-   }, [selection])
-
-
+  }, [selection])
 
   return (
     <div>
