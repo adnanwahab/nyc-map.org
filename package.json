@@ -19,5 +19,8 @@
   },
   "scripts": {
     "lint": "standard --fix"
+  },
+  "dependencies": {
+    "mongodb": "^3.6.3"
   }
 }

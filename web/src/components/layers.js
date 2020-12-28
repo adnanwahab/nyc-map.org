@@ -6,10 +6,11 @@ import { HeatmapLayer } from '@deck.gl/aggregation-layers'
 import { csv as requestCSV, json as requestJSON } from 'd3-request'
 import { h3ToGeo } from 'h3-js'
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
-import * as d3 from 'd3'
+import * as d3 from 'd3';
 
 import { CSVLoader } from '@loaders.gl/csv'
 import { load } from '@loaders.gl/core'
+
 
 const lightSettings = {
   lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
