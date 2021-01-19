@@ -12,17 +12,20 @@ const Link = styled.a`
 `
 
 const buildListItems = (selectedIndex) => {
-  return layers.map((obj, i) =>
-    (<li key={obj.name} className={selectedIndex == obj.name ? 'selected' : ''}>
+  return layers.map((obj, i) => (
+    <li key={obj.name} className={selectedIndex == obj.name ? 'selected' : ''}>
       <Link
-        onClick={(e) => { e.preventDefault() }}
+        onClick={(e) => {
+          e.preventDefault()
+        }}
         href={'#' + obj.name}
-        target='_blank'
+        target="_blank"
         id={i}
-      >{makeNameGood(obj.name)}
+      >
+        {makeNameGood(obj.name)}
       </Link>
-     </li>)
-  )
+    </li>
+  ))
 }
 
 const List = styled.section`
@@ -40,7 +43,7 @@ const Blurb = styled.section`
   top: 50px;
   z-index: 1000;
   background: rgb(41, 50, 60);
-  background-opacity: .9;
+  background-opacity: 0.9;
   color: lightgrey;
 `
 
@@ -51,9 +54,7 @@ const ListView = (props) => {
       <h1>Map of New York City</h1>
       <p>Suitability Analysis for Appartment Rentals/Buying</p>
       <h4>Layers</h4>
-      <List onClick={props.onClick}>
-        {buildListItems(props.selectedIndex)}
-      </List>
+      <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
       <p>{props.exposition}</p>
     </Blurb>
   )
