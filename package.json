@@ -21,6 +21,7 @@
     "lint": "standard --fix"
   },
   "dependencies": {
-    "mongodb": "^3.6.3"
+    "mongodb": "^3.6.3",
+    "yelp-fusion": "^3.0.0"
   }
 }
