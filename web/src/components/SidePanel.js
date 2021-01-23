@@ -7,8 +7,8 @@ const makeNameGood = (str) => {
 }
 
 const Link = styled.a`
-  color: white;
   text-decoration: none;
+  color: #323232;
 `
 
 const buildListItems = (selectedIndex) => {
@@ -40,20 +40,29 @@ const Blurb = styled.section`
   margin: 0 1em;
   padding: 0.25em 1em;
   position: fixed;
-  top: 50px;
   z-index: 1000;
   background: rgb(41, 50, 60);
   background-opacity: 0.9;
-  color: lightgrey;
+  color: #323232;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  max-width: 408px;
+  background: white;
+  font-size: 0.875rem;
+  font-family: Sailec, helvetica, sans-serif;
 `
 
 const ListView = (props) => {
   const [checked, setChecked] = useState(false)
   return (
     <Blurb>
-      <h1>Map of New York City</h1>
-      <p>Suitability Analysis for Appartment Rentals/Buying</p>
-      <h4>Layers</h4>
+      <h1 className="under-line">Appartment Explorer</h1>
+      <p>Choose the best place to live using artificial intelligence</p>
+      <h4>Visualization Layers</h4>
       <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
       <p>{props.exposition}</p>
     </Blurb>
