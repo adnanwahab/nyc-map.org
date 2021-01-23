@@ -33,7 +33,8 @@ const List = styled.section`
   border-radius: 3px;
   margin: 0 1em;
   padding: 0.25em 1em;
-`
+  `
+  // The above changes the color for the legend.
 const Blurb = styled.section`
   border-radius: 50px;
   font-size: 10px;
@@ -47,7 +48,6 @@ const Blurb = styled.section`
   color: black;
   overflow-y:auto
 `
-// The above changes the color for the legend. Make it look nice
 
 const ListView = (props) => {
   const [checked, setChecked] = useState(false)
