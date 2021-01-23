@@ -1,4 +1,8 @@
-body {margin: 0; padding: 0; overflow: hidden;}
+body {
+  margin: 0; padding: 0; overflow: hidden;
+  font-family: Sailec, helvetica, sans-serif;
+
+}
 
 .overlays {
     isolation: 'isolate';
@@ -44,20 +48,3 @@ a:hover {
   color: rgb(46, 124, 246) !important;
 }
 
-.under-line {
-  border-bottom: 1px solid #333;
-  text-align: center;
-}
-
-.vis-layer {
-  text-align: center;
-  background-color: lightgrey;
-  width: 300px;
-  border: 15px outset red;
-  padding: 20px;
-  margin: 20px;
-}
-
-.intro-paragraph {
-  text-align: center;
-}
