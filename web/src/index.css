@@ -43,3 +43,7 @@ a:hover {
   text-decoration: underline;
   color: rgb(46, 124, 246) !important;
 }
+
+.under-line {
+  border-bottom: 1px solid #333;
+}

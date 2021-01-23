@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StaticMap } from 'react-map-gl'
 import DeckGL from 'deck.gl'
 import { LayerControls, HEXAGON_CONTROLS } from 'src/components/controls'
-import LegendView from 'src/components/LegendView.js'
+import SidePanel from 'src/components/SidePanel.js'
 import styled from 'styled-components'
 import { layers } from 'src/components/layers'
 
@@ -51,7 +51,7 @@ function Root() {
 
   return (
     <div>
-      <LegendView selectedIndex={selection} onClick={_selectLayer} />
+      <SidePanel selectedIndex={selection} onClick={_selectLayer} />
 
       {false && (
         <LayerControls

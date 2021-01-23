@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@redwoodjs/api": "^0.21.0",
+    "@prisma/client": "^2.11.0",
+    "@redwoodjs/api": "^0.23.0",
     "mongoose": "^5.11.8"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.11.0"
   }
 }

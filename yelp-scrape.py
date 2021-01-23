@@ -31,7 +31,7 @@ import pathlib
 url = 'https://api.yelp.com/v3/businesses/search'
 
 app_id = '9fwvgam3ytFhg3GBUY8BGA'
-app_secret = '1BOxCcdtDn6UA1QfmguwUM_7exQHC_cxAnrEbPz-sexTAtWM_SC7t6mHLL-NOTjkX_DT17CexNobTtEy4gFb2Xw8Kh1UQRofRkTMLtftEDDvqX52wTJy6rj1LfwFYHYx'
+app_secret = '0QCQsubRVAbIPNJFPBVSb-Ykx6rrYUZnYhD4d8wHJqK-fsVpawFkD5hdG54i2qrRUE7M_rcAv3m63xPK6VGUb5MSpR0PtuaCC75KNq8Yd-cHc0Z_85UxaRV_OQQGYHYx'
 # data = {'grant_type': 'client_credentials',
 #         'client_id': app_id,
 #         'client_secret': app_secret}
@@ -58,6 +58,7 @@ data = []
 params = {'term':'seafood','location':'New York City'}
 req=requests.get(url, params=params, headers=headers)
 print('The status code is {}'.format(req.status_code))
+print (req.json())
 
 # with open('yelp.json', 'w') as f:
 #     json.dump(data, f)

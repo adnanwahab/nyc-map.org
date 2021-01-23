@@ -7,8 +7,8 @@ const makeNameGood = (str) => {
 }
 
 const Link = styled.a`
-  color: white;
   text-decoration: none;
+  color: #323232;
 `
 
 const buildListItems = (selectedIndex) => {
@@ -53,9 +53,9 @@ const ListView = (props) => {
   const [checked, setChecked] = useState(false)
   return (
     <Blurb>
-      <h1>Map of New York City</h1>
-      <p>Suitability Analysis for Appartment Rentals/Buying</p>
-      <h4>Layers</h4>
+      <h1 className="under-line">Appartment Explorer</h1>
+      <p>Choose the best place to live using artificial intelligence</p>
+      <h4>Visualization Layers</h4>
       <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
       <p>{props.exposition}</p>
     </Blurb>
