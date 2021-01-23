@@ -33,20 +33,19 @@ const List = styled.section`
   border-radius: 3px;
   margin: 0 1em;
   padding: 0.25em 1em;
-  `
-  // The above changes the color for the legend.
+`
+// The above changes the color for the legend.
 const Blurb = styled.section`
-  border-radius: 50px;
   font-size: 10px;
   margin-top: 5px;
   padding: 0.25em 1em;
   position: fixed;
   top: 10px;
   z-index: 1100;
-  background: rgb(130, 221, 234);
+  background: white;
   background-opacity: 0.9;
   color: black;
-  overflow-y:auto
+  overflow-y: auto;
 `
 
 const ListView = (props) => {
