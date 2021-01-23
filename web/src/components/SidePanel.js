@@ -46,7 +46,9 @@ const Blurb = styled.section`
   background: rgb(130, 221, 234);
   background-opacity: 0.9;
   color: black;
-  overflow-y:auto
+  width: 350px;
+  overflow-y: scroll;
+  height: 300px
 `
 
 const ListView = (props) => {
@@ -54,7 +56,7 @@ const ListView = (props) => {
   return (
     <Blurb>
       <h1 className="under-line">Appartment Explorer</h1>
-      <p>Choose the best place to live using artificial intelligence</p>
+      <p className="intro-paragraph">Choose the best place to live using artificial intelligence</p>
       <h4 className="vis-layer">Visualization Layers</h4>
       <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
       <p>{props.exposition}</p>
