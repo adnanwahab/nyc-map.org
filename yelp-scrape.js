@@ -200,14 +200,7 @@ async function sleep(fn, ...args) {
   return fn(...args)
 }
 
-// while (goOn) {
-//   // other code
-//   var [parents] = await Promise.all([
-//       listFiles(nextPageToken).then(requestParents),
-//       timeout(5000)
-//   ]);
-//   // other code
-// }
+//    q
 //for (var i = 0; i < 1000; i++) startSearch(i)
 // zipCodes = zipCodes.slice(0, 5)
 zipCodes.forEach((zip, index) => {

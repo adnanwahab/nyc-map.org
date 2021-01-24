@@ -38,14 +38,14 @@ const List = styled.section`
 const SidePanel = styled.section`
   line-height: 21px;
   font-size: 16px;
-  margin-top: 5px;
   padding: 0px;
   position: fixed;
   z-index: 1100;
   background: white;
   background-opacity: 0.9;
   color: black;
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 100%;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
 `
 
@@ -87,9 +87,6 @@ const ListView = (props) => {
         <Logo src="/favicon.png" />
         <LinkTitle onClick={openModal}>Crib Finder</LinkTitle>
       </SubHeader>
-      {/* <p className="intro-paragraph">
-        Choose the best place to live using artificial intelligence
-      </p> */}
       <SubHeader>Appartment Listings</SubHeader>
       <SubHeader>Complaints</SubHeader>
       <SubHeader>Places</SubHeader>
@@ -98,7 +95,6 @@ const ListView = (props) => {
       <SubHeader>Demographics</SubHeader>
 
       <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
-      <p>{props.exposition}</p>
     </SidePanel>
   )
 }

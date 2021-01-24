@@ -14,9 +14,9 @@ export const handler = async (event, context) => {
     useUnifiedTopology: true,
   })
   // specify the DB's name
-  const db = client.db('sample_restaurants')
+  const db = client.db('test')
   // execute find query
-  const items = await db.collection('restaurants').find({}).toArray()
+  const items = await db.collection('places').find({}).toArray()
   //TODO only return the bare minimum we need to render (no mongo _id, no health inspection data )
   //console.log(items)
   // close connection
