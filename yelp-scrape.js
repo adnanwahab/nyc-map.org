@@ -1,5 +1,7 @@
 'use strict'
 
+const fs = require('fs')
+
 const yelp = require('yelp-fusion')
 const client = yelp.client(
   '0QCQsubRVAbIPNJFPBVSb-Ykx6rrYUZnYhD4d8wHJqK-fsVpawFkD5hdG54i2qrRUE7M_rcAv3m63xPK6VGUb5MSpR0PtuaCC75KNq8Yd-cHc0Z_85UxaRV_OQQGYHYx'
@@ -154,40 +156,62 @@ let zipCodes = [
   10286,
 ]
 
-let count = 0
-
 let blist = {}
 
 let startSearch = (zip, index) => {
   setTimeout(() => {
     search(zip, index)
-  }, index * 5000)
+  }, index * 1000)
 }
 
-let search = (zip, index) => {
-  client
-    .search({
-      location: 'new york ' + zip,
-      limit: 50,
-      //offset: index * 50,
-    })
-    .then((response) => {
-      //master = master.concat.apply(master, response.jsonBody.businesses)
-      //console.log(response.jsonBody.businesses)
-      response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
-      console.log(index, 'counted ' + Object.keys(blist).length)
-      count++
-      //if (count === i) console.log('done')
-    })
-    .catch((e) => {
-      console.log(e)
-    })
+let count = 0
+
+let search = async (zip, index) => {
+  let response = await client.search({
+    location: 'new york ' + zip,
+    limit: 50,
+    //offset: index * 50,
+  })
+
+  response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
+
+  console.log(count, zipCodes.length)
+  if (++count === zipCodes.length) {
+    console.log('writing file to json')
+    console.log(blist)
+    fs.writeFileSync('yelp.json', JSON.stringify(Object.values(blist)))
+  }
+  // .then((response) => {
+  //   //master = master.concat.apply(master, response.jsonBody.businesses)
+  //   //console.log(response.jsonBody.businesses)
+  //   console.log(index, 'counted ' + Object.keys(blist).length)
+  //   count++
+  //   //if (count === i) console.log('done')
+  // })
+  // .catch((e) => {
+  //   console.log(e)
+  // })
+}
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+async function sleep(fn, ...args) {
+  await timeout(3000)
+  return fn(...args)
 }
 
+// while (goOn) {
+//   // other code
+//   var [parents] = await Promise.all([
+//       listFiles(nextPageToken).then(requestParents),
+//       timeout(5000)
+//   ]);
+//   // other code
+// }
 //for (var i = 0; i < 1000; i++) startSearch(i)
-
+// zipCodes = zipCodes.slice(0, 5)
 zipCodes.forEach((zip, index) => {
-  search(zip, index)
+  startSearch(zip, index)
 })
 
 //const MongoClient = require('mongodb').MongoClient

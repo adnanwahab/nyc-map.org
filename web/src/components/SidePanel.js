@@ -90,6 +90,7 @@ const ListView = (props) => {
       {/* <p className="intro-paragraph">
         Choose the best place to live using artificial intelligence
       </p> */}
+      <SubHeader>Appartment Listings</SubHeader>
       <SubHeader>Complaints</SubHeader>
       <SubHeader>Places</SubHeader>
       <SubHeader>Suitability</SubHeader>
