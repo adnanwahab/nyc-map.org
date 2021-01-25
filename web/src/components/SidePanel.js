@@ -65,6 +65,10 @@ const Logo = styled.img`
   padding-right: 10px;
 `
 
+const Label = styled.label`
+  display: block;
+`
+
 const LinkTitle = styled.span`
   cursor: pointer;
 
@@ -73,6 +77,9 @@ const LinkTitle = styled.span`
   }
 `
 
+const PriceInput = styled.input`
+  width: 50px;
+`
 const openModal = () => {
   alert(
     'Find the best appartment to live in using the best data sets!!! fuck brokers they are lying scum trash!!!! '
@@ -94,12 +101,13 @@ const ListView = (props) => {
         <input type="radio" value="Other" name="gender" /> Airbnb
         <input type="radio" value="Other" name="gender" /> officespace
       </div>
+      <img src="lol.png" width="300" height="100"></img>
       <div>
         <label>
-          min<input></input>
+          min<PriceInput type="number"></PriceInput>
         </label>
         <label>
-          max<input></input>
+          max<PriceInput type="number"></PriceInput>
         </label>
       </div>
       <SubHeader>Complaints</SubHeader>
@@ -117,13 +125,25 @@ const ListView = (props) => {
         </a>
       </SubHeader>
       <div>
-        <input style={{ display: 'block' }} type="range"></input>
-        <input style={{ display: 'block' }} type="range"></input>
-        <input style={{ display: 'block' }} type="range"></input>
-        <input style={{ display: 'block' }} type="range"></input>
+        <Label>
+          <input type="range"></input>noise complaints
+        </Label>
+        <Label>
+          <input type="range"></input>distance to yoga studio
+        </Label>
+        <Label>
+          <input type="range"></input>density of saunas
+        </Label>
+        <Label>
+          <input type="range"></input>gentrification score
+        </Label>
+        <Label>
+          <input type="range"></input>overall neightborhood sentiment
+        </Label>
       </div>
       <SubHeader>Crimes</SubHeader>
       <SubHeader>Demographics</SubHeader>
+      <span> racial demographic dot map</span>
 
       <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
     </SidePanel>
