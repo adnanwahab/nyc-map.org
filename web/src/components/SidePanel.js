@@ -111,7 +111,11 @@ const ListView = (props) => {
       </select>
       <SubHeader>Places</SubHeader>
       <input placeholder="search"></input>
-      <SubHeader>Suitability</SubHeader>
+      <SubHeader>
+        <a href="https://observablehq.com/@nrabinowitz/h3-tutorial-suitability-analysis">
+          Suitability
+        </a>
+      </SubHeader>
       <div>
         <input style={{ display: 'block' }} type="range"></input>
         <input style={{ display: 'block' }} type="range"></input>
