@@ -88,9 +88,36 @@ const ListView = (props) => {
         <LinkTitle onClick={openModal}>Crib Finder</LinkTitle>
       </SubHeader>
       <SubHeader>Appartment Listings</SubHeader>
+      <div>
+        <input type="radio" value="Male" name="gender" /> Rentals
+        <input type="radio" value="Female" name="gender" /> Buying
+        <input type="radio" value="Other" name="gender" /> Airbnb
+        <input type="radio" value="Other" name="gender" /> officespace
+      </div>
+      <div>
+        <label>
+          min<input></input>
+        </label>
+        <label>
+          max<input></input>
+        </label>
+      </div>
       <SubHeader>Complaints</SubHeader>
+      <select>
+        <option>noise</option>
+        <option>rats</option>
+        <option>heating</option>
+        <option>street condition</option>
+      </select>
       <SubHeader>Places</SubHeader>
+      <input placeholder="search"></input>
       <SubHeader>Suitability</SubHeader>
+      <div>
+        <input style={{ display: 'block' }} type="range"></input>
+        <input style={{ display: 'block' }} type="range"></input>
+        <input style={{ display: 'block' }} type="range"></input>
+        <input style={{ display: 'block' }} type="range"></input>
+      </div>
       <SubHeader>Crimes</SubHeader>
       <SubHeader>Demographics</SubHeader>
 
