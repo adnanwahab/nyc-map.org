@@ -141,7 +141,9 @@ const ListView = (props) => {
           <input type="range"></input>overall neightborhood sentiment
         </Label>
       </div>
-      <SubHeader>Crimes</SubHeader>
+      <SubHeader>Commute Distance</SubHeader>
+      <SubHeader>neightborhood gossip</SubHeader>
+
       <SubHeader>Demographics</SubHeader>
       <span> racial demographic dot map</span>
 
