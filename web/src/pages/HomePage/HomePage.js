@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { StaticMap } from 'react-map-gl'
 import DeckGL from 'deck.gl'
 import { LayerControls, HEXAGON_CONTROLS } from 'src/components/controls'
-import SidePanel from 'src/components/SidePanel.js'
+import VisualizationControls from 'src/components/VisualizationControls'
+import ListingControls from 'src/components/ListingControls'
 import styled from 'styled-components'
 import { layers } from 'src/components/layers'
 
@@ -51,7 +52,8 @@ function Root() {
 
   return (
     <div>
-      <SidePanel selectedIndex={selection} onClick={_selectLayer} />
+      <ListingControls />
+      <VisualizationControls selectedIndex={selection} onClick={_selectLayer} />
 
       {false && (
         <LayerControls

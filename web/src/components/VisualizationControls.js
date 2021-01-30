@@ -39,17 +39,16 @@ const SidePanel = styled.section`
   line-height: 21px;
   font-size: 16px;
   padding: 0px;
-  border-radius: 50px;
   font-size: 10px;
-  margin-top: 5px;
-  padding: 0.25em 1em;
   position: fixed;
+  right: 0px;
   z-index: 1100;
   background: white;
   height: 100%;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
   font-weight: 500;
   color: black;
+  overflow: scroll;
 `
 const SubHeader = styled.section`
   padding: 0px 1.5rem;
@@ -86,30 +85,13 @@ const openModal = () => {
     'Find the best appartment to live in using the best data sets!!! fuck brokers they are lying scum trash!!!! '
   )
 }
-const ListView = (props) => {
+const VisualizationControls = (props) => {
   const [checked, setChecked] = useState(false)
   return (
     <SidePanel>
       <SubHeader>
-        <Logo src="/favicon.png" />
-        <LinkTitle onClick={openModal}>Crib Finder</LinkTitle>
+        <LinkTitle onClick={openModal}>Visualization Controls</LinkTitle>
       </SubHeader>
-      <SubHeader>Appartment Listings</SubHeader>
-      <div>
-        <input type="radio" value="Male" name="gender" /> Rentals
-        <input type="radio" value="Female" name="gender" /> Buying
-        <input type="radio" value="Other" name="gender" /> Airbnb
-        <input type="radio" value="Other" name="gender" /> officespace
-      </div>
-      <img src="lol.png" width="300" height="100"></img>
-      <div>
-        <label>
-          min<PriceInput type="number"></PriceInput>
-        </label>
-        <label>
-          max<PriceInput type="number"></PriceInput>
-        </label>
-      </div>
       <SubHeader>Complaints</SubHeader>
       <select>
         <option>noise</option>
@@ -143,11 +125,11 @@ const ListView = (props) => {
       </div>
       <SubHeader>Commute Distance</SubHeader>
       <SubHeader>neightborhood gossip</SubHeader>
-
       <SubHeader>Demographics</SubHeader>
       <span> racial demographic dot map</span>
+      <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
     </SidePanel>
   )
 }
 
-export default ListView
+export default VisualizationControls
