@@ -43,21 +43,3 @@ a:hover {
   text-decoration: underline;
   color: rgb(46, 124, 246) !important;
 }
-
-.under-line {
-  border-bottom: 1px solid #333;
-  text-align: center;
-}
-
-.vis-layer {
-  text-align: center;
-  background-color: lightgrey;
-  width: 300px;
-  border: 15px outset red;
-  padding: 20px;
-  margin: 20px;
-}
-
-.intro-paragraph {
-  text-align: center;
-}
