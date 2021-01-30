@@ -76,7 +76,7 @@ const ListingControls = (props) => {
         <Logo src="/favicon.png" />
         <LinkTitle onClick={openModal}>Crib Finder</LinkTitle>
       </SubHeader>
-      <p>Crib Finder is a next-generation appartment finder </p>
+      <p>Crib Finder is a next-generation appartment finder. </p>
       {/* <div>
         <input type="radio" value="Male" name="gender" /> Rentals
         <input type="radio" value="Female" name="gender" /> Buying
