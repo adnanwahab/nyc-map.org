@@ -222,20 +222,20 @@ layers.push({
   },
 })
 
-// layers.push({
-//   name: 'chinese-restaurants',
-//   fn: async () => {
-//     let query = { cusine: 'chinese' }
-//     const res = await fetch('http://localhost:8911/mongo', {
-//       method: 'POST',
-//       body: JSON.stringify(query),
-//     })
-//     const rest = await res.json()
-//     window.rest = rest
-//     let data = rest.filter((d) => d.cuisine === 'chinese')
-//     return () => makeScatterLayer(data, (r) => r.address.coord)
-//   },
-// })
+layers.push({
+  name: 'chinese-restaurants',
+  fn: async () => {
+    let query = { cusine: 'chinese' }
+    const res = await fetch('http://localhost:8911/mongo', {
+      method: 'POST',
+      body: JSON.stringify(query),
+    })
+    const rest = await res.json()
+    window.rest = rest
+    let data = rest.filter((d) => d.cuisine === 'chinese')
+    return () => makeScatterLayer(data, (r) => r.address.coord)
+  },
+})
 
 layers.push({
   name: 'isochrone',
@@ -280,24 +280,6 @@ layers.push({
       lightSettings: lightSettings,
       lineWidthScale: 10,
     })
-  },
-})
-
-layers.unshift({
-  name: 'places',
-  fn: async () => {
-    let query = { cusine: 'chinese' }
-    const res = await fetch('http://localhost:8911/mongo', {
-      method: 'POST',
-      body: JSON.stringify(query),
-    })
-    const data = await res.json()
-    window.data = data
-    return () =>
-      makeScatterLayer(data, (r) => [
-        r.coordinates.longitude,
-        r.coordinates.latitude,
-      ])
   },
 })
 export { layers }
