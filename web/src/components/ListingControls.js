@@ -77,7 +77,7 @@ const ListingControls = (props) => {
         <LinkTitle onClick={openModal}>Crib Finder</LinkTitle>
       </SubHeader>
       <p>Crib Finder is a next-generation appartment finder. </p>
-      {/* <div>
+      <div>
         <input type="radio" value="Male" name="gender" /> Rentals
         <input type="radio" value="Female" name="gender" /> Buying
         <input type="radio" value="Other" name="gender" /> Airbnb
@@ -92,7 +92,7 @@ const ListingControls = (props) => {
           max<PriceInput type="number"></PriceInput>
         </label>
       </div>
-      <button> Get Email Alerts about this Search</button> */}
+      <button> Get Email Alerts about this Search</button>
     </SidePanel>
   )
 }

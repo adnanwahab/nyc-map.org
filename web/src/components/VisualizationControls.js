@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { layers } from './layers'
 
+import Accordion from './Accordion'
 const makeNameGood = (str) => {
   return str.replace('_', ' ')
 }
@@ -92,6 +93,18 @@ const VisualizationControls = (props) => {
       <SubHeader>
         <LinkTitle onClick={openModal}>Visualization Controls</LinkTitle>
       </SubHeader>
+
+      <Accordion>
+        <Accordion.Panel header="hello" headerClass="my-header-class">
+          <p>
+            blahlalbdalbdalglsalg asldflas falsdf lasdf lasdlf alsdfl asldf{' '}
+          </p>
+        </Accordion.Panel>
+        <Accordion.Panel header="title2">
+          this is panel content2 or other
+        </Accordion.Panel>
+      </Accordion>
+
       <SubHeader>Complaints</SubHeader>
       <select>
         <option>noise</option>
