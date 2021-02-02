@@ -95,52 +95,47 @@ const VisualizationControls = (props) => {
       </SubHeader>
 
       <Accordion>
-        <Accordion.Panel header="hello" headerClass="my-header-class">
+        <Accordion.Panel header="Places">
+          <input placeholder="search"></input>
           <p>
             blahlalbdalbdalglsalg asldflas falsdf lasdf lasdlf alsdfl asldf{' '}
           </p>
         </Accordion.Panel>
-        <Accordion.Panel header="title2">
-          this is panel content2 or other
+        <Accordion.Panel header="Complaints">
+        <select>
+          <option>noise</option>
+          <option>rats</option>
+          <option>heating</option>
+          <option>street condition</option>
+        </select>
+        </Accordion.Panel>
+        <Accordion.Panel header="Commute Distance">
+          testing 123
+        </Accordion.Panel>
+        <Accordion.Panel header="Demographics">
+        <span> racial demographic dot map</span>
+        </Accordion.Panel>
+        <Accordion.Panel header="Suitability">
+          <Label>
+            <input type="range"></input>noise complaints
+          </Label>
+          <Label>
+            <input type="range"></input>distance to yoga studio
+          </Label>
+          <Label>
+            <input type="range"></input>density of saunas
+          </Label>
+          <Label>
+            <input type="range"></input>gentrification score
+          </Label>
+          <Label>
+            <input type="range"></input>overall neightborhood sentiment
+          </Label>
+        </Accordion.Panel>
+        <Accordion.Panel header="Demographics">
+        <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
         </Accordion.Panel>
       </Accordion>
-
-      <SubHeader>Complaints</SubHeader>
-      <select>
-        <option>noise</option>
-        <option>rats</option>
-        <option>heating</option>
-        <option>street condition</option>
-      </select>
-      <SubHeader>Places</SubHeader>
-      <input placeholder="search"></input>
-      <SubHeader>
-        <a href="https://observablehq.com/@nrabinowitz/h3-tutorial-suitability-analysis">
-          Suitability
-        </a>
-      </SubHeader>
-      <div>
-        <Label>
-          <input type="range"></input>noise complaints
-        </Label>
-        <Label>
-          <input type="range"></input>distance to yoga studio
-        </Label>
-        <Label>
-          <input type="range"></input>density of saunas
-        </Label>
-        <Label>
-          <input type="range"></input>gentrification score
-        </Label>
-        <Label>
-          <input type="range"></input>overall neightborhood sentiment
-        </Label>
-      </div>
-      <SubHeader>Commute Distance</SubHeader>
-      <SubHeader>neightborhood gossip</SubHeader>
-      <SubHeader>Demographics</SubHeader>
-      <span> racial demographic dot map</span>
-      <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
     </SidePanel>
   )
 }

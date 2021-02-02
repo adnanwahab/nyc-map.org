@@ -78,10 +78,10 @@ const ListingControls = (props) => {
       </SubHeader>
       <p>Crib Finder is a next-generation appartment finder. </p>
       <div>
-        <input type="radio" value="Male" name="gender" /> Rentals
-        <input type="radio" value="Female" name="gender" /> Buying
-        <input type="radio" value="Other" name="gender" /> Airbnb
-        <input type="radio" value="Other" name="gender" /> officespace
+      <input type="radio" value="Other" name="gender" /> Airbnb
+        <input enabled={true} type="radio" value="Male" name="gender" /> Rentals
+        <input disabled type="radio" value="Female" name="gender" /> Buying
+        <input disabled type="radio" value="Other" name="gender" /> officespace
       </div>
       <img src="lol.png" width="300" height="100"></img>
       <div>

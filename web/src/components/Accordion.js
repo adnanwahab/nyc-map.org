@@ -43,19 +43,21 @@ const StyledCollapse = styled(Collapse)`
     > .rc-collapse-item {
       border: 0px;
       > .rc-collapse-header {
-        flex-direction: row-reverse;
+        ${'' /* flex-direction: row-reverse;
         height: auto;
         line-height: normal;
         text-indent: 0px;
+        text-align: left;
         text-transform: none;
         display: flex;
-        align-items: center;
+        align-items: center; */}
+        font-size: 16px;
       }
     }
     .rc-collapse-content {
       border-bottom-width: 0px;
-      ${'' /* border-color: ${props => props.theme.colors.lighterGrey}; */}
-      border-left-width: 3px;
+      ${'' /* border-color: ${props => props.theme.colors.lighterGrey}; */} */}
+      border-left-width: 0px;
       border-right-width: 0px;
       border-style: solid;
       border-top-width: 0px;
