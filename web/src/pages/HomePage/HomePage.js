@@ -44,25 +44,17 @@ function Root() {
   }
 
   useEffect(() => {
-    const poop = async () => {
+    const call = async () => {
       const l = await layers[selection].fn()
       setLayer(l)
     }
-    poop()
+    call()
   }, [selection])
 
   return (
     <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }} >
       <ListingControls />
       <VisualizationControls selectedIndex={selection} onClick={_selectLayer} />
-
-      {false && (
-        <LayerControls
-          settings={this.state.settings}
-          propTypes={HEXAGON_CONTROLS}
-          onChange={(settings) => this._updateLayerSettings(settings)}
-        />
-      )}
 
       <DeckGL initialViewState={INITIAL_VIEW_STATE} controller layers={[layer]}>
         <StaticMap
