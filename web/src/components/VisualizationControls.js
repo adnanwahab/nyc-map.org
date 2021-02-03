@@ -112,6 +112,8 @@ const VisualizationControls = (props) => {
   const [checked, setChecked] = useState(false)
   const [activeIndex, setActiveIndex] = useState([0]);
 
+  console.log(props)
+
   return (
     <SidePanel>
       <SubHeader>
@@ -142,7 +144,7 @@ const VisualizationControls = (props) => {
         <AccordionPanel
           header={renderPanelHeader('Commute Distance', activeIndex.includes(2))}
         >
-          <CommuteDistanceControls />
+          <CommuteDistanceControls layers={layers} setLayer={props.onClick} />
         </AccordionPanel>
 
 

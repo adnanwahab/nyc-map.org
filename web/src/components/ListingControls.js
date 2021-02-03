@@ -3,14 +3,7 @@ import styled from 'styled-components'
 import { RangeSelector, Button } from 'grommet';
 
 
-const renderPanelHeader = (title, active) => (
-  <Box direction="row" align="center" pad="medium" gap="small">
-    <strong>
-      <Text>{title}</Text>
-    </strong>
-    <Text color="brand">{active ? '-' : '+'}</Text>
-  </Box>
-);
+
 
 const makeNameGood = (str) => {
   return str.replace('_', ' ')
