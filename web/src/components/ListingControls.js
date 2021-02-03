@@ -76,7 +76,6 @@ const openModal = () => {
   )
 }
 
-//https://github.com/react-component/slider
 const ListingControls = (props) => {
   const [checked, setChecked] = useState('Rentals')
   const [priceRange, setPriceRange] = useState([0, 1000])

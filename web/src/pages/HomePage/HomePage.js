@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StaticMap } from 'react-map-gl'
 import DeckGL from 'deck.gl'
-import { LayerControls, HEXAGON_CONTROLS } from 'src/components/controls'
 import VisualizationControls from 'src/components/VisualizationControls'
 import ListingControls from 'src/components/ListingControls'
 import styled from 'styled-components'

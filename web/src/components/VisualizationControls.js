@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { layers } from './layers'
 import CommuteDistanceControls from './CommuteDistanceControls'
 import ComplaintControls from './ComplaintControls'
+import SuitabilityControls from './SuitabilityControls'
+import PlaceControls from './PlaceControls'
 
 import {
   Accordion,
@@ -128,10 +130,8 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Places', activeIndex.includes(0))}
         >
           <Box pad="medium" background="light-2" style={{ height: '100px' }}>
-          <input placeholder="search"></input>
-          <p>
-            blahlalbdalbdalglsalg asldflas falsdf lasdf lasdlf alsdfl asldf{' '}
-          </p>
+          <PlaceControls />
+
           </Box>
         </AccordionPanel>
         <AccordionPanel
@@ -144,7 +144,7 @@ const VisualizationControls = (props) => {
         <AccordionPanel
           header={renderPanelHeader('Commute Distance', activeIndex.includes(2))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '50px' }}>
+          <Box pad="medium" background="light-2" style={{ height: '250px' }}>
           <CommuteDistanceControls layers={layers} setLayer={props.onClick} />
             </Box>
         </AccordionPanel>
@@ -154,18 +154,7 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Suitability Index', activeIndex.includes(2))}
         >
           <Box pad="medium" background="light-2" style={{ height: '300px' }}>
-          <Label>
-            <input type="range"></input>noise complaints
-          </Label>
-          <Label>
-            <input type="range"></input>distance to yoga studio
-          </Label>
-          <Label>
-            <input type="range"></input>density of saunas
-          </Label>
-          <Label>
-            <input type="range"></input>gentrification score
-          </Label>
+          <SuitabilityControls></SuitabilityControls>
         </Box>
         </AccordionPanel>
 

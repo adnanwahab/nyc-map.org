@@ -89,7 +89,7 @@ const CommuteDistanceControls = (props) => {
     const [value, setValue] = React.useState('');
     const [selection, setSelection] = useState('c1')
 
-    console.log('open sesame', props.setLayer(props.layers[15])())
+    // console.log('open sesame', props.setLayer(props.layers[15])())
 
     const onChange = event => {
       console.log(event)
