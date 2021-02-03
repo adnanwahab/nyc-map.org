@@ -59,7 +59,7 @@ function Root() {
       <DeckGL initialViewState={INITIAL_VIEW_STATE} controller layers={[layer]}>
         <StaticMap
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          mapStyle="mapbox://styles/mapbox/dark-v9"
+          mapStyle="mapbox://styles/mapbox/light-v9"
         />
       </DeckGL>
 
