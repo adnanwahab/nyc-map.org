@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { layers } from './layers'
 import CommuteDistanceControls from './CommuteDistanceControls'
+import ComplaintControls from './ComplaintControls'
 
 import {
   Accordion,
@@ -10,7 +11,6 @@ import {
   Text,
   TextInput,
 } from 'grommet';
-
 // import Accordion from './Accordion'
 
 
@@ -127,7 +127,7 @@ const VisualizationControls = (props) => {
         <AccordionPanel
           header={renderPanelHeader('Places', activeIndex.includes(0))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
+          <Box pad="medium" background="light-2" style={{ height: '100px' }}>
           <input placeholder="search"></input>
           <p>
             blahlalbdalbdalglsalg asldflas falsdf lasdf lasdlf alsdfl asldf{' '}
@@ -137,14 +137,16 @@ const VisualizationControls = (props) => {
         <AccordionPanel
           header={renderPanelHeader('311 Complaints', activeIndex.includes(1))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '50px' }}>
-            <Text>Panel 2 contents</Text>
+          <Box pad="medium" background="light-2" style={{ height: '150px' }}>
+            <ComplaintControls/>
           </Box>
         </AccordionPanel>
         <AccordionPanel
           header={renderPanelHeader('Commute Distance', activeIndex.includes(2))}
         >
+          <Box pad="medium" background="light-2" style={{ height: '50px' }}>
           <CommuteDistanceControls layers={layers} setLayer={props.onClick} />
+            </Box>
         </AccordionPanel>
 
 

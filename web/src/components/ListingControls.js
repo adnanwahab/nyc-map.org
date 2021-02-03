@@ -88,8 +88,8 @@ const ListingControls = (props) => {
         <p>Making Appartment Hunting Suck Less. </p>
       </SubHeader>
       <div>
-      <input type="radio" value="Airbnb" name="Airbnb" /> Airbnb
-        <input checked type="radio" value="Rentals" name="Rentals" /> Rentals
+        <input defaultChecked type="radio" value="Rentals" name="Rentals" /> Rentals
+        <input disabled type="radio" value="Airbnb" name="Airbnb" /> Airbnb
         <input disabled type="radio" value="Buying" name="Buying" /> Buying
         <input disabled type="radio" value="officespace" name="officespace" /> officespace
       </div>

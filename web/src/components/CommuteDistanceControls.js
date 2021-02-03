@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Grommet, RadioButtonGroup } from 'grommet';
+import { RadioButtonGroup } from 'grommet';
 import { TextInput } from 'grommet';
 import usePlacesAutocomplete, {
   getGeocode,
