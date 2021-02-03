@@ -1,6 +1,30 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { RadioButton, RangeSelector, Button, Box, Text } from 'grommet';
+import { RadioButton, Button, Box, Text } from 'grommet';
+
+import Slider, {SliderTooltip} from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
+const { Handle } = Slider;
+
+const handle = props => {
+  const { value, dragging, index, ...restProps } = props;
+  return (
+    <SliderTooltip
+      prefixCls="rc-slider-tooltip"
+      overlay={`${value} %`}
+      visible={dragging}
+      placement="top"
+      key={index}
+    >
+      <Handle value={value} {...restProps} />
+    </SliderTooltip>
+  );
+};
+
+const wrapperStyle = { width: 250 };
 
 
 
@@ -76,6 +100,16 @@ const openModal = () => {
   )
 }
 
+
+const RangeSelector = () => {
+  return (
+    <div>
+    <div style={wrapperStyle}>
+      <Range min={0} max={3000} defaultValue={[0, 2000]} tipFormatter={value => `$${value}`} />
+    </div>
+  </div>)
+}
+
 const ListingControls = (props) => {
   const [checked, setChecked] = useState('Rentals')
   const [priceRange, setPriceRange] = useState([0, 1000])
@@ -88,17 +122,9 @@ const ListingControls = (props) => {
       </SubHeader>
       <Box direction="row" align="center" pad="small" gap="small">
       <Text size="small" color="brand">Type:</Text>
-
-          <RadioButton checked={checked} label="Rentals"
-              onChange={(event) => setChecked(event.target.checked)}
-            />
-           <RadioButton disabled label="Airbnb"
-          onChange={(event) => setChecked(event.target.checked)}
-        />
-           <RadioButton disabled label="Office"
-          onChange={(event) => setChecked(event.target.checked)}
-        />
-
+        <label><input type="checkbox" ></input> Rentals</label>
+        <label><input type="checkbox" ></input> Airbnb</label>
+        <label><input type="checkbox" ></input> Office</label>
         </Box>
 
 
@@ -115,13 +141,11 @@ const ListingControls = (props) => {
             values={priceRange}
             onChange={nextValues => console.log(nextValues) || setPriceRange(nextValues )}
           />
-            <Box align="center">
-        <Text size="small">{`$${priceRange[0]} - $${priceRange[1]}`}</Text>
-        </Box>
       </Box>
 
       <Box size="small" direction="row" align="center" pad="medium" gap="small">
-      <Button size="small"  label='Get Email Alerts about this Search' onClick={() => {}} />
+      <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+      Get Email Alerts about this Search</button>
       </Box>
 
     </SidePanel>
