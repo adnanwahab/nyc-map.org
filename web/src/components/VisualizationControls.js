@@ -65,7 +65,7 @@ const SidePanel = styled.section`
   z-index: 1100;
   background: white;
   height: 100%;
-  width: 350px;
+  width: 300px;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
   font-weight: 500;
   color: black;

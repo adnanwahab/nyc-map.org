@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { RangeSelector, Button } from 'grommet';
+import { RadioButton, RangeSelector, Button, Box, Text } from 'grommet';
 
 
 
@@ -31,7 +31,7 @@ const SidePanel = styled.section`
   bottom: 36px;
   z-index: 1100;
   background: white;
-  height: 200px;
+  height: 300px;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
   font-weight: 500;
   color: black;
@@ -84,31 +84,47 @@ const ListingControls = (props) => {
     <SidePanel>
       <SubHeader>
         <Logo src="/favicon.png" />
-        <LinkTitle>Crib Finder</LinkTitle>
-        <p>Making Appartment Hunting Suck Less. </p>
+        <Text size="large">Crib Finder </Text> <br></br>
+        <Text size="xsmall">Data Driven Appartment Hunting</Text>
       </SubHeader>
-      <div>
-        <input defaultChecked type="radio" value="Rentals" name="Rentals" /> Rentals
-        <input disabled type="radio" value="Airbnb" name="Airbnb" /> Airbnb
-        <input disabled type="radio" value="Buying" name="Buying" /> Buying
-        <input disabled type="radio" value="officespace" name="officespace" /> officespace
-      </div>
-      {/* <img src="lol.png" width="300" height="100"></img> */}
-      <div>
-      <span>Rent Range: </span>
+      <Box direction="row" align="center" pad="small" gap="small">
+      <Text size="small" color="brand">Type:</Text>
 
-      <RangeSelector
+          <RadioButton checked={checked} label="Rentals"
+              onChange={(event) => setChecked(event.target.checked)}
+            />
+           <RadioButton disabled label="Airbnb"
+          onChange={(event) => setChecked(event.target.checked)}
+        />
+           <RadioButton disabled label="Office"
+          onChange={(event) => setChecked(event.target.checked)}
+        />
+
+        </Box>
+
+
+      <Box direction="row" align="center" pad="small" gap="small">
+        <Text size="small" color="brand">Rent Range</Text>
+
+        <RangeSelector
             direction='horizontal'
             invert={false}
             min={0}
             max={1000}
-            size='full'
+            size='medium'
             round='small'
             values={priceRange}
             onChange={nextValues => console.log(nextValues) || setPriceRange(nextValues )}
           />
-      </div>
-      <Button label='Get Email Alerts about this Search' onClick={() => {}} />
+            <Box align="center">
+        <Text size="small">{`$${priceRange[0]} - $${priceRange[1]}`}</Text>
+        </Box>
+      </Box>
+
+      <Box size="small" direction="row" align="center" pad="medium" gap="small">
+      <Button size="small"  label='Get Email Alerts about this Search' onClick={() => {}} />
+      </Box>
+
     </SidePanel>
   )
 }
