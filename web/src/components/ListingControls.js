@@ -125,6 +125,7 @@ const ListingControls = (props) => {
         <label><input type="checkbox" ></input> Rentals</label>
         <label><input type="checkbox" ></input> Airbnb</label>
         <label><input type="checkbox" ></input> Office</label>
+        <label><input type="checkbox" ></input> Condo</label>
         </Box>
 
 
