@@ -130,7 +130,7 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Places', activeIndex.includes(0))}
         >
           <Box pad="medium" background="light-2" style={{ height: '100px' }}>
-          <PlaceControls />
+          <PlaceControls setLayer={props.setLayer} />
 
           </Box>
         </AccordionPanel>

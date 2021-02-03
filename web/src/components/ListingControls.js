@@ -105,7 +105,7 @@ const RangeSelector = () => {
   return (
     <div>
     <div style={wrapperStyle}>
-      <Range min={0} max={3000} defaultValue={[0, 2000]} tipFormatter={value => `$${value}`} />
+      <Range min={0} max={3000} step={100} defaultValue={[0, 2000]} tipFormatter={value => `$${value}`} />
     </div>
   </div>)
 }
@@ -122,10 +122,10 @@ const ListingControls = (props) => {
       </SubHeader>
       <Box direction="row" align="center" pad="small" gap="small">
       <Text size="small" color="brand">Type</Text>
-        <label><input checked type="radio" ></input> Rentals</label>
-        <label><input disabled type="radio" ></input> Airbnb</label>
-        <label><input disabled type="radio" ></input> Office</label>
-        <label><input disabled type="radio" ></input> Condo</label>
+        <label><input disabled type="checkbox" ></input> Rentals</label>
+        <label><input defaultChecked type="checkbox" ></input> Airbnb</label>
+        <label><input disabled type="checkbox" ></input> Office</label>
+        <label><input disabled type="checkbox" ></input> Condo</label>
         </Box>
 
 
