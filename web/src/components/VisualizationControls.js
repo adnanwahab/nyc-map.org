@@ -135,33 +135,34 @@ const VisualizationControls = (props) => {
           </Box>
         </AccordionPanel>
         <AccordionPanel
-          header={renderPanelHeader('311 Complaints', activeIndex.includes(1))}
-        >
-          <Box pad="medium" background="light-2" style={{ height: '150px' }}>
-            <ComplaintControls/>
-          </Box>
-        </AccordionPanel>
-        <AccordionPanel
-          header={renderPanelHeader('Commute Distance', activeIndex.includes(2))}
+          header={renderPanelHeader('Commute Distance', activeIndex.includes(1))}
         >
           <Box pad="medium" background="light-2" style={{ height: '250px' }}>
           <CommuteDistanceControls layers={layers} setLayer={props.onClick} />
             </Box>
         </AccordionPanel>
-
-
         <AccordionPanel
-          header={renderPanelHeader('Suitability Index', activeIndex.includes(2))}
+          header={renderPanelHeader('311 Complaints', activeIndex.includes(2))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
-          <SuitabilityControls></SuitabilityControls>
-        </Box>
+          <Box pad="medium" background="light-2" style={{ height: '150px' }}>
+            <ComplaintControls/>
+          </Box>
         </AccordionPanel>
 
         <AccordionPanel
         header={renderPanelHeader('Demographics', activeIndex.includes(3))}>
         <span> racial demographic dot map</span>
         </AccordionPanel>
+
+        <AccordionPanel
+          header={renderPanelHeader('Suitability Index', activeIndex.includes(4))}
+        >
+          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
+          <SuitabilityControls></SuitabilityControls>
+        </Box>
+        </AccordionPanel>
+
+
       </Accordion>
 
     </SidePanel>

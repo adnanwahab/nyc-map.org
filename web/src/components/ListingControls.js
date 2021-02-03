@@ -121,16 +121,16 @@ const ListingControls = (props) => {
         <Text size="xsmall">Data Driven Appartment Hunting</Text>
       </SubHeader>
       <Box direction="row" align="center" pad="small" gap="small">
-      <Text size="small" color="brand">Type:</Text>
-        <label><input type="checkbox" ></input> Rentals</label>
-        <label><input type="checkbox" ></input> Airbnb</label>
-        <label><input type="checkbox" ></input> Office</label>
-        <label><input type="checkbox" ></input> Condo</label>
+      <Text size="small" color="brand">Type</Text>
+        <label><input checked type="radio" ></input> Rentals</label>
+        <label><input disabled type="radio" ></input> Airbnb</label>
+        <label><input disabled type="radio" ></input> Office</label>
+        <label><input disabled type="radio" ></input> Condo</label>
         </Box>
 
 
       <Box direction="row" align="center" pad="small" gap="small">
-        <Text size="small" color="brand">Rent Range</Text>
+        <Text size="small" color="brand">Price</Text>
 
         <RangeSelector
             direction='horizontal'
