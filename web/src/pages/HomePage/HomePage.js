@@ -7,6 +7,8 @@ import ListingControls from 'src/components/ListingControls'
 import styled from 'styled-components'
 import { layers } from 'src/components/layers'
 
+import { Grommet } from 'grommet';
+
 const INITIAL_VIEW_STATE = {
   longitude: -73.91922208269459,
   latitude: 40.72185277744134,
@@ -51,7 +53,7 @@ function Root() {
   }, [selection])
 
   return (
-    <div>
+    <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }} >
       <ListingControls />
       <VisualizationControls selectedIndex={selection} onClick={_selectLayer} />
 
@@ -71,7 +73,7 @@ function Root() {
       </DeckGL>
 
       <Legend />
-    </div>
+    </Grommet>
   )
 }
 

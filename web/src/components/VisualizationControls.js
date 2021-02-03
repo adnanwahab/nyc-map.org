@@ -1,8 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { layers } from './layers'
+import {
+  Accordion,
+  AccordionPanel,
+  Box,
+  Text,
+  TextInput,
+} from 'grommet';
 
-import Accordion from './Accordion'
+// import Accordion from './Accordion'
+
+
+const renderPanelHeader = (title, active) => (
+  <Box direction="row" align="center" pad="medium" gap="small">
+    <strong>
+      <Text>{title}</Text>
+    </strong>
+    <Text color="brand">{active ? '-' : '+'}</Text>
+  </Box>
+);
 const makeNameGood = (str) => {
   return str.replace('_', ' ')
 }
@@ -46,6 +63,7 @@ const SidePanel = styled.section`
   z-index: 1100;
   background: white;
   height: 100%;
+  width: 350px;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
   font-weight: 500;
   color: black;
@@ -88,34 +106,48 @@ const openModal = () => {
 }
 const VisualizationControls = (props) => {
   const [checked, setChecked] = useState(false)
+  const [activeIndex, setActiveIndex] = useState([0]);
+
   return (
     <SidePanel>
       <SubHeader>
         <LinkTitle onClick={openModal}>Visualization Controls</LinkTitle>
       </SubHeader>
 
-      <Accordion>
-        <Accordion.Panel header="Places">
+      <Accordion
+        activeIndex={activeIndex}
+        onActive={newActiveIndex => setActiveIndex(newActiveIndex)}
+      >
+        <AccordionPanel
+          header={renderPanelHeader('Places', activeIndex.includes(0))}
+        >
+          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
           <input placeholder="search"></input>
           <p>
             blahlalbdalbdalglsalg asldflas falsdf lasdf lasdlf alsdfl asldf{' '}
           </p>
-        </Accordion.Panel>
-        <Accordion.Panel header="Complaints">
-        <select>
-          <option>noise</option>
-          <option>rats</option>
-          <option>heating</option>
-          <option>street condition</option>
-        </select>
-        </Accordion.Panel>
-        <Accordion.Panel header="Commute Distance">
-          testing 123
-        </Accordion.Panel>
-        <Accordion.Panel header="Demographics">
-        <span> racial demographic dot map</span>
-        </Accordion.Panel>
-        <Accordion.Panel header="Suitability">
+          </Box>
+        </AccordionPanel>
+        <AccordionPanel
+          header={renderPanelHeader('311 Complaints', activeIndex.includes(1))}
+        >
+          <Box pad="medium" background="light-2" style={{ height: '50px' }}>
+            <Text>Panel 2 contents</Text>
+          </Box>
+        </AccordionPanel>
+        <AccordionPanel
+          header={renderPanelHeader('Commute Distance', activeIndex.includes(2))}
+        >
+          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
+            <Text>Panel 3 contents</Text>
+          </Box>
+        </AccordionPanel>
+
+
+        <AccordionPanel
+          header={renderPanelHeader('Suitability Index', activeIndex.includes(2))}
+        >
+          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
           <Label>
             <input type="range"></input>noise complaints
           </Label>
@@ -128,6 +160,33 @@ const VisualizationControls = (props) => {
           <Label>
             <input type="range"></input>gentrification score
           </Label>
+        </Box>
+        </AccordionPanel>
+
+        <AccordionPanel
+        header={renderPanelHeader('Demographics', activeIndex.includes(3))}>
+        <span> racial demographic dot map</span>
+        </AccordionPanel>
+      </Accordion>
+
+      {/* <Accordion>
+        <Accordion.Panel header="Places">
+
+        </Accordion.Panel>
+        <Accordion.Panel header="Complaints">
+        <select>
+          <option>noise</option>
+          <option>rats</option>
+          <option>heating</option>
+          <option>street condition</option>
+        </select>
+        </Accordion.Panel>
+        <Accordion.Panel header="Commute Distance">
+          testing 123
+        </Accordion.Panel>
+
+        <Accordion.Panel header="Suitability">
+
           <Label>
             <input type="range"></input>overall neightborhood sentiment
           </Label>
@@ -135,7 +194,7 @@ const VisualizationControls = (props) => {
         <Accordion.Panel header="Demographics">
         <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
         </Accordion.Panel>
-      </Accordion>
+      </Accordion> */}
     </SidePanel>
   )
 }

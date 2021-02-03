@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { RangeSelector, Button } from 'grommet';
+
+
+const renderPanelHeader = (title, active) => (
+  <Box direction="row" align="center" pad="medium" gap="small">
+    <strong>
+      <Text>{title}</Text>
+    </strong>
+    <Text color="brand">{active ? '-' : '+'}</Text>
+  </Box>
+);
 
 const makeNameGood = (str) => {
   return str.replace('_', ' ')
@@ -31,6 +42,9 @@ const SidePanel = styled.section`
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
   font-weight: 500;
   color: black;
+
+  height: 300px;
+  width: 350px;
   overflow: scroll;
 `
 const SubHeader = styled.section`
@@ -47,17 +61,17 @@ const SubHeader = styled.section`
 
 const Logo = styled.img`
   padding-right: 10px;
+  display: inline;
 `
 
 const Label = styled.label`
   display: block;
 `
 
-const LinkTitle = styled.span`
-  cursor: pointer;
-  &:hover {
-    color: palevioletred;
-  }
+const LinkTitle = styled.h1`
+  display: inline;
+
+font-size: 16px;
 `
 
 const PriceInput = styled.input`
@@ -68,31 +82,40 @@ const openModal = () => {
     'Find the best appartment to live in using the best data sets!!! fuck brokers they are lying scum trash!!!! '
   )
 }
+
+//https://github.com/react-component/slider
 const ListingControls = (props) => {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState('Rentals')
+  const [priceRange, setPriceRange] = useState([0, 1000])
   return (
     <SidePanel>
       <SubHeader>
         <Logo src="/favicon.png" />
-        <LinkTitle onClick={openModal}>Crib Finder</LinkTitle>
+        <LinkTitle>Crib Finder</LinkTitle>
+        <p>Making Appartment Hunting Suck Less. </p>
       </SubHeader>
-      <p>Crib Finder is a next-generation appartment finder. </p>
       <div>
-      <input type="radio" value="Other" name="gender" /> Airbnb
-        <input enabled={true} type="radio" value="Male" name="gender" /> Rentals
-        <input disabled type="radio" value="Female" name="gender" /> Buying
-        <input disabled type="radio" value="Other" name="gender" /> officespace
+      <input type="radio" value="Airbnb" name="Airbnb" /> Airbnb
+        <input checked type="radio" value="Rentals" name="Rentals" /> Rentals
+        <input disabled type="radio" value="Buying" name="Buying" /> Buying
+        <input disabled type="radio" value="officespace" name="officespace" /> officespace
       </div>
-      <img src="lol.png" width="300" height="100"></img>
+      {/* <img src="lol.png" width="300" height="100"></img> */}
       <div>
-        <label>
-          min<PriceInput type="number"></PriceInput>
-        </label>
-        <label>
-          max<PriceInput type="number"></PriceInput>
-        </label>
+      <span>Rent Range: </span>
+
+      <RangeSelector
+            direction='horizontal'
+            invert={false}
+            min={0}
+            max={1000}
+            size='full'
+            round='small'
+            values={priceRange}
+            onChange={nextValues => console.log(nextValues) || setPriceRange(nextValues )}
+          />
       </div>
-      <button> Get Email Alerts about this Search</button>
+      <Button label='Get Email Alerts about this Search' onClick={() => {}} />
     </SidePanel>
   )
 }
