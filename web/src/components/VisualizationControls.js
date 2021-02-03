@@ -169,32 +169,6 @@ const VisualizationControls = (props) => {
         </AccordionPanel>
       </Accordion>
 
-      {/* <Accordion>
-        <Accordion.Panel header="Places">
-
-        </Accordion.Panel>
-        <Accordion.Panel header="Complaints">
-        <select>
-          <option>noise</option>
-          <option>rats</option>
-          <option>heating</option>
-          <option>street condition</option>
-        </select>
-        </Accordion.Panel>
-        <Accordion.Panel header="Commute Distance">
-          testing 123
-        </Accordion.Panel>
-
-        <Accordion.Panel header="Suitability">
-
-          <Label>
-            <input type="range"></input>overall neightborhood sentiment
-          </Label>
-        </Accordion.Panel>
-        <Accordion.Panel header="Demographics">
-        <List onClick={props.onClick}>{buildListItems(props.selectedIndex)}</List>
-        </Accordion.Panel>
-      </Accordion> */}
     </SidePanel>
   )
 }
