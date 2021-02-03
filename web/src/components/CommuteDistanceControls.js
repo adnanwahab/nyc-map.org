@@ -8,13 +8,6 @@ import usePlacesAutocomplete, {
 import useOnclickOutside from "react-cool-onclickoutside";
 
 
-import {
-  ScatterplotLayer,
-  GeoJsonLayer,
-  LineLayer,
-  HexagonLayer,
-} from 'deck.gl'
-
 const PlacesAutocomplete = () => {
   const {
     ready,

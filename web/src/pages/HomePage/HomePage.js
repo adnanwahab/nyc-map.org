@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import VisualizationControls from 'src/components/VisualizationControls'
 import ListingControls from 'src/components/ListingControls'
@@ -8,11 +8,13 @@ import { Grommet } from 'grommet';
 
 
 function Root() {
+  const [selectedLayer, selectLayer] = useState('Places')
+
   return (
     <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }} >
       <ListingControls />
-      <VisualizationControls setLayer={()=> {console.log('wtf')}} />
-      <Map />
+      <VisualizationControls layers={Map.layers} setLayer={selectLayer} />
+      <Map selectedLayer={selectedLayer} />
     </Grommet>
   )
 }
