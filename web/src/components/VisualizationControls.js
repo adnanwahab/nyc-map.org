@@ -117,7 +117,7 @@ const VisualizationControls = (props) => {
   return (
     <SidePanel>
       <SubHeader>
-        <LinkTitle onClick={openModal}>Visualization Controls</LinkTitle>
+        <Text>Visualization Controls</Text>
       </SubHeader>
 
       <Accordion
