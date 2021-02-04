@@ -28,29 +28,6 @@ const INITIAL_VIEW_STATE = {
   height: 500,
 }
 
-const makeScatterLayer = (getter) => {
-  return new ScatterplotLayer({
-    id: 'name',
-    getPosition: getter,
-    getColor: (d) => {
-      return [100, 0.5, 100, 255]
-    },
-    radiusScale: 10,
-    getRadius: 10,
-    data: [],
-    outline: false,
-    parameters: {
-      // prevent flicker from z-fighting
-      [GL.DEPTH_TEST]: true,
-
-      // turn on additive blending to make them look more glowy
-      [GL.BLEND]: true,
-      [GL.BLEND_SRC_RGB]: GL.ONE,
-      [GL.BLEND_DST_RGB]: GL.ONE,
-      [GL.BLEND_EQUATION]: GL.FUNC_ADD,
-    },
-  })
-}
 // Set your mapbox token here
 const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
   'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
@@ -70,11 +47,7 @@ const makeGeoJsonLayer = () => {
     lineWidthScale: 10,
   })
 }
-let layers = {
-  Places: makeScatterLayer((d) => { console.log(d) }),
-  'Commute Distance': makeGeoJsonLayer()
 
-}
 
 const lightSettings = {
   lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
@@ -198,8 +171,15 @@ const Map = (props) => {
       mapStyle="mapbox://styles/mapbox/light-v9"
     />
     </DeckGL>)
+
+  //return <div></div>
 }
 
-Map.layers = layers
+Map.Layers = {
+  // Places: makeScatterLayer((d) => { console.log(d) }),
+  // 'Commute Distance': makeGeoJsonLayer(),
+  // 'Listings': () => {}
+
+}
 
 export default Map

@@ -8,13 +8,14 @@ import { Grommet } from 'grommet';
 
 
 function Root() {
-  const [selectedLayer, selectLayer] = useState('Places')
+  const [selectedLayer, selectLayer] = useState()
+  const [listingLayer, selectListings] = useState()
 
   return (
     <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }} >
-      <ListingControls />
-      <VisualizationControls layers={Map.layers} setLayer={selectLayer} />
-      <Map selectedLayer={selectedLayer} />
+      <ListingControls Layer={Map.Layers.Listings} toggleListings={selectListings}/>
+      <VisualizationControls Layers={Map.Layers} setLayer={selectLayer} />
+      <Map layers={[listingLayer, selectedLayer]} />
     </Grommet>
   )
 }

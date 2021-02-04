@@ -129,8 +129,7 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Places', activeIndex.includes(0))}
         >
           <Box pad="medium" background="light-2" style={{ height: '100px' }}>
-          <PlaceControls
-          layer={false && props.layers.Places}
+          <PlaceControls setLayer={props.setLayer}
            />
 
           </Box>
@@ -139,7 +138,7 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Commute Distance', activeIndex.includes(1))}
         >
           <Box pad="medium" background="light-2" style={{ height: '250px' }}>
-          <CommuteDistanceControls layer={ false && props.layers['Commute Distance']} />
+          <CommuteDistanceControls setLayer={props.setLayer} />
             </Box>
         </AccordionPanel>
         <AccordionPanel
