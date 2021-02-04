@@ -3,48 +3,32 @@ import React, { useState, useEffect } from 'react'
 // import { Select, Box } from 'grommet';
 import styled from 'styled-components'
 
-
 import GL from '@luma.gl/constants'
-import {MapView} from '@deck.gl/core';
+import { MapView } from '@deck.gl/core'
 
 import {
   ScatterplotLayer,
   GeoJsonLayer,
   LineLayer,
-  HexagonLayer,
+  HexagonLayer
 } from 'deck.gl'
 
 const Label = styled.label`
   display: block;
 `
 
-
-
-// let layer = {
-//   name: 'restaurants',
-//   fn: async () => {
-//     let query = { chinese: 'shit' }
-//     const res = await fetch('http://localhost:8911/mongo', {
-//       method: 'POST',
-//       body: JSON.stringify(query),
-//     })
-//     const rest = await res.json()
-//     let data = rest.filter((d) => d.cuisine === window.location.hash.slice(1))
-//   },
-// }
-
 const queryMongo = async (search) => {
-  let query = { }
-    const res = await fetch('http://localhost:8911/mongo', {
-      method: 'POST',
-      body: JSON.stringify(query),
-    })
-    const rest = await res.json()
-    return rest
+  const query = { }
+  const res = await fetch('http://localhost:8911/mongo', {
+    method: 'POST',
+    body: JSON.stringify(query)
+  })
+  const rest = await res.json()
+  return rest
 }
 const makeScatterLayer = (data, getter) => {
   return new ScatterplotLayer({
-    id: 'name',
+    id: 'places',
     getPosition: getter,
     getFillColor: (d) => {
       return [100, 0.5, 100, 255]
@@ -61,18 +45,18 @@ const makeScatterLayer = (data, getter) => {
       [GL.BLEND]: true,
       [GL.BLEND_SRC_RGB]: GL.ONE,
       [GL.BLEND_DST_RGB]: GL.ONE,
-      [GL.BLEND_EQUATION]: GL.FUNC_ADD,
-    },
+      [GL.BLEND_EQUATION]: GL.FUNC_ADD
+    }
   })
 }
 
 const PlaceControls = (props) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
 
   const onChange = (e) => {
     setValue(e.target.value)
   }
-   useEffect(() => {
+  useEffect(() => {
     const call = async () => {
       const data = await queryMongo()
       console.log('querying mongo' + data.length)
@@ -82,8 +66,10 @@ const PlaceControls = (props) => {
     call()
   }, [value])
 
-  return (<div> <input placeholder="search" onChange={onChange}></input>
-  </div>)
+  return (
+    <div> <input placeholder='search' onChange={onChange} />
+    </div>
+  )
 }
 
-export default PlaceControls;
+export default PlaceControls

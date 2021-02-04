@@ -1,33 +1,30 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { RadioButton, Button, Box, Text } from 'grommet';
+import { RadioButton, Button, Box, Text } from 'grommet'
 
-import Slider, {SliderTooltip} from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import Slider, { SliderTooltip } from 'rc-slider'
+import 'rc-slider/assets/index.css'
 
-const { createSliderWithTooltip } = Slider;
-const Range = createSliderWithTooltip(Slider.Range);
-const { Handle } = Slider;
+const { createSliderWithTooltip } = Slider
+const Range = createSliderWithTooltip(Slider.Range)
+const { Handle } = Slider
 
 const handle = props => {
-  const { value, dragging, index, ...restProps } = props;
+  const { value, dragging, index, ...restProps } = props
   return (
     <SliderTooltip
-      prefixCls="rc-slider-tooltip"
+      prefixCls='rc-slider-tooltip'
       overlay={`${value} %`}
       visible={dragging}
-      placement="top"
+      placement='top'
       key={index}
     >
       <Handle value={value} {...restProps} />
     </SliderTooltip>
-  );
-};
+  )
+}
 
-const wrapperStyle = { width: 250 };
-
-
-
+const wrapperStyle = { width: 250 }
 
 const makeNameGood = (str) => {
   return str.replace('_', ' ')
@@ -100,14 +97,14 @@ const openModal = () => {
   )
 }
 
-
 const RangeSelector = () => {
   return (
     <div>
-    <div style={wrapperStyle}>
-      <Range min={0} max={3000} step={100} defaultValue={[0, 2000]} tipFormatter={value => `$${value}`} />
+      <div style={wrapperStyle}>
+        <Range min={0} max={3000} step={100} defaultValue={[0, 2000]} tipFormatter={value => `$${value}`} />
+      </div>
     </div>
-  </div>)
+  )
 }
 
 const ListingControls = (props) => {
@@ -116,37 +113,37 @@ const ListingControls = (props) => {
   return (
     <SidePanel>
       <SubHeader>
-        <Logo src="/favicon.png" />
-        <Text size="large">Crib Finder </Text> <br></br>
-        <Text size="xsmall">Data Driven Appartment Hunting</Text>
+        <Logo src='/favicon.png' />
+        <Text size='large'>Crib Finder </Text> <br />
+        <Text size='xsmall'>Data Driven Appartment Hunting</Text>
       </SubHeader>
-      <Box direction="row" align="center" pad="small" gap="small">
-      <Text size="small" color="brand">Type</Text>
-        <label><input disabled type="checkbox" ></input> Rentals</label>
-        <label><input defaultChecked type="checkbox" ></input> Airbnb</label>
-        <label><input disabled type="checkbox" ></input> Office</label>
-        <label><input disabled type="checkbox" ></input> Condo</label>
-        </Box>
-
-
-      <Box direction="row" align="center" pad="small" gap="small">
-        <Text size="small" color="brand">Price</Text>
-
-        <RangeSelector
-            direction='horizontal'
-            invert={false}
-            min={0}
-            max={1000}
-            size='medium'
-            round='small'
-            values={priceRange}
-            onChange={nextValues => console.log(nextValues) || setPriceRange(nextValues )}
-          />
+      <Box direction='row' align='center' pad='small' gap='small'>
+        <Text size='small' color='brand'>Type</Text>
+        <label><input disabled type='checkbox' /> Rentals</label>
+        <label><input defaultChecked type='checkbox' /> Airbnb</label>
+        <label><input disabled type='checkbox' /> Office</label>
+        <label><input disabled type='checkbox' /> Condo</label>
       </Box>
 
-      <Box size="small" direction="row" align="center" pad="medium" gap="small">
-      <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-      Get Email Alerts about this Search</button>
+      <Box direction='row' align='center' pad='small' gap='small'>
+        <Text size='small' color='brand'>Price</Text>
+
+        <RangeSelector
+          direction='horizontal'
+          invert={false}
+          min={0}
+          max={1000}
+          size='medium'
+          round='small'
+          values={priceRange}
+          onChange={nextValues => console.log(nextValues) || setPriceRange(nextValues)}
+        />
+      </Box>
+
+      <Box size='small' direction='row' align='center' pad='medium' gap='small'>
+        <button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
+          Get Email Alerts about this Search
+        </button>
       </Box>
 
     </SidePanel>

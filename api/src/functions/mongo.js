@@ -1,31 +1,31 @@
 const MongoClient = require('mongodb').MongoClient
 
-const url = `mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority`
+const url = 'mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority'
 
 const client = new MongoClient(url, { useUnifiedTopology: true })
 
 export const handler = async (event, context) => {
   console.log(event, context)
 
-  let query = event.body
+  const query = event.body
   // connect to your cluster
   const client = await MongoClient.connect(url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   })
   // specify the DB's name
   const db = client.db('test') // execute find query
   const items = await db.collection('places').find({}).toArray()
-  //TODO only return the bare minimum we need to render (no mongo _id, no health inspection data )
-  //console.log(items)
+  // TODO only return the bare minimum we need to render (no mongo _id, no health inspection data )
+  // console.log(items)
   // close connection
   client.close()
 
   return {
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     },
     statusCode: 200,
-    body: JSON.stringify(items),
+    body: JSON.stringify(items)
   }
 }

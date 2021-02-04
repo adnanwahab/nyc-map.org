@@ -11,19 +11,18 @@ import {
   AccordionPanel,
   Box,
   Text,
-  TextInput,
-} from 'grommet';
+  TextInput
+} from 'grommet'
 // import Accordion from './Accordion'
 
-
 const renderPanelHeader = (title, active) => (
-  <Box direction="row" align="center" pad="medium" gap="small">
+  <Box direction='row' align='center' pad='medium' gap='small'>
     <strong>
       <Text>{title}</Text>
     </strong>
-    <Text color="brand">{active ? '-' : '+'}</Text>
+    <Text color='brand'>{active ? '-' : '+'}</Text>
   </Box>
-);
+)
 const makeNameGood = (str) => {
   return str.replace('_', ' ')
 }
@@ -41,7 +40,7 @@ const buildListItems = (selectedIndex) => {
           e.preventDefault()
         }}
         href={'#' + obj.name}
-        target="_blank"
+        target='_blank'
         id={i}
       >
         {makeNameGood(obj.name)}
@@ -109,11 +108,10 @@ const openModal = () => {
   )
 }
 
-
 const VisualizationControls = (props) => {
-  const [activeIndex, setActiveIndex] = useState([0]);
+  const [activeIndex, setActiveIndex] = useState([0])
 
-  //props.setLayer(Object.keys(props.layers)[activeIndex])
+  // props.setLayer(Object.keys(props.layers)[activeIndex])
 
   return (
     <SidePanel>
@@ -128,39 +126,37 @@ const VisualizationControls = (props) => {
         <AccordionPanel
           header={renderPanelHeader('Places', activeIndex.includes(0))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '100px' }}>
-          <PlaceControls setLayer={props.setLayer}
-           />
+          <Box pad='medium' background='light-2' style={{ height: '100px' }}>
+            <PlaceControls setLayer={props.setLayer} />
 
           </Box>
         </AccordionPanel>
         <AccordionPanel
           header={renderPanelHeader('Commute Distance', activeIndex.includes(1))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '250px' }}>
-          <CommuteDistanceControls setLayer={props.setLayer} />
-            </Box>
+          <Box pad='medium' background='light-2' style={{ height: '250px' }}>
+            <CommuteDistanceControls setLayer={props.setLayer} />
+          </Box>
         </AccordionPanel>
         <AccordionPanel
           header={renderPanelHeader('311 Complaints', activeIndex.includes(2))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '150px' }}>
-            <ComplaintControls/>
+          <Box pad='medium' background='light-2' style={{ height: '150px' }}>
+            <ComplaintControls />
           </Box>
         </AccordionPanel>
 
         <AccordionPanel
-        header={renderPanelHeader('Crime', activeIndex.includes(3))}>
-        </AccordionPanel>
+          header={renderPanelHeader('Crime', activeIndex.includes(3))}
+        />
 
         <AccordionPanel
           header={renderPanelHeader('Suitability Index', activeIndex.includes(4))}
         >
-          <Box pad="medium" background="light-2" style={{ height: '300px' }}>
-          <SuitabilityControls></SuitabilityControls>
-        </Box>
+          <Box pad='medium' background='light-2' style={{ height: '300px' }}>
+            <SuitabilityControls />
+          </Box>
         </AccordionPanel>
-
 
       </Accordion>
 

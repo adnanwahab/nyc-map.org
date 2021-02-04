@@ -8,7 +8,7 @@ import './index.css'
 
 ReactDOM.render(
   <FatalErrorBoundary page={FatalErrorPage}>
-      <Routes />
+    <Routes />
   </FatalErrorBoundary>,
   document.getElementById('redwood-app')
 )

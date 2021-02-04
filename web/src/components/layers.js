@@ -15,8 +15,6 @@
 // import { CSVLoader } from '@loaders.gl/csv'
 // import { load } from '@loaders.gl/core'
 
-
-
 // const layers = []
 
 // const counts = {}

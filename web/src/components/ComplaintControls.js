@@ -6,8 +6,7 @@ const objectOptions = [
   'Noise',
   'rats',
   'street conditions'
-];
-
+]
 
 const Select = styled.select`
   padding: 0px 1.5rem;
@@ -22,10 +21,11 @@ const Select = styled.select`
 `
 
 const ComplaintControls = (props) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
 
-  return (<div>
-  {/* <Select
+  return (
+    <div>
+      {/* <Select
           id="select"
           name="select"
           placeholder="Select"
@@ -37,12 +37,13 @@ const ComplaintControls = (props) => {
           onChange={({ value: nextValue }) => setValue(nextValue)}
         /> */}
 
-        <Select value={value} onChange={e => console.log(e) || setValue(e.textContent)}>
+      <Select value={value} onChange={e => console.log(e) || setValue(e.textContent)}>
         {objectOptions.map(d => <option>{d}</option>)}
 
-        </Select>
+      </Select>
 
-  </div>)
+    </div>
+  )
 }
 
-export default ComplaintControls;
+export default ComplaintControls

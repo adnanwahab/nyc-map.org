@@ -1,13 +1,11 @@
 import { StaticMap } from 'react-map-gl'
-import DeckGL from 'deck.gl'
-import GL from '@luma.gl/constants'
-
-import {
+import DeckGL, {
   ScatterplotLayer,
   GeoJsonLayer,
   LineLayer,
-  HexagonLayer,
+  HexagonLayer
 } from 'deck.gl'
+import GL from '@luma.gl/constants'
 
 import { HeatmapLayer } from '@deck.gl/aggregation-layers'
 
@@ -24,7 +22,7 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0,
   width: 960,
-  height: 500,
+  height: 500
 }
 
 // Set your mapbox token here
@@ -43,10 +41,9 @@ const makeGeoJsonLayer = () => {
     getFillColor: (f) => colorScale(Math.random()),
     getLineColor: [255, 0, (1 - 1 / 500) * 255],
     lightSettings: lightSettings,
-    lineWidthScale: 10,
+    lineWidthScale: 10
   })
 }
-
 
 const lightSettings = {
   lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
@@ -54,7 +51,7 @@ const lightSettings = {
   diffuseRatio: 0.6,
   specularRatio: 0.2,
   lightsStrength: [0.8, 0.0, 0.8, 0.0],
-  numberOfLights: 2,
+  numberOfLights: 2
 }
 const COLOR_SCALE = [
   // negative
@@ -72,7 +69,7 @@ const COLOR_SCALE = [
   [252, 78, 42],
   [227, 26, 28],
   [189, 0, 38],
-  [128, 0, 38],
+  [128, 0, 38]
 ]
 
 const colorScale = (x) => {
@@ -89,7 +86,7 @@ const colorRange = [
   [216, 254, 181],
   [254, 237, 177],
   [254, 173, 84],
-  [209, 55, 78],
+  [209, 55, 78]
 ]
 
 const complaints = [
@@ -103,7 +100,7 @@ const complaints = [
   'Noise---Residential',
   'Noise---Street-Sidewalk',
   'PLUMBING',
-  'Street-Condition',
+  'Street-Condition'
 ]
 
 const colorHexagon = (d) => {
@@ -139,7 +136,6 @@ const colorHexagon = (d) => {
 //     })
 //     const res = await req.json()
 
-
 //   },
 const makeComplaintLayer = (url) => {
   return () => {
@@ -158,27 +154,20 @@ const makeComplaintLayer = (url) => {
       getHexagon: (d) => d[0],
       getFillColor: colorHexagon,
       elevationScale: 1,
-      getElevation: (d) => d[1],
+      getElevation: (d) => d[1]
     })
   }
 }
 
 const Map = (props) => {
-  return (<DeckGL controller initialViewState={INITIAL_VIEW_STATE} layers={props.layers || []}>
-    <StaticMap
-      mapboxApiAccessToken={MAPBOX_TOKEN}
-      mapStyle="mapbox://styles/mapbox/light-v9"
-    />
-    </DeckGL>)
-
-  //return <div></div>
-}
-
-Map.Layers = {
-  // Places: makeScatterLayer((d) => { console.log(d) }),
-  // 'Commute Distance': makeGeoJsonLayer(),
-  // 'Listings': () => {}
-
+  return (
+    <DeckGL controller initialViewState={INITIAL_VIEW_STATE} layers={props.layers || []}>
+      <StaticMap
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+        mapStyle='mapbox://styles/mapbox/light-v9'
+      />
+    </DeckGL>
+  )
 }
 
 export default Map

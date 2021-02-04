@@ -7,7 +7,7 @@ const client = yelp.client(
   '0QCQsubRVAbIPNJFPBVSb-Ykx6rrYUZnYhD4d8wHJqK-fsVpawFkD5hdG54i2qrRUE7M_rcAv3m63xPK6VGUb5MSpR0PtuaCC75KNq8Yd-cHc0Z_85UxaRV_OQQGYHYx'
 )
 
-let zipCodes = [
+const zipCodes = [
   10001,
   10002,
   10003,
@@ -153,12 +153,12 @@ let zipCodes = [
   10281,
   10282,
   10285,
-  10286,
+  10286
 ]
 
-let blist = {}
+const blist = {}
 
-let startSearch = (zip, index) => {
+const startSearch = (zip, index) => {
   setTimeout(() => {
     search(zip, index)
   }, index * 1000)
@@ -166,11 +166,11 @@ let startSearch = (zip, index) => {
 
 let count = 0
 
-let search = async (zip, index) => {
-  let response = await client.search({
+const search = async (zip, index) => {
+  const response = await client.search({
     location: 'new york ' + zip,
-    limit: 50,
-    //offset: index * 50,
+    limit: 50
+    // offset: index * 50,
   })
 
   response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
@@ -192,10 +192,10 @@ let search = async (zip, index) => {
   //   console.log(e)
   // })
 }
-function timeout(ms) {
+function timeout (ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
-async function sleep(fn, ...args) {
+async function sleep (fn, ...args) {
   await timeout(3000)
   return fn(...args)
 }
@@ -208,13 +208,13 @@ async function sleep(fn, ...args) {
 //   ]);
 //   // other code
 // }
-//for (var i = 0; i < 1000; i++) startSearch(i)
+// for (var i = 0; i < 1000; i++) startSearch(i)
 // zipCodes = zipCodes.slice(0, 5)
 zipCodes.forEach((zip, index) => {
   startSearch(zip, index)
 })
 
-//const MongoClient = require('mongodb').MongoClient
+// const MongoClient = require('mongodb').MongoClient
 
 // const url = `mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority`
 
