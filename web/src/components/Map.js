@@ -13,7 +13,6 @@ import { HeatmapLayer } from '@deck.gl/aggregation-layers'
 
 import { h3ToGeo } from 'h3-js'
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
-import * as d3 from 'd3'
 
 import { CSVLoader } from '@loaders.gl/csv'
 import { load } from '@loaders.gl/core'
@@ -108,9 +107,9 @@ const complaints = [
 ]
 
 const colorHexagon = (d) => {
-  const rgb = d3.rgb(d3.interpolateMagma((d[1] + 50) / 500))
+  // const rgb = d3.rgb(d3.interpolateMagma((d[1] + 50) / 500))
 
-  return [rgb.r, rgb.g, rgb.b]
+  // return [rgb.r, rgb.g, rgb.b]
 }
 
 // let token =

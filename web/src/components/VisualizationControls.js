@@ -150,8 +150,7 @@ const VisualizationControls = (props) => {
         </AccordionPanel>
 
         <AccordionPanel
-        header={renderPanelHeader('Demographics', activeIndex.includes(3))}>
-        <span> racial demographic dot map</span>
+        header={renderPanelHeader('Crime', activeIndex.includes(3))}>
         </AccordionPanel>
 
         <AccordionPanel
