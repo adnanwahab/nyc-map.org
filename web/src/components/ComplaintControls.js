@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
-// import { Select, Box } from 'grommet';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-const objectOptions = [
-  'Noise',
-  'rats',
-  'street conditions'
+import { H3HexagonLayer } from '@deck.gl/geo-layers'
+
+
+const complaints = [
+  'Blocked-Driveway',
+  'Street-Light-Condition',
+  'UNSANITARY-CONDITION',
+  'GENERAL-CONSTRUCTION',
+  'Water-System',
+  'HEAT-HOT-WATER',
+  'HEATING',
+  'Illegal-Parking',
+  'Noise---Residential',
+  'Noise---Street-Sidewalk',
+  'PLUMBING',
+  'Street-Condition'
 ]
+
 
 const Select = styled.select`
   padding: 0px 1.5rem;
@@ -19,26 +31,52 @@ const Select = styled.select`
   padding-top: 1rem;
   padding-bottom: 1rem;
 `
+export const colorRange = [
+  [1, 152, 189],
+  [73, 227, 206],
+  [216, 254, 181],
+  [254, 237, 177],
+  [254, 173, 84],
+  [209, 55, 78]
+];
+
+const makeComplaintLayer = (url) => {
+  return () => {
+    console.log('loading ' + `data/${url}.json`)
+    return new H3HexagonLayer({
+      id: 'h3-hexagon-layer',
+      data: `data/${url}.json`,
+
+      elevationScale: 20,
+      opacity: 0.8,
+      stroked: false,
+      filled: true,
+      extruded: true,
+      wireframe: false,
+      fp64: true,
+      getHexagon: (d) => d[0],
+      colorRange: colorRange,
+      elevationScale: 1,
+      getElevation: (d) => d[1]
+    })
+  }
+}
 
 const ComplaintControls = (props) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('PLUMBING')
+
+  useEffect(() => {
+    const call = async () => {
+      const layer = makeComplaintLayer(value)
+      props.setLayer(layer)
+    }
+    call()
+  }, [value])
 
   return (
     <div>
-      {/* <Select
-          id="select"
-          name="select"
-          placeholder="Select"
-          labelKey="label"
-          valueKey={{ key: 'value', reduce: true }}
-          value={value}
-          options={objectOptions}
-          onClick={()  => console.log('hi')}
-          onChange={({ value: nextValue }) => setValue(nextValue)}
-        /> */}
-
-      <Select value={value} onChange={e => console.log(e) || setValue(e.textContent)}>
-        {objectOptions.map(d => <option>{d}</option>)}
+      <Select value={value} onChange={e => console.log(e) || setValue(e.target.textContent)}>
+        {complaints.map(d => <option key={d}>{d}</option>)}
 
       </Select>
 

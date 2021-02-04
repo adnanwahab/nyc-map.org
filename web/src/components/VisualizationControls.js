@@ -142,16 +142,16 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('311 Complaints', activeIndex.includes(2))}
         >
           <Box pad='medium' background='light-2' style={{ height: '150px' }}>
-            <ComplaintControls />
+            <ComplaintControls setLayer={props.setLayer} />
           </Box>
         </AccordionPanel>
 
-        <AccordionPanel
+        {/* <AccordionPanel
           header={renderPanelHeader('Crime', activeIndex.includes(3))}
-        />
+        /> */}
 
         <AccordionPanel
-          header={renderPanelHeader('Suitability Index', activeIndex.includes(4))}
+          header={renderPanelHeader('Suitability Index', activeIndex.includes(3))}
         >
           <Box pad='medium' background='light-2' style={{ height: '300px' }}>
             <SuitabilityControls />

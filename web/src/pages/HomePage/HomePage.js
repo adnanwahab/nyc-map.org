@@ -12,8 +12,8 @@ function Root () {
 
   return (
     <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }}>
-      <ListingControls Layer={Map.Layers.Listings} toggleListings={selectListings} />
-      <VisualizationControls Layers={Map.Layers} setLayer={selectLayer} />
+      <ListingControls toggleListings={selectListings} />
+      <VisualizationControls setLayer={selectLayer} />
       <Map layers={[listingLayer, selectedLayer]} />
     </Grommet>
   )

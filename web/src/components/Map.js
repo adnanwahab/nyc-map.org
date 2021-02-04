@@ -109,55 +109,6 @@ const colorHexagon = (d) => {
   // return [rgb.r, rgb.g, rgb.b]
 }
 
-// let token =
-//       'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
-//     let url = `https://api.mapbox.com/isochrone/v1/mapbox/walking/-73.99399172186374%2C40.74021296904996?contours_minutes=15%2C30%2C45%2C60&polygons=true&denoise=1&generalize=1000&access_token=${token}`
-
-//     const lon = -73.91922208269459,
-//       lat = 40.72185277744134
-//     var profile = 'cycling'
-//     var minutes = 10
-//     var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/'
-
-//     var query =
-//       urlBase +
-//       profile +
-//       '/' +
-//       lon +
-//       ',' +
-//       lat +
-//       '?contours_minutes=' +
-//       minutes +
-//       '&polygons=true&access_token=' +
-//       token
-
-//     let req = await fetch(query, {
-//       method: 'GET',
-//     })
-//     const res = await req.json()
-
-//   },
-const makeComplaintLayer = (url) => {
-  return () => {
-    console.log('loading ' + `data/${url}.json`)
-    return new H3HexagonLayer({
-      id: 'h3-hexagon-layer',
-      data: `data/${url}.json`,
-
-      elevationScale: 20,
-      opacity: 0.8,
-      stroked: false,
-      filled: true,
-      extruded: true,
-      wireframe: false,
-      fp64: true,
-      getHexagon: (d) => d[0],
-      getFillColor: colorHexagon,
-      elevationScale: 1,
-      getElevation: (d) => d[1]
-    })
-  }
-}
 
 const Map = (props) => {
   return (
