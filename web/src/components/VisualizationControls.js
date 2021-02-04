@@ -113,7 +113,7 @@ const openModal = () => {
 const VisualizationControls = (props) => {
   const [activeIndex, setActiveIndex] = useState([0]);
 
-  props.setLayer(Object.keys(props.layers)[activeIndex])
+  //props.setLayer(Object.keys(props.layers)[activeIndex])
 
   return (
     <SidePanel>
@@ -129,7 +129,9 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Places', activeIndex.includes(0))}
         >
           <Box pad="medium" background="light-2" style={{ height: '100px' }}>
-          <PlaceControls layer={props.layers.Places} />
+          <PlaceControls
+          layer={false && props.layers.Places}
+           />
 
           </Box>
         </AccordionPanel>
@@ -137,7 +139,7 @@ const VisualizationControls = (props) => {
           header={renderPanelHeader('Commute Distance', activeIndex.includes(1))}
         >
           <Box pad="medium" background="light-2" style={{ height: '250px' }}>
-          <CommuteDistanceControls layer={props.layers['Commute Distance']} />
+          <CommuteDistanceControls layer={ false && props.layers['Commute Distance']} />
             </Box>
         </AccordionPanel>
         <AccordionPanel

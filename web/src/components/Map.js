@@ -192,8 +192,7 @@ const makeComplaintLayer = (url) => {
 }
 
 const Map = (props) => {
-  console.log(props.selectedLayer, layers[props.selectedLayer])
-  return (<DeckGL initialViewState={INITIAL_VIEW_STATE} controller layers={layers[props.selectedLayer]}>
+  return (<DeckGL controller initialViewState={INITIAL_VIEW_STATE} layers={props.layers || []}>
     <StaticMap
       mapboxApiAccessToken={MAPBOX_TOKEN}
       mapStyle="mapbox://styles/mapbox/light-v9"

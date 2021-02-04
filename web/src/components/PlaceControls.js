@@ -42,7 +42,7 @@ const PlaceControls = (props) => {
     const call = async () => {
       const data = await queryMongo()
       console.log('querying mongo' + data.length)
-      props.layer.props.data = data;
+      //props.layer.props.data = data;
     }
     call()
   }, [value])
