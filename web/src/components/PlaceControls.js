@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import GL from '@luma.gl/constants'
-import { MapView } from '@deck.gl/core'
 
 import {
   ScatterplotLayer,

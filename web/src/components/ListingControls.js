@@ -1,9 +1,95 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { RadioButton, Button, Box, Text } from 'grommet'
 
 import Slider, { SliderTooltip } from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import GL from '@luma.gl/constants'
+
+import {IconLayer} from '@deck.gl/layers';
+
+import {
+  ScatterplotLayer,
+  GeoJsonLayer,
+  LineLayer,
+  HexagonLayer
+} from 'deck.gl'
+const makeIconLayer = (data) => {
+
+
+  const iconMapping = '/location-icon-mapping.json',
+  iconAtlas = '/location-icon-atlas.png'
+
+  console.log(data)
+  const layerProps = {
+    data,
+    pickable: true,
+    getPosition: d => [+ d.longitude, + d.latitude],
+    iconAtlas: '/icon-marker.png',
+    iconMapping: {
+      marker: {
+        x: 0,
+        y: 0,
+        width: 512,
+        height: 512,
+        // anchorY: 128,
+        mask: false
+      }
+    },
+    onHover: d => { d.picked && console.log(d.object) }
+  };
+
+  return new IconLayer({
+    ...layerProps,
+    id: 'icon',
+    getIcon: d => 'marker',
+    sizeUnits: 'meters',
+    sizeScale: 2000,
+    sizeMinPixels: 6
+  });
+}
+
+const makeScatterLayer = (data, getter) => {
+  return new ScatterplotLayer({
+    id: 'places',
+    getPosition: getter,
+    getFillColor: (d) => {
+      return [100, 0.5, 100, 255]
+    },
+    radiusScale: 10,
+    getRadius: 10,
+    data: data,
+    stroke: false,
+    parameters: {
+      // prevent flicker from z-fighting
+      [GL.DEPTH_TEST]: true,
+
+      // turn on additive blending to make them look more glowy
+      [GL.BLEND]: true,
+      [GL.BLEND_SRC_RGB]: GL.ONE,
+      [GL.BLEND_DST_RGB]: GL.ONE,
+      [GL.BLEND_EQUATION]: GL.FUNC_ADD
+    }
+  })
+}
+
+
+
+
+const queryMongo = async (search) => {
+  console.log('QUERYinG MONGO OH MY GOD')
+
+  const query = { }
+  const res = await fetch('http://localhost:8911/listings', {
+    method: 'POST',
+    body: JSON.stringify(query)
+  })
+  const rest = await res.json()
+
+  console.log('WTF WHY NO RUN')
+
+  return rest
+}
 
 const { createSliderWithTooltip } = Slider
 const Range = createSliderWithTooltip(Slider.Range)
@@ -108,8 +194,28 @@ const RangeSelector = () => {
 }
 
 const ListingControls = (props) => {
-  const [checked, setChecked] = useState('Rentals')
+  const [checked, setChecked] = useState(true)
   const [priceRange, setPriceRange] = useState([0, 1000])
+
+  useEffect(() => {
+    console.log('effecting my anus')
+    const call = async () => {
+      console.log('effecting my butt')
+
+      const data = await queryMongo({})
+      console.log('querying FUCK ' + data.length)
+      //const layer = makeScatterLayer(data, (d) => {console.log(d);return [+ d.longitude, + d.latitude]})
+      const layer = makeIconLayer(data)
+      console.log('fart')
+      props.selectListings(layer)
+    }
+    call()
+  }, [checked])
+
+  const onChange = (e) => {
+    setChecked(e.target.checked)
+  }
+  console.log('rerender')
   return (
     <SidePanel>
       <SubHeader>
@@ -119,10 +225,12 @@ const ListingControls = (props) => {
       </SubHeader>
       <Box direction='row' align='center' pad='small' gap='small'>
         <Text size='small' color='brand'>Type</Text>
+        <form>
         <label><input disabled type='checkbox' /> Rentals</label>
-        <label><input defaultChecked type='checkbox' /> Airbnb</label>
+        <label><input onChange={onChange} checked={checked} type='checkbox' /> Airbnb</label>
         <label><input disabled type='checkbox' /> Office</label>
         <label><input disabled type='checkbox' /> Condo</label>
+        </form>
       </Box>
 
       <Box direction='row' align='center' pad='small' gap='small'>

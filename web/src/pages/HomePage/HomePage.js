@@ -10,11 +10,18 @@ function Root () {
   const [selectedLayer, selectLayer] = useState()
   const [listingLayer, selectListings] = useState()
 
+
+  const layers = [
+    selectedLayer,
+    listingLayer,
+
+  ]
+console.log('rerender map')
   return (
     <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }}>
-      <ListingControls toggleListings={selectListings} />
+      <ListingControls selectListings={selectListings} />
       <VisualizationControls setLayer={selectLayer} />
-      <Map layers={[listingLayer, selectedLayer]} />
+      <Map layers={layers} />
     </Grommet>
   )
 }
