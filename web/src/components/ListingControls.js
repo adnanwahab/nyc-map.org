@@ -191,7 +191,7 @@ const RangeSelector = () => {
 }
 
 const ListingControls = (props) => {
-  const [checked, setChecked] = useState(true)
+  const [checked, setChecked] = useState(false)
   const [priceRange, setPriceRange] = useState([0, 1000])
 
   // useEffect(() => {
