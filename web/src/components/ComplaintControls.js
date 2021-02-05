@@ -67,6 +67,7 @@ const ComplaintControls = (props) => {
 
   useEffect(() => {
     const call = async () => {
+      console.log(value)
       const layer = makeComplaintLayer(value)
       props.setLayer(layer)
     }
@@ -75,7 +76,7 @@ const ComplaintControls = (props) => {
 
   return (
     <div>
-      <Select value={value} onChange={e => console.log(e) || setValue(e.target.textContent)}>
+      <Select value={value} onChange={e => console.log(e) || setValue(e.target.value)}>
         {complaints.map(d => <option key={d}>{d}</option>)}
 
       </Select>
