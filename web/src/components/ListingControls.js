@@ -25,8 +25,14 @@ const makeIconLayer = (data) => {
     data,
     pickable: true,
     getPosition: d => [+ d.longitude, + d.latitude],
-    iconAtlas: '/icon-marker.png',
-    iconMapping: { marker: {x: 0, y: 0, width: 512, height: 512, mask: false} },
+    iconAtlas: '/location-icon-atlas.png',
+    iconMapping: {
+      "x": 384,
+      "y": 512,
+      "width": 128,
+      "height": 128,
+      "anchorY": 128
+    },
     // getIcon: {
     //   url: '/icon-marker.png',
     //   width: 512,
