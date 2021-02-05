@@ -19,8 +19,6 @@ const makeIconLayer = (data) => {
 
   const iconMapping = '/location-icon-mapping.json',
   iconAtlas = '/location-icon-atlas.png'
-
-  console.log(data)
   const layerProps = {
     data,
     pickable: true,
@@ -80,16 +78,12 @@ const makeScatterLayer = (data, getter) => {
 
 
 const queryMongo = async (search) => {
-  console.log('QUERYinG MONGO OH MY GOD')
-
   const query = { }
   const res = await fetch('http://localhost:8911/listings', {
     method: 'POST',
     body: JSON.stringify(query)
   })
   const rest = await res.json()
-
-  console.log('WTF WHY NO RUN')
 
   return rest
 }
@@ -203,13 +197,9 @@ const ListingControls = (props) => {
   useEffect(() => {
     console.log('effecting my anus')
     const call = async () => {
-      console.log('effecting my butt')
-
       const data = await queryMongo({})
-      console.log('querying FUCK ' + data.length)
       //const layer = makeScatterLayer(data, (d) => {console.log(d);return [+ d.longitude, + d.latitude]})
       const layer = makeIconLayer(data)
-      console.log('fart')
       props.selectListings(layer)
     }
     call()
@@ -218,7 +208,6 @@ const ListingControls = (props) => {
   const onChange = (e) => {
     setChecked(e.target.checked)
   }
-  console.log('rerender')
   return (
     <SidePanel>
       <SubHeader>
@@ -247,7 +236,7 @@ const ListingControls = (props) => {
           size='medium'
           round='small'
           values={priceRange}
-          onChange={nextValues => console.log(nextValues) || setPriceRange(nextValues)}
+          onChange={nextValues => setPriceRange(nextValues)}
         />
       </Box>
 
