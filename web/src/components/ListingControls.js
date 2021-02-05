@@ -194,16 +194,15 @@ const ListingControls = (props) => {
   const [checked, setChecked] = useState(true)
   const [priceRange, setPriceRange] = useState([0, 1000])
 
-  useEffect(() => {
-    console.log('effecting my anus')
-    const call = async () => {
-      const data = await queryMongo({})
-      //const layer = makeScatterLayer(data, (d) => {console.log(d);return [+ d.longitude, + d.latitude]})
-      const layer = makeIconLayer(data)
-      props.selectListings(layer)
-    }
-    call()
-  }, [checked])
+  // useEffect(() => {
+  //   const call = async () => {
+  //     const data = await queryMongo({})
+  //     //const layer = makeScatterLayer(data, (d) => {console.log(d);return [+ d.longitude, + d.latitude]})
+  //     const layer = makeIconLayer(data)
+  //     props.selectListings(layer)
+  //   }
+  //   call()
+  // }, [checked])
 
   const onChange = (e) => {
     setChecked(e.target.checked)
