@@ -190,28 +190,19 @@ const CommuteDistanceControls = (props) => {
     console.log(event)
     setValue(event.suggestion)
   }
+  const options = ['Walk', 'Drive', 'Train']
 
 
   return (
     <>
-      <RadioButtonGroup
-        name='radio'
-        options={[
-          { label: 'Walk', value: 'c1' },
-          { label: 'Drive', value: 'c2' },
-          { label: 'Public Transit', value: 'c3' }
-        ]}
+    <div style={{'borderBottom': '2px solid #eaeaea'}}>
 
-        value={selection}
-        onChange={event => setSelection(event.target.value)}
-        {...props}
-      />
-      {/* <TextInput
-      value={value}
-      onChange={onChange}
-      onSuggestionSelect={onSuggestionSelect}
-      suggestions={suggestions}
-    /> */}
+      <ul className='flex cursor-pointer'>
+          {options.map(o => (
+            <li key={o} onClick={() => setSelection(o)} className='py-2 px-6 bg-white rounded-t-lg'>{o}</li>
+          ))}
+        </ul>
+      </div>
       <PlacesAutocomplete />
     </>
   )
