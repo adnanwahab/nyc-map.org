@@ -135,12 +135,11 @@ const SidePanel = styled.section`
   bottom: 36px;
   z-index: 1100;
   background: white;
-  height: 300px;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
   font-weight: 500;
   color: black;
 
-  height: 300px;
+  height: 200px;
   width: 350px;
   overflow: scroll;
 `
@@ -261,13 +260,13 @@ const ListingControls = (props) => {
         />
       </Box>
 
-      <Box size='small' direction='row' align='center' pad='medium' gap='small'>
+      {/* <Box size='small' direction='row' align='center' pad='medium' gap='small'>
         <button onClick={()=> setShowModal(! showModal)} className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
           Get Email Alerts about this Search
         </button>
         {showModal ? emailModal()
           : null}
-      </Box>
+      </Box> */}
 
     </SidePanel>
   )
