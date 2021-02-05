@@ -193,6 +193,7 @@ const RangeSelector = () => {
 const ListingControls = (props) => {
   const [checked, setChecked] = useState(false)
   const [priceRange, setPriceRange] = useState([0, 1000])
+  const [showModal, setShowModal] = useState(false)
 
   // useEffect(() => {
   //   const call = async () => {
@@ -207,6 +208,27 @@ const ListingControls = (props) => {
   const onChange = (e) => {
     setChecked(e.target.checked)
   }
+
+  const emailModal = () => (
+    <>
+      <div
+        className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+        onClick={() => setShowModal(false)}
+      >
+        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          {/*content*/}
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            {/*header*/}
+            <form class="m-4 flex">
+    	<input class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" placeholder="your@mail.com"/>
+		<button class="px-8 rounded-r-lg bg-purple-400  text-gray-800 font-bold p-4 uppercase border-purple-500 border-t border-b border-r">Subscribe</button>
+	</form>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>)
+
   return (
     <SidePanel>
       <SubHeader>
@@ -240,9 +262,11 @@ const ListingControls = (props) => {
       </Box>
 
       <Box size='small' direction='row' align='center' pad='medium' gap='small'>
-        <button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
+        <button onClick={()=> setShowModal(! showModal)} className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
           Get Email Alerts about this Search
         </button>
+        {showModal ? emailModal()
+          : null}
       </Box>
 
     </SidePanel>

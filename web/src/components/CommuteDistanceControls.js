@@ -104,6 +104,7 @@ const PlacesAutocomplete = () => {
         onChange={handleInput}
         disabled={!ready}
         placeholder='Where are you going?'
+        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
       />
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
