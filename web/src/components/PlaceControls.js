@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import GL from '@luma.gl/constants'
-
+import _ from 'lodash'
 import {
   ScatterplotLayer,
   GeoJsonLayer,
@@ -36,7 +36,7 @@ const makeScatterLayer = (data, getter) => {
       return [100, 0.5, 100, 255]
     },
     radiusScale: 10,
-    getRadius: 10,
+    getRadius: 2,
     data: data,
     stroke: false,
     parameters: {
