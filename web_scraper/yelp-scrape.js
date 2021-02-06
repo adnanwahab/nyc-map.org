@@ -181,7 +181,7 @@ const search = async (zip, offset) => {
   })
 
   const total = response.jsonBody.total
-  console.log(`zip ${zip},  total ${response.jsonBody.total}, found ${response.jsonBody.businesses.length}, offset:${offset}`)
+  console.log(`zip ${zip},  total ${response.jsonBody.total}, found ${response.jsonBody.businesses.length}, offset:${offset}, scraped: ${Object.keys(db).length}`)
   totals += total
   //response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
   if(! response.jsonBody.businesses.length) return
@@ -233,13 +233,16 @@ const makeDb = async(dbname='test') => {
 let db
 const start = async() => {
 
-  db = fs.readFileSync('yelp.json')
+  db = JSON.parse(fs.readFileSync('yelp.json'))
 
   zipCodes.forEach((zip, index) => {
     startSearch(zip, index)
   })
-  setInterval(function () {
-    search.apply(this, queue.pop())
+  let id = setInterval(function () {
+    if(queue.length)
+      search.apply(this, queue.pop())
+    else
+      clearInterval(id)
   }, 2000)
 }
 //354356
