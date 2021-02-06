@@ -62,12 +62,18 @@ a:hover {
   text-decoration: underline;
   color: rgb(46, 124, 246) !important;
 }
-
-[data-state="tabbordion"] {
-  clip: rect(0 0 0 0);
-  height: 1px;
-  position: absolute;
-  position: fixed;
-  width: 1px;
-  z-index: -1;
+[type='password'], [type='number'], [type='date'], [type='month'], [type='search'], [type='tel'], [type='time'], [multiple], textarea, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border-color: #6b7280;
+  border-width: 1px;
+  border-radius: 0px;
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
 }

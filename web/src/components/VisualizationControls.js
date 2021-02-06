@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { layers } from './layers'
 import CommuteDistanceControls from './CommuteDistanceControls'
 import ComplaintControls from './ComplaintControls'
 import SuitabilityControls from './SuitabilityControls'

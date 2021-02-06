@@ -113,7 +113,7 @@ const colorHexagon = (d) => {
 const Map = (props) => {
   return (
     <DeckGL
-      getTooltip={({object}) => object && `${object.name}}`}
+      getTooltip={({object}) => object && `${object.name}`}
       controller initialViewState={INITIAL_VIEW_STATE} layers={props.layers || []}>
       <StaticMap
         mapboxApiAccessToken={MAPBOX_TOKEN}

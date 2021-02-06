@@ -69,7 +69,8 @@ const PlaceControls = (props) => {
 
   return (
     <div> <input
-    className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+    type="search"
+    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
     placeholder='search' onChange={onChange} />
     </div>
   )

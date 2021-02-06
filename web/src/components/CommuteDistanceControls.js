@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { RadioButtonGroup, TextInput } from 'grommet'
+import useOnclickOutside from 'react-cool-onclickoutside'
+import { GeoJsonLayer } from 'deck.gl'
 
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
 } from 'use-places-autocomplete'
-import useOnclickOutside from 'react-cool-onclickoutside'
-
-
-import {
-  ScatterplotLayer,
-  GeoJsonLayer,
-  LineLayer,
-  HexagonLayer,
-} from 'deck.gl'
 
 const COLOR_SCALE = [
   // negative
@@ -21,8 +13,6 @@ const COLOR_SCALE = [
   [127, 205, 187],
   [199, 233, 180],
   [237, 248, 177],
-
-  // positive
   [255, 255, 204],
   [255, 237, 160],
   [254, 217, 118],
@@ -50,36 +40,24 @@ const PlacesAutocomplete = () => {
     setValue,
     clearSuggestions
   } = usePlacesAutocomplete({
-    requestOptions: {
-      /* Define search scope here */
-    },
+    requestOptions: {},
     debounce: 300
   })
-  const ref = useOnclickOutside(() => {
-    // When user clicks outside of the component, we can dismiss
-    // the searched suggestions by calling this method
-    clearSuggestions()
-  })
+  const ref = useOnclickOutside(() => clearSuggestions() )
 
   const handleInput = (e) => {
-    // Update the keyword of the input element
     setValue(e.target.value)
   }
 
-  const handleSelect = ({ description }) => () => {
-    // When user selects a place, we can replace the keyword without request data from API
-    // by setting the second parameter to "false"
+  const handleSelect =  ({ description }) => () => {
     setValue(description, false)
     clearSuggestions()
 
-    // Get latitude and longitude via utility functions
-    getGeocode({ address: description })
+    let result = getGeocode({ address: description })
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
         console.log('📍 Coordinates: ', { lat, lng })
-      })
-      .catch((error) => {
-        console.log('😱 Error: ', error)
+        //setCoords([lat, long])
       })
   }
 
@@ -91,7 +69,7 @@ const PlacesAutocomplete = () => {
       } = suggestion
 
       return (
-        <li key={place_id} onClick={handleSelect(suggestion)}>
+        <li className="bg-white border-gray:300" key={place_id} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       )
@@ -100,26 +78,26 @@ const PlacesAutocomplete = () => {
   return (
     <div ref={ref}>
       <input
+        type="search"
         value={value}
         onChange={handleInput}
         disabled={!ready}
         placeholder='Where are you going?'
         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
       />
-      {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
   )
 }
 
-const hello = async() => {
+const hello = async(lon, lat) => {
   let transitType = 'walking'
   let token =
     'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
   let url = `https://api.mapbox.com/isochrone/v1/mapbox/${transitType}/-73.99399172186374%2C40.74021296904996?contours_minutes=15%2C30%2C45%2C60&polygons=true&denoise=1&generalize=1000&access_token=${token}`
 
-  const lon = -73.91922208269459,
-    lat = 40.72185277744134
+  lon =  lon || -73.91922208269459
+  lat = lat || 40.72185277744134
   var profile = 'cycling'
   var minutes = 10
   var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/'
@@ -155,43 +133,20 @@ const hello = async() => {
   })
 }
 
-const allSuggestions = Array(100)
-  .fill()
-  .map((_, i) => `${i + 1} suggestion`)
+
 
 const CommuteDistanceControls = (props) => {
-  const [suggestions, setSuggestions] = React.useState(allSuggestions)
-  const [value, setValue] = React.useState('')
-  const [selection, setSelection] = useState('c1')
+    const [selection, setSelection] = useState('c1')
 
-  // console.log('open sesame', props.setLayer(props.layers[15])())
+    useEffect(() => {
+      const call = async () => {
+        const layer = await hello(selection)
+        props.setLayer(layer)
+      }
+      call()
+    }, [value, selection])
 
-
-  useEffect(() => {
-    const call = async () => {
-      const layer = await hello()
-      props.setLayer(layer)
-    }
-    call()
-  }, [value])
-
-  const onChange = event => {
-    console.log(event)
-    const nextValue = event.target.value
-    setValue(nextValue)
-    if (!nextValue) setSuggestions(allSuggestions)
-    else {
-      const regexp = new RegExp(`^${nextValue}`)
-      setSuggestions(allSuggestions.filter(s => regexp.test(s)))
-    }
-  }
-
-  const onSuggestionSelect = event => {
-    console.log(event)
-    setValue(event.suggestion)
-  }
-  const options = ['Walk', 'Drive', 'Train']
-
+    const options = ['Walk', 'Drive', 'Train']
 
   return (
     <>
