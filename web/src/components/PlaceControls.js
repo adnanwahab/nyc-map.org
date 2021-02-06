@@ -29,6 +29,8 @@ const makeScatterLayer = (data, getter) => {
   return new ScatterplotLayer({
     id: 'places',
     getPosition: getter,
+    pickable:true,
+
     getFillColor: (d) => {
       return [100, 0.5, 100, 255]
     },
@@ -57,7 +59,7 @@ const PlaceControls = (props) => {
   }
   useEffect(() => {
     const call = async () => {
-      const data = await queryMongo()
+      const data = await queryMongo({$text: {$search: value}})
       console.log('querying mongo' + data.length)
       const layer = makeScatterLayer(data, (d) => [d.coordinates.longitude, d.coordinates.latitude])
       props.setLayer(layer)

@@ -15,7 +15,6 @@ function Root () {
   const layers = [
     selectedLayer,
     listingLayer,
-
   ]
     const loader = (<div className="relative pt-1">
     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-pink-200">
@@ -24,9 +23,8 @@ function Root () {
     </div>)
   return (
     <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }}>
-
-      <ListingControls selectListings={selectListings} />
-      <VisualizationControls setLayer={selectLayer} />
+          <ListingControls selectListings={selectListings} />
+          <VisualizationControls setLayer={selectLayer} />
       <Map layers={layers} />
     </Grommet>
   )

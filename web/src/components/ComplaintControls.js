@@ -63,10 +63,10 @@ const makeComplaintLayer = (url) => {
 }
 
 const ComplaintControls = (props) => {
-  const [value, setValue] = useState('PLUMBING')
+  const [value, setValue] = useState("Plumbing")
 
   useEffect(() => {
-    const call = async () => {
+      const call = async () => {
       console.log(value)
       const layer = makeComplaintLayer(value)
       props.setLayer(layer)
@@ -78,9 +78,7 @@ const ComplaintControls = (props) => {
     <div>
       <Select value={value} onChange={e => console.log(e) || setValue(e.target.value)}>
         {complaints.map(d => <option key={d}>{d}</option>)}
-
       </Select>
-
     </div>
   )
 }
