@@ -25,6 +25,10 @@ const INITIAL_VIEW_STATE = {
   height: 500
 }
 
+// Set your mapbox token here
+const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
+  'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
+
 const Map = (props) => {
   return (
     <DeckGL
