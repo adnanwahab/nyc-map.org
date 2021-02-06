@@ -17,13 +17,11 @@ const Label = styled.label`
 `
 
 const queryMongo = async (search) => {
-  const query = { }
   const res = await fetch('http://localhost:8911/mongo', {
     method: 'POST',
     body: JSON.stringify(search)
   })
   const rest = await res.json()
-  console.log(rest)
   return rest
 }
 const makeScatterLayer = (data, getter) => {
@@ -53,27 +51,30 @@ const makeScatterLayer = (data, getter) => {
 }
 
 const PlaceControls = (props) => {
-  const [value, setValue] = useState('')
+    const [value, setValue] = useState('')
+    const setValueBounce = _.debounce(setValue, 300)
 
-  const onChange = (e) => {
-    setValue(e.target.value)
-  }
-  useEffect(() => {
-    const call = async () => {
-      const data = await queryMongo({$text: {$search: value}})
-      const layer = makeScatterLayer(data, (d) => [d.coordinates.longitude, d.coordinates.latitude])
-      props.setLayer(layer)
+    const onChange = (e) => {
+      setValueBounce(e.target.value)
     }
-    call()
-  }, [value])
 
-  return (
-    <div> <input
-    type="search"
-    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-    placeholder='search' onChange={onChange} />
-    </div>
-  )
+    useEffect(() => {
+      const call = async () => {
+        const data = await queryMongo({$text: {$search: value}})
+        console.log(data.length)
+        const layer = makeScatterLayer(data, (d) => [d.coordinates.longitude, d.coordinates.latitude])
+        props.setLayer(layer)
+      }
+      call()
+    }, [value])
+
+    return (
+      <div> <input
+      type="search"
+      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      placeholder='search' onChange={onChange} />
+      </div>
+    )
 }
 
 export default PlaceControls
