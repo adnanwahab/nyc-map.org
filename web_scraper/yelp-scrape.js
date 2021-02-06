@@ -1,5 +1,8 @@
 'use strict'
 
+var sqlite3 = require('sqlite3').verbose();
+//var db = new sqlite3.Database(':memory:');
+
 const fs = require('fs')
 const _ = require('lodash')
 
@@ -182,7 +185,9 @@ const search = async (zip, offset) => {
   totals += total
   //response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
   if(! response.jsonBody.businesses.length) return
-  const result = await db.collection('places').insertMany(response.jsonBody.businesses)
+  //const result = await db.collection('places').insertMany(response.jsonBody.businesses)
+  response.jsonBody.businesses.forEach(b => db[b.id] = b)
+  fs.writeFileSync('yelp.json', JSON.stringify(db, null,2))
 
   // .bulkWrite(response.jsonBody.businesses.map(b => {
   //   return {updateOne: {filter: b, update: b, upsert: true}}
@@ -207,14 +212,14 @@ async function sleep (fn, ...args) {
 const makeDb = async(dbname='test') => {
   const MongoClient = require('mongodb').MongoClient
 
-const url = `mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority`
+  const url = `mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority`
 
-//const client = new MongoClient(url, { useUnifiedTopology: true })
-const client = await MongoClient.connect(url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-db = client.db(dbname)
+  //const client = new MongoClient(url, { useUnifiedTopology: true })
+  const client = await MongoClient.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  db = client.db(dbname)
 
 //console.log('wtf')
 //let n = await db.collection('neighborhoods').find({}).toArray()
@@ -228,7 +233,7 @@ db = client.db(dbname)
 let db
 const start = async() => {
 
-  makeDb()
+  db = fs.readFileSync('yelp.json')
 
   zipCodes.forEach((zip, index) => {
     startSearch(zip, index)

@@ -7,8 +7,10 @@ const client = new MongoClient(url, { useUnifiedTopology: true })
 export const handler = async (event, context) => {
   //console.log(event, context)
 
-  const query = event.body
-  console.log(query)
+  // const query = JSON.parse(event.body)
+  const query = JSON.parse(event.body).search
+
+  //console.log('query', query, typeof query, query.length)
   // connect to your cluster
   const client = await MongoClient.connect(url, {
     useNewUrlParser: true,
@@ -16,7 +18,10 @@ export const handler = async (event, context) => {
   })
   // specify the DB's name
   const db = client.db('test') // execute find query
-  const items = await db.collection('places').find(event.body).toArray()
+  let items = await (await db.collection('places').find().toArray())
+  // console.log(items)
+  items = items.filter(d => (query, d.name, d.name.match(query) || d.categories.some(d=> d.alias.match(query))))
+  // console.log(items.length)
   // TODO only return the bare minimum we need to render (no mongo _id, no health inspection data )
   // console.log(items)
   // close connection

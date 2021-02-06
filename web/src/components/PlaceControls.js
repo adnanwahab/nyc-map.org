@@ -19,7 +19,8 @@ const Label = styled.label`
 const queryMongo = async (search) => {
   const res = await fetch('http://localhost:8911/mongo', {
     method: 'POST',
-    body: JSON.stringify(search)
+    body: JSON.stringify({search})
+    //body: JSON.stringify({$text: {$search: search}})
   })
   const rest = await res.json()
   return rest
@@ -60,8 +61,9 @@ const PlaceControls = (props) => {
 
     useEffect(() => {
       const call = async () => {
-        const data = await queryMongo({$text: {$search: value}})
-        console.log(data.length)
+        const data = await queryMongo(value)
+        console.log(data)
+        window.data = data
         const layer = makeScatterLayer(data, (d) => [d.coordinates.longitude, d.coordinates.latitude])
         props.setLayer(layer)
       }
