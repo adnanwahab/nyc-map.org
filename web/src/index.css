@@ -77,3 +77,25 @@ a:hover {
   font-size: 1rem;
   line-height: 1.5rem;
 }
+
+
+/* input[type=range] {
+  width: 100%;
+  height: 40px;
+  padding: 8px 0;
+  position: relative;
+}
+
+input[type=range] *,
+input[type=range]:focus,
+input[type=range]:focus-within {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  transform: translateZ(0);
+  box-shadow: 0 0 0 #0342ad, 0 0 0 #034cc6;
+  border: 4px solid #0342ad;
+  height: 32px;
+  width: 32px;
+}  */

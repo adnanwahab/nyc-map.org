@@ -32,7 +32,7 @@ const colorScale = (x) => {
   return COLOR_SCALE[i] || COLOR_SCALE[COLOR_SCALE.length - 1]
 }
 
-const PlacesAutocomplete = () => {
+const PlacesAutocomplete = ({setCoords}) => {
   const {
     ready,
     value,
@@ -57,7 +57,7 @@ const PlacesAutocomplete = () => {
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
         console.log('📍 Coordinates: ', { lat, lng })
-        //setCoords([lat, long])
+        setCoords([lat,lng])
       })
   }
 
@@ -90,14 +90,10 @@ const PlacesAutocomplete = () => {
   )
 }
 
-const hello = async(lon, lat) => {
-  let transitType = 'walking'
-  let token =
-    'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
-  let url = `https://api.mapbox.com/isochrone/v1/mapbox/${transitType}/-73.99399172186374%2C40.74021296904996?contours_minutes=15%2C30%2C45%2C60&polygons=true&denoise=1&generalize=1000&access_token=${token}`
+const isoChrone = async(coords, selection,) => {
+  let transitType = selection
+  let token = 'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
 
-  lon =  lon || -73.91922208269459
-  lat = lat || 40.72185277744134
   var profile = 'cycling'
   var minutes = 10
   var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/'
@@ -106,13 +102,15 @@ const hello = async(lon, lat) => {
     urlBase +
     profile +
     '/' +
-    lon +
+    coords[0] +
     ',' +
-    lat +
+    coords[1] +
     '?contours_minutes=' +
     minutes +
     '&polygons=true&access_token=' +
     token
+
+    console.log(query)
 
   let req = await fetch(query, {
     method: 'GET',
@@ -136,17 +134,19 @@ const hello = async(lon, lat) => {
 
 
 const CommuteDistanceControls = (props) => {
-    const [selection, setSelection] = useState('c1')
+    const [selection, setSelection] = useState('Walk')
+    const [coords, setCoords] = useState([-73.91922208269459, 40.72185277744134])
+    const [minutes, setMinutes] = useState(10)
 
     useEffect(() => {
       const call = async () => {
-        const layer = await hello(selection)
+        const layer = await isoChrone(coords, selection, minutes)
         props.setLayer(layer)
       }
       call()
-    }, [value, selection])
+    }, [selection, coords])
 
-    const options = ['Walk', 'Drive', 'Train']
+    const options = ['Walk', 'Cycling', 'Biking']
 
   return (
     <>
@@ -158,7 +158,9 @@ const CommuteDistanceControls = (props) => {
           ))}
         </ul>
       </div>
-      <PlacesAutocomplete />
+      <input type="range" onChange={setMinutes} />
+      <PlacesAutocomplete setCoords={setCoords}/>
+
     </>
   )
 }
