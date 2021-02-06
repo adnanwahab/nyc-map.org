@@ -1,6 +1,7 @@
 'use strict'
 
 const fs = require('fs')
+const _ = require('lodash')
 
 const yelp = require('yelp-fusion')
 const yelpClient = yelp.client(
@@ -158,16 +159,18 @@ const zipCodes = [
 
 const blist = {}
 
+const queue = []
+
 const startSearch = (zip, index) => {
   setTimeout(() => {
-    search(zip, index, 0)
+    queue.push([zip, 0])
   }, index * 2000)
 }
 
 let count = 0
 
 let totals = 0
-const search = async (zip, index, offset) => {
+const search = async (zip, offset) => {
   const response = await yelpClient.search({
     location: 'new york ' + zip,
     limit: 50,
@@ -175,13 +178,18 @@ const search = async (zip, index, offset) => {
   })
 
   const total = response.jsonBody.total
-  console.log(`zip ${zip},  total ${response.jsonBody.total}, found ${response.jsonBody.businesses.length}`)
+  console.log(`zip ${zip},  total ${response.jsonBody.total}, found ${response.jsonBody.businesses.length}, offset:${offset}`)
   totals += total
   //response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
   if(! response.jsonBody.businesses.length) return
-  const result = await db.collection('places').insert(response.jsonBody.businesses)
-  console.log(totals)
-  //if (offset*50)
+  const result = await db.collection('places').insertMany(response.jsonBody.businesses)
+
+  // .bulkWrite(response.jsonBody.businesses.map(b => {
+  //   return {updateOne: {filter: b, update: b, upsert: true}}
+  // }))
+  //console.log(totals)
+
+  if ((offset*50) < total && offset < 19) queue.push([zip, offset+1])
   // if (++count === zipCodes.length) {
   //   console.log('total businesses ' + total)
   //   console.log('writing file to json')
@@ -196,29 +204,56 @@ async function sleep (fn, ...args) {
   await timeout(3000)
   return fn(...args)
 }
+const makeDb = async(dbname='test') => {
+  const MongoClient = require('mongodb').MongoClient
+
+const url = `mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority`
+
+//const client = new MongoClient(url, { useUnifiedTopology: true })
+const client = await MongoClient.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+db = client.db(dbname)
+
+//console.log('wtf')
+//let n = await db.collection('neighborhoods').find({}).toArray()
+// console.log('wtf')
+//c//onsole.log(n)
+// let flat = _.flattenDeep(n.map(d=> d.geometry.coordinates))
+// let group = _.chunk(flat, 2).map(d => { return {x: d[0], y: d[1] } })
+//fs.writeFileSync('neigh.json', JSON.stringify(n, null, 2))
+}
 
 let db
 const start = async() => {
-  const MongoClient = require('mongodb').MongoClient
 
-  const url = `mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority`
-
-  //const client = new MongoClient(url, { useUnifiedTopology: true })
-  const client = await MongoClient.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  db = client.db('test')
-
+  makeDb()
 
   zipCodes.forEach((zip, index) => {
     startSearch(zip, index)
   })
+  setInterval(function () {
+    search.apply(this, queue.pop())
+  }, 2000)
 }
 //354356
 start()
 
+// const response = yelpClient.search({
+//   longitude: -73.91922208269459,
+//   latitude: 40.72185277744134,
+//   radius: 2000,
+// }).then(d => {
+//   console.log(d.jsonBody.total)
+//   //console.log(d.jsonBody.businesses[0])
+// })
 
+
+
+//makeDb('sample_restaurants')
+
+//console.log(zipCodes.length)
 
 // export const handler = async (event, context) => {
 //   console.log(event, context)
