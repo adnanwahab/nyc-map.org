@@ -57,7 +57,7 @@ const PlacesAutocomplete = ({setCoords}) => {
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
         console.log('📍 Coordinates: ', { lat, lng })
-        setCoords([lat,lng])
+        setCoords([lng, lat])
       })
   }
 
@@ -90,17 +90,15 @@ const PlacesAutocomplete = ({setCoords}) => {
   )
 }
 
-const isoChrone = async(coords, selection,) => {
+const isoChrone = async(coords, selection, minutes) => {
   let transitType = selection
   let token = 'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
 
-  var profile = 'cycling'
-  var minutes = 10
   var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/'
-
+  // https://api.mapbox.com/isochrone/v1/mapbox/cycling/-73.91922208269459,40.72185277744134?contours_minutes=10&polygons=true&access_token=pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ
   var query =
     urlBase +
-    profile +
+    selection.toLowerCase() +
     '/' +
     coords[0] +
     ',' +
@@ -134,7 +132,8 @@ const isoChrone = async(coords, selection,) => {
 
 
 const CommuteDistanceControls = (props) => {
-    const [selection, setSelection] = useState('Walk')
+    const options = ['Walking', 'Cycling', 'Driving']
+    const [selection, setSelection] = useState(options[0])
     const [coords, setCoords] = useState([-73.91922208269459, 40.72185277744134])
     const [minutes, setMinutes] = useState(10)
 
@@ -144,21 +143,20 @@ const CommuteDistanceControls = (props) => {
         props.setLayer(layer)
       }
       call()
-    }, [selection, coords])
+    }, [selection, coords, minutes])
 
-    const options = ['Walk', 'Cycling', 'Biking']
-
+    const pills =  "py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none"
   return (
     <>
     <div style={{'borderBottom': '2px solid #eaeaea'}}>
 
       <ul className='flex cursor-pointer'>
           {options.map(o => (
-            <li key={o} onClick={() => setSelection(o)} className='py-2 px-6 bg-white rounded-t-lg'>{o}</li>
+            <li key={o} onClick={() => setSelection(o)} className={pills + (selection == o ? ' bg-indigo-400' : ' bg-pink-500')}>{o}</li>
           ))}
         </ul>
       </div>
-      <input type="range" onChange={setMinutes} />
+      <input type="range" onChange={(e) => setMinutes(e.target.value)} value={minutes} min={0} max={60} /> <span>Max Travel Time: {minutes} minutes</span>
       <PlacesAutocomplete setCoords={setCoords}/>
 
     </>
