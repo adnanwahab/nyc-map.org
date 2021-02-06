@@ -8,6 +8,7 @@ export const handler = async (event, context) => {
   //console.log(event, context)
 
   const query = event.body
+  console.log(query)
   // connect to your cluster
   const client = await MongoClient.connect(url, {
     useNewUrlParser: true,

@@ -20,9 +20,10 @@ const queryMongo = async (search) => {
   const query = { }
   const res = await fetch('http://localhost:8911/mongo', {
     method: 'POST',
-    body: JSON.stringify(query)
+    body: JSON.stringify(search)
   })
   const rest = await res.json()
+  console.log(rest)
   return rest
 }
 const makeScatterLayer = (data, getter) => {
@@ -60,7 +61,6 @@ const PlaceControls = (props) => {
   useEffect(() => {
     const call = async () => {
       const data = await queryMongo({$text: {$search: value}})
-      console.log('querying mongo' + data.length)
       const layer = makeScatterLayer(data, (d) => [d.coordinates.longitude, d.coordinates.latitude])
       props.setLayer(layer)
     }
