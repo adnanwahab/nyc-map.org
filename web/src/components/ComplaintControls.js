@@ -63,7 +63,7 @@ const makeComplaintLayer = (url) => {
 }
 
 const ComplaintControls = (props) => {
-  const [value, setValue] = useState("Plumbing")
+  const [value, setValue] = useState("HEATING")
 
   useEffect(() => {
       const call = async () => {

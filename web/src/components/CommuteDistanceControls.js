@@ -69,7 +69,7 @@ const PlacesAutocomplete = ({setCoords}) => {
       } = suggestion
 
       return (
-        <li className="bg-white border-gray:300" key={place_id} onClick={handleSelect(suggestion)}>
+        <li className="bg-white border-gray:300 hover:bg-indigo-300 hover:text-white" key={place_id} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       )
