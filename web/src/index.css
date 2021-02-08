@@ -78,6 +78,22 @@ a:hover {
   line-height: 1.5rem;
 }
 
+.layout {
+display: table;
+width: 100%;
+}
+
+.legend {
+
+  height: 12px;
+  display: table-cell;
+}
+
+.text-right {
+
+  float:right;
+}
+
 
 /* input[type=range] {
   width: 100%;
