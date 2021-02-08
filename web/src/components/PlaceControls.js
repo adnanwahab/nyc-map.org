@@ -25,19 +25,24 @@ const queryMongo = async (search) => {
   const rest = await res.json()
   return rest
 }
-const makeScatterLayer = (data, getter) => {
+const makeScatterLayer = (data, hoveredId, onHover) => {
   return new ScatterplotLayer({
     id: 'places',
-    getPosition: getter,
+    getPosition: (d) => [d.coordinates.longitude, d.coordinates.latitude],
     pickable:true,
 
     getFillColor: (d) => {
-      return [100, 0.5, 100, 255]
+      return [100, d.id === hoveredId? 0 : 250, 100, 255]
     },
+    getLineColor: d => [0, 0, 0],
     radiusScale: 10,
     getRadius: 10,
     data: data,
-    stroke: false,
+    lineWidthMinPixels: 1,
+    stroked: true,
+    opacity: 0.8,
+    onHover: onHover,
+
     parameters: {
       // prevent flicker from z-fighting
       [GL.DEPTH_TEST]: true,
@@ -53,22 +58,28 @@ const makeScatterLayer = (data, getter) => {
 
 const PlaceControls = (props) => {
     const [value, setValue] = useState('')
+    const [hovered, setHovered] = useState('')
     const setValueBounce = _.debounce(setValue, 300)
 
     const onChange = (e) => {
       setValueBounce(e.target.value)
     }
 
+    const onHovered = (d) => {
+      console.log(d.object)
+      if (! d.object) setHovered('')
+      else setHovered(d.object.id)
+    }
+
     useEffect(() => {
       const call = async () => {
         const data = await queryMongo(value)
-        console.log(data)
         window.data = data
-        const layer = makeScatterLayer(data, (d) => [d.coordinates.longitude, d.coordinates.latitude])
+        const layer = makeScatterLayer(data, hovered, onHovered)
         props.setLayer(layer)
       }
       call()
-    }, [value])
+    }, [value, hovered])
 
     return (
       <div> <input

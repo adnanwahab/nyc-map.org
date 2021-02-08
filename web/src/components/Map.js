@@ -35,7 +35,7 @@ const Map = (props) => {
       getTooltip={({object}) => {
         if (!object) return null;
         let html = `<div>${object.name}</div>`
-        console.log(object)
+        //console.log(object)
         if (object.image_url) html+= `<img width="250px" height="250px" src=${object.image_url}>`
         return {html}
       }}
