@@ -13,4 +13,4 @@
   schemaPath = "./api/db/schema.prisma"
 [browser]
   open = true
-  bingKey = `ApLkwLVokERzZT9fwea7ZeHsVlM2nDfSGA2tkarKA8EUcuhbrF04OINaeBSmSPS4`
+  bingKey = "ApLkwLVokERzZT9fwea7ZeHsVlM2nDfSGA2tkarKA8EUcuhbrF04OINaeBSmSPS4"
