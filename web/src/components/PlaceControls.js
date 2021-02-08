@@ -32,7 +32,7 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
     pickable:true,
 
     getFillColor: (d) => {
-      return [100, d.id === hoveredId? 0 : 250, 100, 255]
+      return [100, 250, 100, 255]
     },
     getLineColor: d => [0, 0, 0],
     radiusScale: 10,
@@ -41,7 +41,6 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
     lineWidthMinPixels: 1,
     stroked: true,
     opacity: 0.8,
-    onHover: onHover,
 
     parameters: {
       // prevent flicker from z-fighting
@@ -58,28 +57,20 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
 
 const PlaceControls = (props) => {
     const [value, setValue] = useState('')
-    const [hovered, setHovered] = useState('')
     const setValueBounce = _.debounce(setValue, 300)
 
     const onChange = (e) => {
       setValueBounce(e.target.value)
     }
 
-    const onHovered = (d) => {
-      console.log(d.object)
-      if (! d.object) setHovered('')
-      else setHovered(d.object.id)
-    }
-
     useEffect(() => {
       const call = async () => {
         const data = await queryMongo(value)
-        window.data = data
-        const layer = makeScatterLayer(data, hovered, onHovered)
+        const layer = makeScatterLayer(data)
         props.setLayer(layer)
       }
       call()
-    }, [value, hovered])
+    }, [value])
 
     return (
       <div> <input
