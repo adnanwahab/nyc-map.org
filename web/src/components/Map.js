@@ -34,6 +34,8 @@ const Map = (props) => {
     <DeckGL
       getTooltip={({object}) => {
         if (!object) return null;
+
+        if (! object.name) return `${object[1]} complaints`
         let html = `<div>${object.name}</div>`
         //console.log(object)
         if (object.image_url) html+= `<img width="250px" height="250px" src=${object.image_url}>`
