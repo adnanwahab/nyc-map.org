@@ -28,9 +28,10 @@ const makeIconLayer = (data) => {
     iconAtlas : '/location-icon-atlas.png',
     sizeUnits: 'pixels',
 
-    sizeScale: .01,
-    sizeMinPixels: 6,
-    sizeMaxPixels: 10,
+    sizeScale: 100,
+    sizeMinPixels: 10,
+    sizeMaxPixels: 100,
+    getColor: () => [255, 0, 255, 255],
     // iconAtlas: '/location-icon-atlas.png',
     // iconMapping: {
     //   "x": 384,

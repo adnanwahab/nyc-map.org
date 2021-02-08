@@ -13,8 +13,9 @@ function Root () {
 
 
   const layers = [
-    selectedLayer,
     listingLayer,
+    selectedLayer,
+
   ]
   console.log(layers)
     const loader = (<div className="relative pt-1">

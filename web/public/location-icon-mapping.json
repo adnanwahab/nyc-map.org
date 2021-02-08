@@ -137,6 +137,7 @@
     "y": 512,
     "width": 128,
     "height": 128,
-    "anchorY": 128
+    "anchorY": 128,
+    "masking": true
   }
 }
