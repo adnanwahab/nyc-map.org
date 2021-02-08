@@ -35,7 +35,7 @@ const makeScatterLayer = (data, getter) => {
       return [100, 0.5, 100, 255]
     },
     radiusScale: 10,
-    getRadius: 2,
+    getRadius: 10,
     data: data,
     stroke: false,
     parameters: {
