@@ -56,7 +56,7 @@ const makeComplaintLayer = (url) => {
       wireframe: false,
       fp64: true,
       getHexagon: (d) => d[0],
-      //colorRange: colorRange,
+      colorRange: colorRange,
       getFillColor: d => [255, (1 - d.count / 500) * 255, 0],
       elevationScale: 1,
       getElevation: (d) => d[1]
