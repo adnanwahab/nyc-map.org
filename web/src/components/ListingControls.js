@@ -239,9 +239,9 @@ const ListingControls = (props) => {
       </SubHeader>
       <Box direction='row' align='center' pad='small' gap='small'>
         <Text size='small' color='brand'>Type</Text>
-        <form>
-        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" disabled type='checkbox' /> Rentals</label>
-        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" onChange={onChange} checked={checked} type='checkbox' /> Airbnb</label>
+        <form onChange={(e) => {console.log(e.target.name)}}>
+        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" name="rentals" type='checkbox' /> Rentals</label>
+        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" name="airbnb" onChange={onChange} checked={checked} type='checkbox' /> Airbnb</label>
         <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" disabled type='checkbox' /> Office</label>
         <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" disabled type='checkbox' /> Condo</label>
         </form>

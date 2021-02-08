@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
+import {H3ClusterLayer} from '@deck.gl/geo-layers';
 
 
 const complaints = [
@@ -46,7 +47,7 @@ const makeComplaintLayer = (url) => {
     return new H3HexagonLayer({
       id: 'h3-hexagon-layer',
       data: `data/${url}.json`,
-
+      coverage:1,
       elevationScale: 20,
       opacity: 0.8,
       stroked: false,
@@ -55,7 +56,8 @@ const makeComplaintLayer = (url) => {
       wireframe: false,
       fp64: true,
       getHexagon: (d) => d[0],
-      colorRange: colorRange,
+      //colorRange: colorRange,
+      getFillColor: d => [255, (1 - d.count / 500) * 255, 0],
       elevationScale: 1,
       getElevation: (d) => d[1]
     })

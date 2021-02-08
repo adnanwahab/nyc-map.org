@@ -8,7 +8,7 @@ const _ = require('lodash')
 
 const yelp = require('yelp-fusion')
 const yelpClient = yelp.client(
-  '0QCQsubRVAbIPNJFPBVSb-Ykx6rrYUZnYhD4d8wHJqK-fsVpawFkD5hdG54i2qrRUE7M_rcAv3m63xPK6VGUb5MSpR0PtuaCC75KNq8Yd-cHc0Z_85UxaRV_OQQGYHYx'
+  'SYDWVw8rxlk-WMby8RVKDs33KsTTWqzXTiPhj7sVb4yKvGxmxyZglcNW4B7Go7IKVhl_67bCBfS38qk7WQSWmehDpmMXuvB2cZ1dejWGzRZ1LEpsOuZokxgLWAYfYHYx'
 )
 
 const zipCodes = [
@@ -173,15 +173,19 @@ const startSearch = (zip, index) => {
 let count = 0
 
 let totals = 0
-const search = async (zip, offset) => {
+const search = async (coords, offset) => {
+  coords[0] = coords[0] ||  (40.9 - (Math.random() / 2))
+  coords[1] = coords[1] || (-74 + (Math.random() / 3))
   const response = await yelpClient.search({
-    location: 'new york ' + zip,
-    limit: 50,
+    latitude:  coords[0],
+    longitude: coords[1],
+    // radius: 400,
+    limit:50,
     offset: offset * 50,
   })
 
   const total = response.jsonBody.total
-  console.log(`zip ${zip},  total ${response.jsonBody.total}, found ${response.jsonBody.businesses.length}, offset:${offset}, scraped: ${Object.keys(db).length}`)
+  console.log(`coords ${coords},  total ${response.jsonBody.total}, found ${response.jsonBody.businesses.length}, offset:${offset}, scraped: ${Object.keys(db).length}`)
   totals += total
   //response.jsonBody.businesses.forEach((b) => (blist[b.id] = b))
   if(! response.jsonBody.businesses.length) return
@@ -193,8 +197,9 @@ const search = async (zip, offset) => {
   //   return {updateOne: {filter: b, update: b, upsert: true}}
   // }))
   //console.log(totals)
-
-  if ((offset*50) < total && offset < 19) queue.push([zip, offset+1])
+//filter
+//id,name,imague_url,is_closed,url, review_count, categories:[], rating, coordinates,[], price
+  if ((offset*50) < total && offset < 19) queue.push([coords, offset+1])
   // if (++count === zipCodes.length) {
   //   console.log('total businesses ' + total)
   //   console.log('writing file to json')
@@ -236,7 +241,7 @@ const start = async() => {
   db = JSON.parse(fs.readFileSync('yelp.json'))
 
   zipCodes.forEach((zip, index) => {
-    startSearch(zip, index)
+    startSearch([], index)
   })
   let id = setInterval(function () {
     if(queue.length)

@@ -18,7 +18,7 @@ export const handler = async (event, context) => {
   })
   // specify the DB's name
   const db = client.db('test') // execute find query
-  let items = await (await db.collection('places').find().toArray())
+  let items = await (await db.collection('places').find({}).project({ coordinates: 1, categories:1, name: 1, image_url: 1, _id: 0 }).toArray())
   // console.log(items)
   items = items.filter(d => (query, d.name, d.name.match(query) || d.categories.some(d=> d.alias.match(query))))
   // console.log(items.length)
