@@ -32,15 +32,16 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
     pickable:true,
 
     getFillColor: (d) => {
-      return [100, 250, 100, 255]
+      return [100, 0, 100, 255]
     },
     getLineColor: d => [0, 0, 0],
-    radiusScale: 10,
-    getRadius: 10,
+    radiusScale: 15,
+    radiusMinPixels: 2,
+    radiusMaxPixels: 100,
     data: data,
     lineWidthMinPixels: 1,
     stroked: true,
-    opacity: 0.8,
+    opacity: 0.9,
 
     parameters: {
       // prevent flicker from z-fighting

@@ -136,6 +136,7 @@ const CommuteDistanceControls = (props) => {
     const [selection, setSelection] = useState(options[0])
     const [coords, setCoords] = useState([-73.91922208269459, 40.72185277744134])
     const [minutes, setMinutes] = useState(10)
+    const setDebouncedMinutes = _.debounce(setMinutes, 300)
 
     useEffect(() => {
       const call = async () => {
@@ -156,7 +157,7 @@ const CommuteDistanceControls = (props) => {
           ))}
         </ul>
       </div>
-      <input type="range" onChange={(e) => setMinutes(e.target.value)} value={minutes} min={0} max={60} /> <span>Max Travel Time: {minutes} minutes</span>
+      <input type="range" onChange={(e) => setDebouncedMinutes(e.target.value)} value={minutes} min={0} max={60} /> <span>Max Travel Time: {minutes} minutes</span>
       <PlacesAutocomplete setCoords={setCoords}/>
 
     </>
