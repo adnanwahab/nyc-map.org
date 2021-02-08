@@ -16,21 +16,29 @@ import {
 } from 'deck.gl'
 const makeIconLayer = (data) => {
 
-
+  console.log(data.length)
   const iconMapping = '/location-icon-mapping.json',
   iconAtlas = '/location-icon-atlas.png'
   const layerProps = {
     data,
     pickable: true,
     getPosition: d => [+ d.longitude, + d.latitude],
-    iconAtlas: '/location-icon-atlas.png',
-    iconMapping: {
-      "x": 384,
-      "y": 512,
-      "width": 128,
-      "height": 128,
-      "anchorY": 128
-    },
+    getIcon: d => 'marker',
+    iconMapping : '/location-icon-mapping.json',
+    iconAtlas : '/location-icon-atlas.png',
+    sizeUnits: 'pixels',
+
+    sizeScale: .01,
+    sizeMinPixels: 6,
+    sizeMaxPixels: 10,
+    // iconAtlas: '/location-icon-atlas.png',
+    // iconMapping: {
+    //   "x": 384,
+    //   "y": 512,
+    //   "width": 128,
+    //   "height": 128,
+    //   "anchorY": 128
+    // },
     // getIcon: {
     //   url: '/icon-marker.png',
     //   width: 512,
@@ -50,13 +58,14 @@ const makeIconLayer = (data) => {
   });
 }
 
-const makeScatterLayer = (data, getter) => {
+const makeScatterLayer = (data) => {
   return new ScatterplotLayer({
     id: 'places',
-    getPosition: getter,
     getFillColor: (d) => {
       return [100, 0.5, 100, 255]
     },
+    getPosition: d => [+ d.longitude, + d.latitude],
+
     radiusScale: 10,
     getRadius: 10,
     data: data,
@@ -84,7 +93,7 @@ const queryMongo = async (search) => {
     body: JSON.stringify(query)
   })
   const rest = await res.json()
-
+  console.log(rest)
   return rest
 }
 
@@ -166,18 +175,12 @@ const Label = styled.label`
 
 const LinkTitle = styled.h1`
   display: inline;
-
-font-size: 16px;
+  font-size: 16px;
 `
 
 const PriceInput = styled.input`
   width: 50px;
 `
-const openModal = () => {
-  alert(
-    'Find the best appartment to live in using the best data sets!!! fuck brokers they are lying scum trash!!!! '
-  )
-}
 
 const RangeSelector = () => {
   return (
@@ -190,19 +193,20 @@ const RangeSelector = () => {
 }
 
 const ListingControls = (props) => {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(true)
   const [priceRange, setPriceRange] = useState([0, 1000])
   const [showModal, setShowModal] = useState(false)
 
-  // useEffect(() => {
-  //   const call = async () => {
-  //     const data = await queryMongo({})
-  //     //const layer = makeScatterLayer(data, (d) => {console.log(d);return [+ d.longitude, + d.latitude]})
-  //     const layer = makeIconLayer(data)
-  //     props.selectListings(layer)
-  //   }
-  //   call()
-  // }, [checked])
+  useEffect(() => {
+    const call = async () => {
+      const data = await queryMongo({})
+      const layer = makeIconLayer(data)
+      //const layer = makeScatterLayer(data)
+      //console.log('layer', layer)
+      props.selectListings(layer)
+    }
+    call()
+  }, [checked])
 
   const onChange = (e) => {
     setChecked(e.target.checked)

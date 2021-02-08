@@ -57,7 +57,7 @@ const makeComplaintLayer = (url) => {
       elevationScale: 20,
       opacity: 0.8,
       pickable:true,
-      onHover: (d) => { console.log(d)},
+      //onHover: (d) => { console.log(d)},
       stroked: false,
       filled: true,
       extruded: true,
