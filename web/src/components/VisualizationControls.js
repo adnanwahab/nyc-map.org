@@ -122,13 +122,12 @@ const VisualizationControls = (props) => {
         activeIndex={activeIndex}
         onActive={newActiveIndex => setActiveIndex(newActiveIndex)}
       >
-        <AccordionPanel
-          header={renderPanelHeader('Places', activeIndex.includes(0))}
-        >
-          <Box pad='medium' background='light-2' style={{ height: '100px' }}>
-            <PlaceControls setLayer={props.setLayer} />
-
-          </Box>
+      <AccordionPanel
+                header={renderPanelHeader('311 Complaints', activeIndex.includes(0))}
+              >
+                <Box pad='medium' background='light-2' style={{ height: '150px' }}>
+                  <ComplaintControls setLayer={props.setLayer} />
+                </Box>
         </AccordionPanel>
         <AccordionPanel
           header={renderPanelHeader('Commute Distance', activeIndex.includes(1))}
@@ -137,14 +136,15 @@ const VisualizationControls = (props) => {
             <CommuteDistanceControls setLayer={props.setLayer} />
           </Box>
         </AccordionPanel>
+
         <AccordionPanel
-          header={renderPanelHeader('311 Complaints', activeIndex.includes(2))}
+          header={renderPanelHeader('Places', activeIndex.includes(2))}
         >
-          <Box pad='medium' background='light-2' style={{ height: '150px' }}>
-            <ComplaintControls setLayer={props.setLayer} />
+          <Box pad='medium' background='light-2' style={{ height: '100px' }}>
+            <PlaceControls setLayer={props.setLayer} />
+
           </Box>
         </AccordionPanel>
-
         {/* <AccordionPanel
           header={renderPanelHeader('Crime', activeIndex.includes(3))}
         /> */}

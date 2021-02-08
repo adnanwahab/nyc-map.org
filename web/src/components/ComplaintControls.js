@@ -41,6 +41,12 @@ export const colorRange = [
   [209, 55, 78]
 ];
 
+const colorRamp = (n) => {
+  let len = n.toString().length
+
+  return colorRange[len+1]
+}
+
 const makeComplaintLayer = (url) => {
   return () => {
     console.log('loading ' + `data/${url}.json`)
@@ -50,14 +56,15 @@ const makeComplaintLayer = (url) => {
       coverage:1,
       elevationScale: 20,
       opacity: 0.8,
+      pickable:true,
+      onHover: (d) => { console.log(d)},
       stroked: false,
       filled: true,
       extruded: true,
       wireframe: false,
-      fp64: true,
+      // fp64: true,
       getHexagon: (d) => d[0],
-      colorRange: colorRange,
-      getFillColor: d => [255, (1 - d.count / 500) * 255, 0],
+      getFillColor: d => colorRamp(d[1]),
       elevationScale: 1,
       getElevation: (d) => d[1]
     })
