@@ -61,20 +61,23 @@ const Map = (props) => {
   return (
     <DeckGL
 onViewStateChange={o=>
-{console.log(o.viewState)
+{//console.log(o.viewState)
   return o.viewState
 }
 }
 ContextProvider={MapContext.Provider}
       getTooltip={({object}) => {
+
         if (!object) return null;
+        console.log(object)
+        if (object.cluster) return `${object.point_count} appartments`
 
         //if (! object.name) return `${object[1]} complaints`
 
         if (object.picture_url) return {html:`
           <div>${object.name}</div>
           <div>Price ${object.price}</div>
-          <div>${object.description}</div>
+          // <div>${object.description}</div>
           <div>Review Score: ${object.review_scores_rating}</div>
           <img src=${object.picture_url+ '?im_w=1200'}/>
         `}
