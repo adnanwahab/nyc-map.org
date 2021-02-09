@@ -48,7 +48,7 @@ const makeIconLayer = (data) => {
     //   height: 512,
     //   anchorY: 0
     // },
-    onHover: d => { d.picked && console.log(d.object) }
+    //onHover: d => { d.picked && console.log(d.object) }
   };
 
   return new IconClusterLayer({...layerProps, id: 'icon-cluster', sizeScale: 60})
