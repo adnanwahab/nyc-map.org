@@ -7,7 +7,9 @@ import 'rc-slider/assets/index.css'
 import GL from '@luma.gl/constants'
 
 import {IconLayer} from '@deck.gl/layers';
+import VisualizationControls from 'src/components/VisualizationControls'
 
+import IconClusterLayer from 'src/components/icon-cluster-layer'
 import {
   ScatterplotLayer,
   GeoJsonLayer,
@@ -48,6 +50,8 @@ const makeIconLayer = (data) => {
     // },
     onHover: d => { d.picked && console.log(d.object) }
   };
+
+  return new IconClusterLayer({...layerProps, id: 'icon-cluster', sizeScale: 60})
 
   return new IconLayer({
     ...layerProps,
