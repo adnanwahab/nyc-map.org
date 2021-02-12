@@ -238,9 +238,14 @@ const ListingControls = (props) => {
       onClick={() => setShowModal(false)}
       className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>)
+    localStorage.setItem('favorites', []);
+
+    let favorites = (    <div>favorites: </div>
+      )
 
   return (
     <SidePanel>
+    {favorites}
       <SubHeader>
         <Logo src='/favicon.png' />
         <Text size='large'>Crib Finder </Text> <br />
