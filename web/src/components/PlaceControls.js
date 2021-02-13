@@ -29,7 +29,6 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
   return new ScatterplotLayer({
     id: 'places',
     getPosition: (d) => [d.coordinates.longitude, d.coordinates.latitude],
-    pickable:true,
 
     getFillColor: (d) => {
       return [100, 0, 100, 255]

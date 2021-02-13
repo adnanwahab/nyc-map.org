@@ -117,63 +117,47 @@ const VisualizationControls = (props) => {
       <SubHeader>
         <Text>Visualization Controls</Text>
       </SubHeader>
-
-      <Accordion
-        activeIndex={activeIndex}
-        onActive={newActiveIndex => setActiveIndex(newActiveIndex)}
-      >
-      <AccordionPanel
-                header={renderPanelHeader('311 Complaints', activeIndex.includes(0))}
-              >
-                <Box pad='medium' background='light-2' style={{ height: '250px' }}>
-                  <ComplaintControls setLayer={props.setLayer} />
-
-                  <div className="info-panel__InfoPanelContent-cbpqj4-0 fjyHRS">
-                    <div>
-                        <p>The layer aggregates data within the boundary of each hexagon cell</p>
-                        <div className="layout"><div className="legend" style={{background: 'rgb(1, 152, 189)', width: '16.6667%'}}></div>
-                        <div className="legend" style={{background: 'rgb(73, 227, 206)', width: '16.6667%'}}></div>
-                        <div className="legend" style={{background: 'rgb(216, 254, 181)', width:' 16.6667%'}}></div>
-                        <div className="legend" style={{background: 'rgb(254, 237, 177)', width: '16.6667%'}}></div>
-                        <div className="legend" style={{background: 'rgb(254, 173, 84)', width: '16.6667%'}}></div>
-                        <div className="legend" style={{background: 'rgb(209, 55, 78)', width: '16.6667%' }}></div>
-                      </div>
-                      <p className="layout"><span className="col-1-2">Fewer Complaints</span><span className="col-1-2 text-right">More Complaints</span></p>
-                      <p>Data source: <a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9">New York City 311 </a>
-                      </p>
-                      </div>
-                    </div>
-                </Box>
-        </AccordionPanel>
-        <AccordionPanel
-          header={renderPanelHeader('Commute Distance', activeIndex.includes(1))}
-        >
-          <Box pad='medium' background='light-2' style={{ height: '250px' }}>
-            <CommuteDistanceControls setLayer={props.setLayer} />
-          </Box>
-        </AccordionPanel>
-
-        <AccordionPanel
-          header={renderPanelHeader('Places', activeIndex.includes(2))}
-        >
-          <Box pad='medium' background='light-2' style={{ height: '100px' }}>
-            <PlaceControls setLayer={props.setLayer} />
-
-          </Box>
-        </AccordionPanel>
-        {/* <AccordionPanel
-          header={renderPanelHeader('Crime', activeIndex.includes(3))}
-        /> */}
-
-        <AccordionPanel
-          header={renderPanelHeader('Suitability Index', activeIndex.includes(3))}
-        >
-          <Box pad='medium' background='light-2' style={{ height: '300px' }}>
-            <SuitabilityControls />
-          </Box>
-        </AccordionPanel>
-
-      </Accordion>
+      <div class="w-full md:w-3/5 mx-auto p-8">
+          <div className="shadow-md">
+          <div className="tab w-full overflow-hidden border-t">
+                <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
+                <label className="block p-5 leading-normal cursor-pointer" for="tab-single-one">Label One</label>
+                <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                <ComplaintControls setLayer={props.setLayer} />
+                  </div>
+              </div>
+            <div className="tab w-full overflow-hidden border-t">
+                <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
+                <label className="block p-5 leading-normal cursor-pointer" for="tab-single-one">Label One</label>
+                <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                <ComplaintControls setLayer={props.setLayer} />
+                  </div>
+              </div>
+            <div className="tab w-full overflow-hidden border-t">
+               <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
+               <label className="block p-5 leading-normal cursor-pointer" for="tab-single-one">Label One</label>
+               <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+               <CommuteDistanceControls setLayer={props.setLayer} />
+               </div>
+            </div>
+            <div className="tab w-full overflow-hidden border-t">
+               <input className="absolute opacity-0" id="tab-single-two" type="radio" name="tabs2" />
+               <label className="block p-5 leading-normal cursor-pointer" for="tab-single-two">Label Two</label>
+               <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                  <p className="p-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
+                  <PlaceControls setLayer={props.setLayer} />
+               </div>
+            </div>
+            <div className="tab w-full overflow-hidden border-t">
+               <input className="absolute opacity-0" id="tab-single-three" type="radio" name="tabs2" />
+               <label className="block p-5 leading-normal cursor-pointer" for="tab-single-three">Label Three</label>
+               <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                  <p className="p-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
+                  <SuitabilityControls />
+               </div>
+            </div>
+        </div>
+        </div>
 
     </SidePanel>
   )
