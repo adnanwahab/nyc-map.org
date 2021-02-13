@@ -6,13 +6,10 @@ import SuitabilityControls from './SuitabilityControls'
 import PlaceControls from './PlaceControls'
 
 import {
-  Accordion,
-  AccordionPanel,
   Box,
   Text,
-  TextInput
 } from 'grommet'
-// import Accordion from './Accordion'
+import Accordion from './Accordion'
 
 const renderPanelHeader = (title, active) => (
   <Box direction='row' align='center' pad='medium' gap='small'>
@@ -117,46 +114,10 @@ const VisualizationControls = (props) => {
       <SubHeader>
         <Text>Visualization Controls</Text>
       </SubHeader>
-      <div class="w-full md:w-3/5 mx-auto p-8">
-          <div className="shadow-md">
-          <div className="tab w-full overflow-hidden border-t">
-                <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
-                <label className="block p-5 leading-normal cursor-pointer" for="tab-single-one">Label One</label>
-                <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
-                <ComplaintControls setLayer={props.setLayer} />
-                  </div>
-              </div>
-            <div className="tab w-full overflow-hidden border-t">
-                <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
-                <label className="block p-5 leading-normal cursor-pointer" for="tab-single-one">Label One</label>
-                <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
-                <ComplaintControls setLayer={props.setLayer} />
-                  </div>
-              </div>
-            <div className="tab w-full overflow-hidden border-t">
-               <input className="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2" />
-               <label className="block p-5 leading-normal cursor-pointer" for="tab-single-one">Label One</label>
-               <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
-               <CommuteDistanceControls setLayer={props.setLayer} />
-               </div>
-            </div>
-            <div className="tab w-full overflow-hidden border-t">
-               <input className="absolute opacity-0" id="tab-single-two" type="radio" name="tabs2" />
-               <label className="block p-5 leading-normal cursor-pointer" for="tab-single-two">Label Two</label>
-               <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
-                  <p className="p-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
-                  <PlaceControls setLayer={props.setLayer} />
-               </div>
-            </div>
-            <div className="tab w-full overflow-hidden border-t">
-               <input className="absolute opacity-0" id="tab-single-three" type="radio" name="tabs2" />
-               <label className="block p-5 leading-normal cursor-pointer" for="tab-single-three">Label Three</label>
-               <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
-                  <p className="p-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
-                  <SuitabilityControls />
-               </div>
-            </div>
-        </div>
+      <div className="w-full mx-auto">
+      <Accordion props={props}></Accordion>
+
+
         </div>
 
     </SidePanel>
