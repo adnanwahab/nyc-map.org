@@ -245,7 +245,7 @@ const ListingControls = (props) => {
 
   return (
     <SidePanel>
-  {favorites}
+     {favorites}
       <SubHeader>
         <Logo src='/favicon.png' />
         <Text size='large'>Crib Finder </Text> <br />

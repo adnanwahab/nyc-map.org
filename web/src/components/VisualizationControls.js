@@ -1,56 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import CommuteDistanceControls from './CommuteDistanceControls'
-import ComplaintControls from './ComplaintControls'
-import SuitabilityControls from './SuitabilityControls'
-import PlaceControls from './PlaceControls'
-
 import {
   Box,
   Text,
 } from 'grommet'
 import Accordion from './Accordion'
 
-const renderPanelHeader = (title, active) => (
-  <Box direction='row' align='center' pad='medium' gap='small'>
-    <strong>
-      <Text>{title}</Text>
-    </strong>
-    <Text color='brand'>{active ? '-' : '+'}</Text>
-  </Box>
-)
-const makeNameGood = (str) => {
-  return str.replace('_', ' ')
-}
-
-const Link = styled.a`
-  text-decoration: none;
-  color: #323232;
-`
-
-const buildListItems = (selectedIndex) => {
-  return layers.map((obj, i) => (
-    <li key={obj.name} className={selectedIndex == obj.name ? 'selected' : ''}>
-      <Link
-        onClick={(e) => {
-          e.preventDefault()
-        }}
-        href={'#' + obj.name}
-        target='_blank'
-        id={i}
-      >
-        {makeNameGood(obj.name)}
-      </Link>
-    </li>
-  ))
-}
-
-const List = styled.section`
-  background: transparent;
-  border-radius: 3px;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-`
 // The above changes the color for the legend.
 const SidePanel = styled.section`
   line-height: 21px;
@@ -80,46 +35,17 @@ const SubHeader = styled.section`
   padding-bottom: 1rem;
 `
 
-const Logo = styled.img`
-  padding-right: 10px;
-`
-
-const Label = styled.label`
-  display: block;
-`
-
-const LinkTitle = styled.span`
-  cursor: pointer;
-  &:hover {
-    color: palevioletred;
-  }
-`
-
-const PriceInput = styled.input`
-  width: 50px;
-`
-const openModal = () => {
-  alert(
-    'Find the best appartment to live in using the best data sets!!! fuck brokers they are lying scum trash!!!! '
-  )
-}
-
 const VisualizationControls = (props) => {
-  const [activeIndex, setActiveIndex] = useState([0])
-
-  // props.setLayer(Object.keys(props.layers)[activeIndex])
-
+  console.log('wtf')
   return (
     <SidePanel>
       <SubHeader>
         <Text>Visualization Controls</Text>
       </SubHeader>
       <div className="w-full mx-auto">
-      <Accordion props={props}></Accordion>
+        <Accordion props={props} />
 
-
-        </div>
-
+      </div>
     </SidePanel>
   )
 }
