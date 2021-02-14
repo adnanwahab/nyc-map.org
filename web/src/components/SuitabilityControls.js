@@ -11,7 +11,7 @@ const SuitabilityControls = (props) => {
   const [value, setValue] = useState('')
 
   return (
-    <div>
+    <div className="p-5">
 
       <Label>
         <input type='range' />noise complaints

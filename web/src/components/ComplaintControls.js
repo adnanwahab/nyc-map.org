@@ -84,7 +84,7 @@ const ComplaintControls = (props) => {
   }, [value])
 
   return (
-    <div>
+    <div className="p-5">
       <Select value={value} onChange={e => console.log(e) || setValue(e.target.value)}>
         {complaints.map(d => <option key={d}>{d}</option>)}
       </Select>

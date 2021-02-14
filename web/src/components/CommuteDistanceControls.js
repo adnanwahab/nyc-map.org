@@ -148,19 +148,18 @@ const CommuteDistanceControls = (props) => {
 
     const pills =  "py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none"
   return (
-    <>
-    <div style={{'borderBottom': '2px solid #eaeaea'}}>
+    <div style={{'borderBottom': '2px solid #eaeaea'}} className="p-5">
 
       <ul className='flex cursor-pointer'>
           {options.map(o => (
             <li key={o} onClick={() => setSelection(o)} className={pills + (selection == o ? ' bg-indigo-400' : ' bg-pink-500')}>{o}</li>
           ))}
         </ul>
-      </div>
-      <input type="range" onChange={(e) => setDebouncedMinutes(e.target.value)} value={minutes} min={0} max={60} /> <span>Max Travel Time: {minutes} minutes</span>
-      <PlacesAutocomplete setCoords={setCoords}/>
+        <input type="range" onChange={(e) => setDebouncedMinutes(e.target.value)} value={minutes} min={0} max={60} /> <span>Max Travel Time: {minutes} minutes</span>
 
-    </>
+      <PlacesAutocomplete setCoords={setCoords}/>
+      </div>
+
   )
 }
 

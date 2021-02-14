@@ -28,7 +28,7 @@ const Accordion = (fixme) => {
     return <div className="tab w-full overflow-hidden border-t">
       <input checked={selectedIndex===idx} onClick={(e) => { setSelectedIndex(idx)}} className="absolute opacity-0" id={children} type="radio" name="tabs2" />
       <label className="block p-5 leading-normal cursor-pointer" for={children}>{children}</label>
-      <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal pad">
+      <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
         {controls[idx]}
       </div>
     </div>
