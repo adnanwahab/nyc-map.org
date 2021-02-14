@@ -18,7 +18,7 @@ function Root () {
     selectedLayer,
 
   ]
-  console.log(layers)
+  // console.log(layers)
   const loader = (<div id="rainbow-progress-bar"></div>)
 
   return (

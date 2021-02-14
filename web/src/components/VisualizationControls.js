@@ -4,8 +4,38 @@ import {
   Box,
   Text,
 } from 'grommet'
-import Accordion from './Accordion'
+// import Accordion from './Accordion'
+import CommuteDistanceControls from './CommuteDistanceControls'
+import ComplaintControls from './ComplaintControls'
+import SuitabilityControls from './SuitabilityControls'
+import PlaceControls from './PlaceControls'
 
+const Accordion = (fixme) => {
+  console.log('fixme', fixme, Date.now())
+
+  let [selectedIndex, setSelectedIndex] = useState(0)
+  //return null
+
+  let props = fixme
+
+  let handleClick = () => {
+
+  }
+  //let selectedIndex = 0
+
+  let controls = [<ComplaintControls setLayer={props.setLayer}/>, <CommuteDistanceControls setLayer={props.setLayer}/>,  <PlaceControls setLayer={props.setLayer}/>, <SuitabilityControls setLayer={props.setLayer}/>]
+  let list = ["311-complaints", "commute-distance", "places","suitability"].map((children, idx) => {
+    return <div className="tab w-full overflow-hidden border-t">
+      <input checked={selectedIndex===idx} onClick={(e) => { setSelectedIndex(idx)}} className="absolute opacity-0" id={children} type="radio" name="tabs2" />
+      <label className="block p-5 leading-normal cursor-pointer" for={children}>{children}</label>
+      <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal pad">
+        {controls[idx]}
+      </div>
+    </div>
+  });
+
+  return <div className="shadow-md">{list}</div>
+}
 // The above changes the color for the legend.
 const SidePanel = styled.section`
   line-height: 21px;
@@ -35,19 +65,22 @@ const SubHeader = styled.section`
   padding-bottom: 1rem;
 `
 
-const VisualizationControls = (props) => {
-  console.log('wtf')
-  return (
-    <SidePanel>
+const VisualizationControls = ({setLayer}) => {
+  console.log('wtf');
+  return (<SidePanel>
+            <SubHeader>
+              <Text>Visualization Controls</Text>
+          </SubHeader>
 
-      <SubHeader>
-        <Text>Visualization Controls</Text>
-      </SubHeader>
-      <div className="w-full mx-auto">
-
-      </div>
-    </SidePanel>
+        <div className="w-full mx-auto">
+            <Accordion setLayer={setLayer} />
+        </div>
+      </SidePanel>
   )
+
 }
 
 export default VisualizationControls
+
+///
+{/*  */}

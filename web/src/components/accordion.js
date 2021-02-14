@@ -1,16 +1,18 @@
+import React, {useState } from 'React';
 
 import CommuteDistanceControls from './CommuteDistanceControls'
 import ComplaintControls from './ComplaintControls'
 import SuitabilityControls from './SuitabilityControls'
 import PlaceControls from './PlaceControls'
-import React, {useState } from 'React';
 
 const Accordion = (fixme) => {
-  console.log('fixme', fixme)
-  let [selectedIndex, setSelectedIndex] = useState(0)
-  return null
+  console.log('fixme', fixme, Date.now())
 
-  let props = fixme.props
+  let [selectedIndex, setSelectedIndex] = useState(0)
+  //return null
+
+  let props = fixme
+  //let selectedIndex = 0
 
   let controls = [<ComplaintControls setLayer={props.setLayer}/>, <CommuteDistanceControls setLayer={props.setLayer}/>,  <PlaceControls setLayer={props.setLayer}/>, <SuitabilityControls setLayer={props.setLayer}/>]
   let list = ["311-complaints", "commute-distance", "places","suitability"].map((children, idx) => {
