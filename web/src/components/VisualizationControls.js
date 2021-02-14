@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {
   Box,
@@ -10,18 +10,14 @@ import ComplaintControls from './ComplaintControls'
 import SuitabilityControls from './SuitabilityControls'
 import PlaceControls from './PlaceControls'
 
-const Accordion = (fixme) => {
-  console.log('fixme', fixme, Date.now())
-
+const Accordion = (props) => {
   let [selectedIndex, setSelectedIndex] = useState(0)
-  //return null
 
-  let props = fixme
+  useEffect(() => {
+    window.x = controls[selectedIndex]
 
-  let handleClick = () => {
-
-  }
-  //let selectedIndex = 0
+    //.setLayer()
+  }, [selectedIndex])
 
   let controls = [<ComplaintControls setLayer={props.setLayer}/>, <CommuteDistanceControls setLayer={props.setLayer}/>,  <PlaceControls setLayer={props.setLayer}/>, <SuitabilityControls setLayer={props.setLayer}/>]
   let list = ["311-complaints", "commute-distance", "places","suitability"].map((children, idx) => {
