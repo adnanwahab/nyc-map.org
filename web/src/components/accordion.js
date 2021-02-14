@@ -6,7 +6,7 @@ import PlaceControls from './PlaceControls'
 import React, {useState } from 'React';
 
 const Accordion = (fixme) => {
-  console.log('h9')
+  console.log('fixme', fixme)
   let [selectedIndex, setSelectedIndex] = useState(0)
   return null
 

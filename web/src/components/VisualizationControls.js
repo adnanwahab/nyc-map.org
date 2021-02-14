@@ -39,11 +39,11 @@ const VisualizationControls = (props) => {
   console.log('wtf')
   return (
     <SidePanel>
+
       <SubHeader>
         <Text>Visualization Controls</Text>
       </SubHeader>
       <div className="w-full mx-auto">
-        <Accordion props={props} />
 
       </div>
     </SidePanel>
