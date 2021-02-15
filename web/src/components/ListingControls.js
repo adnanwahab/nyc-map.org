@@ -240,7 +240,7 @@ const ListingControls = (props) => {
     </>)
     localStorage.setItem('favorites', []);
 
-    let favorites = (    <div>favorites: </div>
+    let favorites = (    <div className=" mt-2 flex items-center text-sm text-gray-500" >favorites: </div>
       )
 
   return (

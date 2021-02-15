@@ -62,8 +62,7 @@ const SubHeader = styled.section`
 `
 
 const VisualizationControls = ({setLayer}) => {
-  console.log('wtf');
-  return (<SidePanel>
+    return (<SidePanel>
             <SubHeader>
               <Text>Visualization Controls</Text>
           </SubHeader>

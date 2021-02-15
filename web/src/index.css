@@ -45,7 +45,7 @@ a:hover {
     text-decoration: underline;
 }
 .mapboxgl-control-container {
-  display: none;
+  /* display: none; */
 }
 
 .background {
