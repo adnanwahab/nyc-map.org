@@ -141,7 +141,7 @@ const CommuteDistanceControls = (props) => {
     useEffect(() => {
       const call = async () => {
         const layer = await isoChrone(coords, selection, minutes)
-        props.setLayer(layer)
+        if (props.selected) props.setLayer(layer)
 
       //   analytics.track('control_open', {
       //     tab: 'complaint',

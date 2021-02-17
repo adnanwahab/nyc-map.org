@@ -76,7 +76,7 @@ const ComplaintControls = (props) => {
 
   useEffect(() => {
       const call = async () => {
-      console.log(value)
+      console.log('adnan', value)
       const layer = makeComplaintLayer(value)
       props.setLayer(layer)
 

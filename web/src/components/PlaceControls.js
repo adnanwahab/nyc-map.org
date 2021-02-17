@@ -67,7 +67,7 @@ const PlaceControls = (props) => {
       const call = async () => {
         const data = await queryMongo(value)
         const layer = makeScatterLayer(data)
-        props.setLayer(layer)
+        if (props.selected) props.setLayer(layer)
       }
       call()
     }, [value])

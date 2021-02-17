@@ -243,6 +243,11 @@ const ListingControls = (props) => {
     let favorites = (    <div className=" mt-2 flex items-center text-sm text-gray-500" >favorites: </div>
       )
 
+let radio = ['rentals', 'airbnb', 'condo', 'officespace'].map(d =>
+  <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" name={d} type='radio' /> {d}</label>
+
+  )
+
   return (
     <SidePanel>
      {favorites}
@@ -254,10 +259,7 @@ const ListingControls = (props) => {
       <Box direction='row' align='center' pad='small' gap='small'>
         <Text size='small' color='brand'>Type</Text>
         <form onChange={(e) => {console.log(e.target.name)}}>
-        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" name="rentals" type='checkbox' /> Rentals</label>
-        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" name="airbnb" onChange={onChange} checked={checked} type='checkbox' /> Airbnb</label>
-        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" disabled type='checkbox' /> Office</label>
-        <label><input className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" disabled type='checkbox' /> Condo</label>
+        {radio}
         </form>
       </Box>
 
