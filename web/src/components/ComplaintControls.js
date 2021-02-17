@@ -81,7 +81,7 @@ const ComplaintControls = (props) => {
       props.setLayer(layer)
     }
     call()
-  }, [value])
+  }, [value, props.selected])
 
   return (
     <div className="p-5">

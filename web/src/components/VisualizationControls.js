@@ -13,13 +13,18 @@ import PlaceControls from './PlaceControls'
 const Accordion = (props) => {
   let [selectedIndex, setSelectedIndex] = useState(0)
 
-  useEffect(() => {
-    window.x = controls[selectedIndex]
 
-    //.setLayer()
-  }, [selectedIndex])
+  // let controls = [<ComplaintControls selected={selectedIndex===0} {...props}/>,
+  // <CommuteDistanceControls setLayer={props.setLayer}/>,
+  // <PlaceControls setLayer={props.setLayer}/>,
+  // <SuitabilityControls setLayer={props.setLayer}/>]
 
-  let controls = [<ComplaintControls setLayer={props.setLayer}/>, <CommuteDistanceControls setLayer={props.setLayer}/>,  <PlaceControls setLayer={props.setLayer}/>, <SuitabilityControls setLayer={props.setLayer}/>]
+  let controls = [ComplaintControls,
+    CommuteDistanceControls ,
+    PlaceControls,
+    SuitabilityControls].map((C, idx) => {
+      return <C setLayer={props.setLayer} selected={selectedIndex===idx}></C>
+    })
   let list = ["311-complaints", "commute-distance", "places","suitability"].map((children, idx) => {
     return <div className="tab w-full overflow-hidden border-t">
       <input checked={selectedIndex===idx} onClick={(e) => { setSelectedIndex(idx)}} className="absolute opacity-0" id={children} type="radio" name="tabs2" />
