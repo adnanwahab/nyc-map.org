@@ -142,9 +142,15 @@ const CommuteDistanceControls = (props) => {
       const call = async () => {
         const layer = await isoChrone(coords, selection, minutes)
         props.setLayer(layer)
+
+      //   analytics.track('control_open', {
+      //     tab: 'complaint',
+
+      // });
       }
       call()
-    }, [selection, coords, minutes])
+
+    }, [selection, coords, minutes, props.selected])
 
     const pills =  "py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none"
   return (

@@ -79,6 +79,11 @@ const ComplaintControls = (props) => {
       console.log(value)
       const layer = makeComplaintLayer(value)
       props.setLayer(layer)
+
+    //   analytics.track('control_open', {
+    //     tab: 'complaint',
+
+    // });
     }
     call()
   }, [value, props.selected])
