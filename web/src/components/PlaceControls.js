@@ -68,9 +68,10 @@ const PlaceControls = (props) => {
         const data = await queryMongo(value)
         const layer = makeScatterLayer(data)
         if (props.selected) props.setLayer(layer)
+        console.log('adnan', props.selected)
       }
       call()
-    }, [value])
+    }, [value, props.selected])
 
     return (
       <div className="p-5"> <input

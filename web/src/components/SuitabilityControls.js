@@ -14,16 +14,16 @@ const SuitabilityControls = (props) => {
     <div className="p-5">
 
       <Label>
-        <input type='range' />noise complaints
+        <input type='range' />Crimes
       </Label>
       <Label>
-        <input type='range' />distance to yoga studio
+        <input type='range' />Schools
       </Label>
       <Label>
-        <input type='range' />density of saunas
+        <input type='range' />Travel time to ...
       </Label>
       <Label>
-        <input type='range' />gentrification score
+        <input type='range' />Cafes
       </Label>
 
     </div>

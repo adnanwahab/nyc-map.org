@@ -25,7 +25,7 @@ const Accordion = (props) => {
     SuitabilityControls].map((C, idx) => {
       return <C setLayer={props.setLayer} selected={selectedIndex===idx}></C>
     })
-  let list = ["311-complaints", "commute-distance", "places","suitability"].map((children, idx) => {
+  let list = ["311 Complaints", "Commute Distance", "Places","S uitability"].map((children, idx) => {
     return <div key={idx} className="tab w-full overflow-hidden border-t">
       <input checked={selectedIndex===idx} onClick={(e) => { setSelectedIndex(idx)}} className="absolute opacity-0" id={children} type="radio" name="tabs2" />
       <label className="block p-5 leading-normal cursor-pointer" htmlFor={children}>{children}</label>

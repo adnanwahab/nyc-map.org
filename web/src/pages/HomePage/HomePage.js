@@ -11,7 +11,7 @@ function Root () {
   const [listingLayer, selectListings] = useState()
   const [showLoading, setShowLoading] = useState()
 
-  heap.identify('unique_identifier');
+  // heap.identify('unique_identifier');
 
   const layers = [
     listingLayer,
