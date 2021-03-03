@@ -55,7 +55,7 @@ const Accordion = (props) => {
 const VisualizationControls = ({ setLayer }) => {
     let [showing, setShowing] = useState(true)
     return (
-        <div class="fixed inset-0 overflow-hidden z-50 text-black text-xs">
+        <div class="pointer-events-none	fixed inset-0 overflow-hidden z-50 text-black text-xs">
   <div class="absolute inset-0 overflow-hidden">
 
     {/* <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
@@ -78,7 +78,7 @@ const VisualizationControls = ({ setLayer }) => {
             </h2>
           </div>
           <div class="mt-6 relative flex-1 sm:px-6">
-            <div class="absolute inset-0">
+            <div class="absolute inset-0 pointer-events-auto">
                     <Accordion setLayer={setLayer} />
               {/* <div class="h-full border-2 border-dashed border-gray-200" aria-hidden="true"></div> */}
 
