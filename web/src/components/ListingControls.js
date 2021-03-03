@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { RadioButton, Button, Box, Text } from 'grommet'
 
 import Slider, { SliderTooltip } from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import GL from '@luma.gl/constants'
 
 import { IconLayer } from '@deck.gl/layers'
-import VisualizationControls from 'src/components/VisualizationControls'
 
 import IconClusterLayer from 'src/components/icon-cluster-layer'
-import {
-    ScatterplotLayer,
-    GeoJsonLayer,
-    LineLayer,
-    HexagonLayer,
-} from 'deck.gl'
+import { ScatterplotLayer } from 'deck.gl'
+
+// import { Slider } from "@blueprintjs/core";
 
 const makeIconLayer = (data) => {
-    const iconMapping = '/location-icon-mapping.json',
-        iconAtlas = '/location-icon-atlas.png'
     const layerProps = {
         data,
         pickable: true,
@@ -33,21 +25,6 @@ const makeIconLayer = (data) => {
         sizeMinPixels: 20,
         sizeMaxPixels: 50,
         getColor: () => [255, 0, 255, 255],
-        // iconAtlas: '/location-icon-atlas.png',
-        // iconMapping: {
-        //   "x": 384,
-        //   "y": 512,
-        //   "width": 128,
-        //   "height": 128,
-        //   "anchorY": 128
-        // },
-        // getIcon: {
-        //   url: '/icon-marker.png',
-        //   width: 512,
-        //   height: 512,
-        //   anchorY: 0
-        // },
-        //onHover: d => { d.picked && console.log(d.object) }
     }
 
     return new IconClusterLayer({
@@ -121,76 +98,50 @@ const handle = (props) => {
     )
 }
 
-const wrapperStyle = { width: 250 }
+const wrapperStyle = { width: 150 }
 
 const makeNameGood = (str) => {
     return str.replace('_', ' ')
 }
 
-const Link = styled.a`
-    text-decoration: none;
-    color: #323232;
-`
+const emailModal = () => (
+    <>
+        <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
 
-const List = styled.section`
-    background: transparent;
-    border-radius: 3px;
-    margin: 0 1em;
-    padding: 0.25em 1em;
-`
-// The above changes the color for the legend.
-const SidePanel = styled.section`
-    line-height: 21px;
-    font-size: 16px;
-    padding: 0px;
-    font-size: 10px;
-    position: fixed;
-    left: 25px;
-    bottom: 36px;
-    z-index: 1100;
-    background: white;
-    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-    font-weight: 500;
-    color: black;
-
-    height: 250px;
-    width: 350px;
-    overflow: scroll;
-`
-const SubHeader = styled.section`
-    padding: 0px 1.5rem;
-    border-color: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #333;
-    border-color: rgba(0, 0, 0, 0.1);
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    font-weight: 600;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-`
-
-const Logo = styled.img`
-    padding-right: 10px;
-    display: inline;
-`
-
-const Label = styled.label`
-    display: block;
-`
-
-const LinkTitle = styled.h1`
-    display: inline;
-    font-size: 16px;
-`
-
-const PriceInput = styled.input`
-    width: 50px;
-`
+            //onClick={() => setShowModal(false)}
+        >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                {/*content*/}
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                    {/*header*/}
+                    <form
+                        class="m-4 flex"
+                        onSubmit={() => {
+                            console.log('submit')
+                        }}
+                    >
+                        <input
+                            class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+                            placeholder="your@mail.com"
+                        />
+                        <button class="px-8 rounded-r-lg bg-purple-400  text-gray-800 font-bold p-4 uppercase border-purple-500 border-t border-b border-r">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div
+            onClick={() => setShowModal(false)}
+            className="opacity-25 fixed inset-0 z-40 bg-black"
+        ></div>
+    </>
+)
 
 const RangeSelector = () => {
     return (
-        <div>
-            <div style={wrapperStyle}>
+        <div className="inline" style={wrapperStyle}>
                 <Range
                     min={0}
                     max={3000}
@@ -198,7 +149,6 @@ const RangeSelector = () => {
                     defaultValue={[0, 2000]}
                     tipFormatter={(value) => `$${value}`}
                 />
-            </div>
         </div>
     )
 }
@@ -222,39 +172,7 @@ const ListingControls = (props) => {
         setChecked(e.target.checked)
     }
 
-    const emailModal = () => (
-        <>
-            <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-                //onClick={() => setShowModal(false)}
-            >
-                <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                    {/*content*/}
-                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                        {/*header*/}
-                        <form
-                            class="m-4 flex"
-                            onSubmit={() => {
-                                console.log('submit')
-                            }}
-                        >
-                            <input
-                                class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
-                                placeholder="your@mail.com"
-                            />
-                            <button class="px-8 rounded-r-lg bg-purple-400  text-gray-800 font-bold p-4 uppercase border-purple-500 border-t border-b border-r">
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div
-                onClick={() => setShowModal(false)}
-                className="opacity-25 fixed inset-0 z-40 bg-black"
-            ></div>
-        </>
-    )
+
     localStorage.setItem('favorites', [])
 
     let favorites = (
@@ -275,20 +193,19 @@ const ListingControls = (props) => {
             {d}
         </label>
     ))
-
     return (
-        <SidePanel>
-            {favorites}
-            <SubHeader>
-                <Logo src="/favicon.png" />
-                <Text size="large">Crib Finder </Text> <br />
-                <Text size="xsmall">Data Driven Appartment Hunting</Text>
-            </SubHeader>
-            <Box direction="row" align="center" pad="small" gap="small">
-                <Text size="small" color="brand">
+        <div className="p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
+            {/* {favorites} */}
+            <div>
+                <img className="inline" src="/favicon.png" />
+                <span className="text-md">Crib Finder </span>
+                <span className="text-xs">Data Driven Appartment Hunting</span>
+            </div>
+            <div className="text-xs" direction="row" align="center" pad="small" gap="small">
+                <span size="small" color="brand" className="">
                     Type
-                </Text>
-                <form
+                </span>
+                <form className="inline"
                     onChange={(e) => {
                         console.log(e.target.value, e.target.name)
                         setChecked(e.target.name)
@@ -296,12 +213,12 @@ const ListingControls = (props) => {
                 >
                     {radio}
                 </form>
-            </Box>
+            </div>
 
-            <Box direction="row" align="center" pad="small" gap="small">
-                <Text size="small" color="brand">
+            <div direction="row" align="center" pad="small" gap="small">
+                <span size="small" color="brand">
                     Price
-                </Text>
+                </span>
 
                 <RangeSelector
                     direction="horizontal"
@@ -313,16 +230,8 @@ const ListingControls = (props) => {
                     values={priceRange}
                     onChange={(nextValues) => setPriceRange(nextValues)}
                 />
-            </Box>
-            {/*
-      <Box size='small' direction='row' align='center' pad='medium' gap='small'>
-        <button onClick={()=> setShowModal(! showModal)} className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
-          Get Email Alerts about this Search
-        </button>
-        {showModal ? emailModal()
-          : null}
-      </Box> */}
-        </SidePanel>
+            </div>
+        </div>
     )
 }
 

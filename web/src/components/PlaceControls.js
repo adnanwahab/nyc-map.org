@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { Select, Box } from 'grommet';
-import styled from 'styled-components'
-
 import GL from '@luma.gl/constants'
 import _ from 'lodash'
 import {
@@ -10,10 +7,6 @@ import {
     LineLayer,
     HexagonLayer,
 } from 'deck.gl'
-
-const Label = styled.label`
-    display: block;
-`
 
 const queryMongo = async (search) => {
     const res = await fetch('http://localhost:8911/mongo', {

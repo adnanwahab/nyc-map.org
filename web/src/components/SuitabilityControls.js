@@ -1,32 +1,27 @@
 import React, { useState } from 'react'
-// import { Select, Box } from 'grommet';
-import styled from 'styled-components'
 
-const Label = styled.label`
-    display: block;
-`
 
 const SuitabilityControls = (props) => {
     const [value, setValue] = useState('')
 
     return (
         <div className="p-5">
-            <Label>
+            <label>
                 <input type="range" />
                 Crimes
-            </Label>
-            <Label>
+            </label>
+            <label>
                 <input type="range" />
                 Schools
-            </Label>
-            <Label>
+            </label>
+            <label>
                 <input type="range" />
                 Travel time to ...
-            </Label>
-            <Label>
+            </label>
+            <label>
                 <input type="range" />
                 Cafes
-            </Label>
+            </label>
         </div>
     )
 }

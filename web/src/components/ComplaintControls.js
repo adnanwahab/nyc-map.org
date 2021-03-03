@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
 import { H3ClusterLayer } from '@deck.gl/geo-layers'
@@ -19,17 +18,17 @@ const complaints = [
     'Street-Condition',
 ]
 
-const Select = styled.select`
-    padding: 0px 1.5rem;
-    border-color: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #333;
-    border-color: rgba(0, 0, 0, 0.1);
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    font-weight: 600;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-`
+// const Select = styled.select`
+//     padding: 0px 1.5rem;
+//     border-color: rgba(0, 0, 0, 0.1);
+//     border-bottom: 1px solid #333;
+//     border-color: rgba(0, 0, 0, 0.1);
+//     padding-left: 1.5rem;
+//     padding-right: 1.5rem;
+//     font-weight: 600;
+//     padding-top: 1rem;
+//     padding-bottom: 1rem;
+// `
 export const colorRange = [
     [1, 152, 189],
     [73, 227, 206],
@@ -88,14 +87,14 @@ const ComplaintControls = (props) => {
 
     return (
         <div className="p-5">
-            <Select
+            <select
                 value={value}
                 onChange={(e) => console.log(e) || setValue(e.target.value)}
             >
                 {complaints.map((d) => (
                     <option key={d}>{d}</option>
                 ))}
-            </Select>
+            </select>
             <div className="info-panel__InfoPanelContent-cbpqj4-0 fjyHRS">
                 <div>
                     <p>
