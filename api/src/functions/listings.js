@@ -101,7 +101,7 @@ export const handler = async (event, context) => {
   const db = client.db('test') // execute find query
 
   const items = await db.collection('airbnb_listings').find({})
-  .limit(2e4)
+  .limit(2e3)
   .project(projection)
   //.limit(500)
   .toArray()

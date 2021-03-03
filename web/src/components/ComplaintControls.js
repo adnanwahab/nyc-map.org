@@ -41,13 +41,13 @@ export const colorRange = [
 const colorRamp = (n) => {
     let len = n.toString().length
 
-    return colorRange[len + 1]
+    return colorRange[len]
 }
 
 const makeComplaintLayer = (url) => {
     return () => {
         console.log('loading ' + `data/${url}.json`)
-        return new H3HexagonLayer({
+        let layer = new H3HexagonLayer({
             id: 'h3-hexagon-layer',
             data: `data/${url}.json`,
             coverage: 1,
@@ -63,6 +63,8 @@ const makeComplaintLayer = (url) => {
             elevationScale: 1,
             getElevation: (d) => d[1],
         })
+        window.l = layer
+        return layer
     }
 }
 

@@ -142,7 +142,7 @@ const ListingControls = (props) => {
         </div>
     )
 
-    let radio = ['Rentals', 'airbnb', 'Condo', 'Officespace'].map((d) => (
+    let radio = ['Rentals', 'Airbnb', 'Condo', 'Officespace'].map((d) => (
         <label key={d} className="pr-2">
             <input
                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded "
