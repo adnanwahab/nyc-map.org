@@ -54,12 +54,10 @@ const makeComplaintLayer = (url) => {
             elevationScale: 2,
             opacity: 0.8,
             pickable: false,
-            //onHover: (d) => { console.log(d)},
             stroked: false,
             filled: true,
             extruded: true,
-            wireframe: true,
-            // fp64: true,
+            wireframe: false,
             getHexagon: (d) => d[0],
             getFillColor: (d) => colorRamp(d[1]),
             elevationScale: 1,
@@ -76,11 +74,6 @@ const ComplaintControls = (props) => {
             console.log('adnan', value)
             const layer = makeComplaintLayer(value)
             props.setLayer(layer)
-
-            //   analytics.track('control_open', {
-            //     tab: 'complaint',
-
-            // });
         }
         call()
     }, [value, props.selected])

@@ -148,42 +148,38 @@ const CommuteDistanceControls = (props) => {
         const call = async () => {
             const layer = await isoChrone(coords, selection, minutes)
             if (props.selected) props.setLayer(layer)
-
-            //   analytics.track('control_open', {
-            //     tab: 'complaint',
-
-            // });
         }
         call()
     }, [selection, coords, minutes, props.selected])
 
-    const pills =
-        'py-2 px-4 shadow-md no-underline rounded-full text-white font-sans font-semibold text-sm border-red btn-primary hover:text-white hover:bg-red-light focus:outline-none active:shadow-none'
+    const selectedTab = "border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+    const tab = "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+    const tabs = (<>
+  <div className="hidden sm:block">
+    <div className="border-b border-gray-200">
+      <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+      {options.map((o) => (
+            <a key={o}onClick={() => setSelection(o)}  href="#" className={selection === o ? selectedTab : tab}>
+            {o}
+        </a>
+        ))}
+      </nav>
+    </div>
+  </div></>)
     return (
         <div style={{ borderBottom: '2px solid #eaeaea' }} className="p-5">
-            <ul className="flex cursor-pointer">
-                {options.map((o) => (
-                    <li
-                        key={o}
-                        onClick={() => setSelection(o)}
-                        className={
-                            pills +
-                            (selection == o ? ' bg-indigo-400' : ' bg-pink-500')
-                        }
-                    >
-                        {o}
-                    </li>
-                ))}
-            </ul>
+            {tabs}
+            <span className="py-5">Max Travel Time: {minutes} minutes</span>
             <input
                 type="range"
                 onChange={(e) => setDebouncedMinutes(e.target.value)}
                 value={minutes}
                 min={0}
                 max={60}
-            />{' '}
-            <span>Max Travel Time: {minutes} minutes</span>
+            />
             <PlacesAutocomplete setCoords={setCoords} />
+
+
         </div>
     )
 }

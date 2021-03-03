@@ -1,27 +1,19 @@
 import React, { useState } from 'react'
 
 
+
+let features = ['Crimes', "Schools", "Travel Times", "Cafes"]
 const SuitabilityControls = (props) => {
     const [value, setValue] = useState('')
 
     return (
         <div className="p-5">
-            <label>
-                <input type="range" />
-                Crimes
-            </label>
-            <label>
-                <input type="range" />
-                Schools
-            </label>
-            <label>
-                <input type="range" />
-                Travel time to ...
-            </label>
-            <label>
-                <input type="range" />
-                Cafes
-            </label>
+            {features.map((d, i) =>
+                <label>
+                    <input type="range" onChange={(e) => {}} />
+                    {d}
+                </label>
+            )}
         </div>
     )
 }

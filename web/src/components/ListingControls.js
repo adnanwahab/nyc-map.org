@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react'
-
-import Slider, { SliderTooltip } from 'rc-slider'
-import 'rc-slider/assets/index.css'
 import GL from '@luma.gl/constants'
-
 import { IconLayer } from '@deck.gl/layers'
-
 import IconClusterLayer from 'src/components/icon-cluster-layer'
 import { ScatterplotLayer } from 'deck.gl'
 
-// import { Slider } from "@blueprintjs/core";
+import { RangeSlider } from "@blueprintjs/core";
 
 const makeIconLayer = (data) => {
     const layerProps = {
@@ -79,24 +74,9 @@ const queryMongo = async (search) => {
     return rest
 }
 
-const { createSliderWithTooltip } = Slider
-const Range = createSliderWithTooltip(Slider.Range)
-const { Handle } = Slider
 
-const handle = (props) => {
-    const { value, dragging, index, ...restProps } = props
-    return (
-        <SliderTooltip
-            prefixCls="rc-slider-tooltip"
-            overlay={`${value} %`}
-            visible={dragging}
-            placement="top"
-            key={index}
-        >
-            <Handle value={value} {...restProps} />
-        </SliderTooltip>
-    )
-}
+
+
 
 const wrapperStyle = { width: 150 }
 
@@ -139,23 +119,9 @@ const emailModal = () => (
     </>
 )
 
-const RangeSelector = () => {
-    return (
-        <div className="inline" style={wrapperStyle}>
-                <Range
-                    min={0}
-                    max={3000}
-                    step={100}
-                    defaultValue={[0, 2000]}
-                    tipFormatter={(value) => `$${value}`}
-                />
-        </div>
-    )
-}
-
 const ListingControls = (props) => {
     const [checked, setChecked] = useState('')
-    const [priceRange, setPriceRange] = useState([0, 1000])
+    const [priceRange, setPriceRange] = useState([1500, 2000])
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
@@ -172,7 +138,6 @@ const ListingControls = (props) => {
         setChecked(e.target.checked)
     }
 
-
     localStorage.setItem('favorites', [])
 
     let favorites = (
@@ -181,14 +146,14 @@ const ListingControls = (props) => {
         </div>
     )
 
-    let radio = ['rentals', 'airbnb', 'condo', 'officespace'].map((d) => (
-        <label key={d}>
+    let radio = ['Rentals', 'airbnb', 'Condo', 'Officespace'].map((d) => (
+        <label key={d} className="pr-2">
             <input
-                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded "
                 name={d}
                 type="radio"
-                readOnly
                 checked={checked == d}
+                onChange={() => {}}
             />{' '}
             {d}
         </label>
@@ -196,42 +161,51 @@ const ListingControls = (props) => {
     return (
         <div className="p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
             {/* {favorites} */}
-            <div>
-                <img className="inline" src="/favicon.png" />
-                <span className="text-md">Crib Finder </span>
+            <div className="pb-5">
+                <img className="inline pr-2" src="/favicon.png" />
+                <span className="text-xl">Crib Finder </span>
                 <span className="text-xs">Data Driven Appartment Hunting</span>
             </div>
-            <div className="text-xs" direction="row" align="center" pad="small" gap="small">
-                <span size="small" color="brand" className="">
+            <div className="pb-5" className="text-xs" direction="row" align="center" pad="small" gap="small">
+                <span className="float-left">
                     Type
                 </span>
-                <form className="inline"
-                    onChange={(e) => {
-                        console.log(e.target.value, e.target.name)
-                        setChecked(e.target.name)
-                    }}
-                >
+                <form className="inline" onChange={(e) => setChecked(e.target.name) }>
                     {radio}
                 </form>
             </div>
 
-            <div direction="row" align="center" pad="small" gap="small">
-                <span size="small" color="brand">
+            <div className="pt-5">
+                <span className="float-left" size="small" color="brand">
                     Price
                 </span>
 
-                <RangeSelector
-                    direction="horizontal"
-                    invert={false}
+                <div className="9/12 pl-12">
+                <RangeSlider
                     min={0}
-                    max={1000}
-                    size="medium"
-                    round="small"
-                    values={priceRange}
-                    onChange={(nextValues) => setPriceRange(nextValues)}
+                    max={3000}
+                    stepSize={100}
+                    labelStepSize={500}
+                    value={priceRange}
+                    onChange={(value) => {
+                        console.log(value)
+                        setPriceRange(value)
+                        }}
+                    vertical={false}
                 />
+                </div>
+
+                <div className="pt-5">
+                <span className="float-left" size="small" color="brand">
+                    Rooms
+                </span>
+
+                <div className=" pl-12">
+                <input className="focus:ring-indigo-500 focus:border-indigo-500 block m-auto w-5/12 pl-10 sm:text-sm border-gray-300 rounded-md" type="number" />
+                </div>
             </div>
         </div>
+    </div>
     )
 }
 
