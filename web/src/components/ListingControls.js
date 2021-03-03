@@ -134,10 +134,6 @@ const ListingControls = (props) => {
         call()
     }, [checked])
 
-    const onChange = (e) => {
-        setChecked(e.target.checked)
-    }
-
     localStorage.setItem('favorites', [])
 
     let favorites = (
