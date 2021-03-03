@@ -5,6 +5,7 @@ import ListingControls from 'src/components/ListingControls'
 import Map from 'src/components/Map'
 
 import { Grommet } from 'grommet'
+import { Button } from "@blueprintjs/core";
 
 function Root() {
     const [selectedLayer, selectLayer] = useState()
@@ -19,7 +20,7 @@ function Root() {
 
     return (
         <Grommet theme={{ global: { colors: { doc: '#ff99cc' } } }}>
-            {loader}
+            {showLoading && loader}
             <ListingControls selectListings={selectListings} />
             <VisualizationControls setLayer={selectLayer} />
             <Map layers={layers} />

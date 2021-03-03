@@ -16,8 +16,8 @@ import {
     LineLayer,
     HexagonLayer,
 } from 'deck.gl'
+
 const makeIconLayer = (data) => {
-    console.log(data.length)
     const iconMapping = '/location-icon-mapping.json',
         iconAtlas = '/location-icon-atlas.png'
     const layerProps = {
@@ -204,16 +204,15 @@ const RangeSelector = () => {
 }
 
 const ListingControls = (props) => {
-    const [checked, setChecked] = useState(true)
+    const [checked, setChecked] = useState('')
     const [priceRange, setPriceRange] = useState([0, 1000])
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         const call = async () => {
+            if (! checked) return
             const data = await queryMongo({})
             const layer = makeIconLayer(data)
-            //const layer = makeScatterLayer(data)
-            //console.log('layer', layer)
             props.selectListings(layer)
         }
         call()
@@ -265,11 +264,13 @@ const ListingControls = (props) => {
     )
 
     let radio = ['rentals', 'airbnb', 'condo', 'officespace'].map((d) => (
-        <label>
+        <label key={d}>
             <input
                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                 name={d}
                 type="radio"
+                readOnly
+                checked={checked == d}
             />{' '}
             {d}
         </label>
@@ -289,7 +290,8 @@ const ListingControls = (props) => {
                 </Text>
                 <form
                     onChange={(e) => {
-                        console.log(e.target.name)
+                        console.log(e.target.value, e.target.name)
+                        setChecked(e.target.name)
                     }}
                 >
                     {radio}

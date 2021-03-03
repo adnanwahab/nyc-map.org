@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { Box, Text } from 'grommet'
-// import Accordion from './Accordion'
 import CommuteDistanceControls from './CommuteDistanceControls'
 import ComplaintControls from './ComplaintControls'
 import SuitabilityControls from './SuitabilityControls'
@@ -9,11 +6,6 @@ import PlaceControls from './PlaceControls'
 
 const Accordion = (props) => {
     let [selectedIndex, setSelectedIndex] = useState(0)
-
-    // let controls = [<ComplaintControls selected={selectedIndex===0} {...props}/>,
-    // <CommuteDistanceControls setLayer={props.setLayer}/>,
-    // <PlaceControls setLayer={props.setLayer}/>,
-    // <SuitabilityControls setLayer={props.setLayer}/>]
 
     let controls = [
         ComplaintControls,
@@ -29,7 +21,7 @@ const Accordion = (props) => {
         '311 Complaints',
         'Commute Distance',
         'Places',
-        'S uitability',
+        'Suitability',
     ].map((children, idx) => {
         return (
             <div key={idx} className="tab w-full overflow-hidden border-t">
@@ -58,46 +50,46 @@ const Accordion = (props) => {
 
     return <div className="shadow-md">{list}</div>
 }
-// The above changes the color for the legend.
-const SidePanel = styled.section`
-    line-height: 21px;
-    font-size: 16px;
-    padding: 0px;
-    font-size: 10px;
-    position: fixed;
-    right: 0px;
-    z-index: 1100;
-    background: white;
-    height: 100%;
-    width: 300px;
-    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-    font-weight: 500;
-    color: black;
-    overflow: scroll;
-`
-const SubHeader = styled.section`
-    padding: 0px 1.5rem;
-    border-color: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #333;
-    border-color: rgba(0, 0, 0, 0.1);
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    font-weight: 600;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-`
+
 
 const VisualizationControls = ({ setLayer }) => {
+    let [showing, setShowing] = useState(true)
     return (
-        <SidePanel>
-            <SubHeader>
-                <Text>Visualization Controls</Text>
-            </SubHeader>
+        <div class="fixed inset-0 overflow-hidden z-50 text-black text-xs">
+  <div class="absolute inset-0 overflow-hidden">
 
-            <div className="w-full mx-auto">
-                <Accordion setLayer={setLayer} />
+    {/* <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
+    <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex" aria-labelledby="slide-over-heading">
+
+      <div class="relative w-screen max-w-xs">
+
+        <div class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
+          {/* <button onClick={() => setShowing(! showing)} class="rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+            <span class="sr-only">Close panel</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button> */}
+        </div>
+        <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+          <div class="px-4 sm:px-6">
+            <h2 id="slide-over-heading" class="text-lg font-medium text-gray-900">
+              Visualization Controls
+            </h2>
+          </div>
+          <div class="mt-6 relative flex-1 sm:px-6">
+            <div class="absolute inset-0">
+                    <Accordion setLayer={setLayer} />
+              {/* <div class="h-full border-2 border-dashed border-gray-200" aria-hidden="true"></div> */}
+
             </div>
-        </SidePanel>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
     )
 }
 
