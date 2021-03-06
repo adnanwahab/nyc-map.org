@@ -38,10 +38,10 @@ const h3Layer = (data, weights) => {
         opacity: 0.8,
         stroked: true,
         filled: true,
-        extruded: true,
+        extruded: false,
         getElevation: (f) => Math.random() * 100,
-        getFillColor: (f) => colorScale(weights.Crimes),
-        getLineColor: [weights.Crimes * 255, 0, (1 - 1 / 500) * 255],
+        getStrokeColor: (f) => colorScale(weights.Crimes),
+        getFillColor: (d, i)=> [weights.Crimes * 255, weights.Schools * 255, weights.Cafes * 255],
         lineWidthScale: 10,
     })
 
@@ -52,7 +52,7 @@ const h3Layer = (data, weights) => {
 //         id: 'h3-hexagon-layer',
 //         data,
 //         pickable: true,
-//         wireframe: false,
+//         wireframe: fal   se,
 //         filled: true,
 //         extruded: true,
 //         elevationScale: 2000,
@@ -95,7 +95,7 @@ const SuitabilityControls = (props) => {
             let layer = h3Layer(data, weights)
             if (props.selected) props.setLayer(layer)
         })
-    }, [props.selected, weights.Crimes])
+    }, Object.values(weights).concat(props.selected))
     return (
         <div className="p-5">
             {features.map((d, i) =>
