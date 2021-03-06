@@ -56,46 +56,44 @@ const scaleControlStyle = {
 // Set your mapbox token here
 const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
     'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
+const renderTooltip = ({ object }) => {
+        if (!object) return null
+        console.log(object)
+        if (object.cluster) return `${object.point_count} appartments`
 
+        //if (! object.name) return `${object[1]} complaints`
+
+        if (object.picture_url)
+            return {
+                html: `
+  <div>${object.name}</div>
+  <div>Price ${object.price}</div>
+  // <div>${object.description}</div>
+  <div>Review Score: ${object.review_scores_rating}</div>
+  <img src=${object.picture_url + '?im_w=1200'}/>
+`,
+            }
+
+        let html = `<div>${object.name}</div>`
+        if (object.image_url)
+            html += `<img width="250px" height="250px" src=${object.image_url}>`
+        return { html }
+    }
 const Map = (props) => {
-    window.map = MapContext.Provider
     return (
         <DeckGL
+            useDevicePixels={false}
             onViewStateChange={(o) => {
                 //console.log(o.viewState)
                 return o.viewState
             }}
             ContextProvider={MapContext.Provider}
-            getTooltip={({ object }) => {
-                if (!object) return null
-                console.log(object)
-                if (object.cluster) return `${object.point_count} appartments`
-
-                //if (! object.name) return `${object[1]} complaints`
-
-                if (object.picture_url)
-                    return {
-                        html: `
-          <div>${object.name}</div>
-          <div>Price ${object.price}</div>
-          // <div>${object.description}</div>
-          <div>Review Score: ${object.review_scores_rating}</div>
-          <img src=${object.picture_url + '?im_w=1200'}/>
-        `,
-                    }
-
-                let html = `<div>${object.name}</div>`
-                if (object.image_url)
-                    html += `<img width="250px" height="250px" src=${object.image_url}>`
-                return { html }
-            }}
+            getTooltip={renderTooltip}
             controller
             initialViewState={INITIAL_VIEW_STATE}
             layers={props.layers || []}
         >
             <NavigationControl style={navControlStyle} />
-            {/* <ScaleControl maxWidth={100} unit="metric" style={scaleControlStyle} /> */}
-
             <StaticMap
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 mapStyle="mapbox://styles/mapbox/light-v9"

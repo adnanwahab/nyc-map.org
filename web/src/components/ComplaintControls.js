@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
-import { H3ClusterLayer } from '@deck.gl/geo-layers'
 
 const complaints = [
     'Blocked-Driveway',
