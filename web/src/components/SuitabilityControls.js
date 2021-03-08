@@ -98,6 +98,8 @@ const SuitabilityControls = (props) => {
     }, Object.values(weights).concat(props.selected))
     return (
         <div className="p-5">
+        Use the sliders below to adjust the importance of each catagory
+
             {features.map((d, i) =>
                 <label>
                     <input type="range" onChange={(e) => {
