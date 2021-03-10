@@ -54,44 +54,67 @@ const scaleControlStyle = {
 // price: 1,
 // description: 1,
 // Set your mapbox token here
+
+const adnan = ({object}) => {
+    let html
+    if (! object) return null
+
+    if (object.cluster)
+    html = `<div class="mini-bubble-details">
+    ${object.point_count} appartments
+           </div>`
+
+    else if (object.picture_url)
+        html = `
+        <img width="100px" height="100px" src=${object.picture_url + '?im_w=1200'}/>
+        <div class="mini-bubble-details">
+                    <strong>${object.price}</strong>
+                    <div>${object.name}</div>
+                    <div>3 bd, 2 ba</div>
+                    <div>1,604 sqft</div>
+                    <div>Review Score: ${object.review_scores_rating}</div>
+                    <div class="text-red-600">Price is 300 over expected value!</div>
+                    <div class="text-green-600">Price is 300 under expected value!</div>
+
+               </div>`
+    else
+        html = `
+        <img width="100px" height="100px" src=${object.image_url + '?im_w=1200'}/>
+        <div class="mini-bubble-details">
+                    <div>${object.name}</div>
+
+               </div>`
+    return {
+        style: {
+            color: '#333',
+            'background-color': 'white'
+        },
+        html
+    }
+}
+
 const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
     'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
-const renderTooltip = ({ object }) => {
-        if (!object) return null
-        console.log(object)
-        if (object.cluster) return `${object.point_count} appartments`
 
-        //if (! object.name) return `${object[1]} complaints`
 
-        if (object.picture_url)
-            return {
-                html: `
-  <div>${object.name}</div>
-  <div>Price ${object.price}</div>
-  // <div>${object.description}</div>
-  <div>Review Score: ${object.review_scores_rating}</div>
-  <img src=${object.picture_url + '?im_w=1200'}/>
-`,
-            }
-
-        let html = `<div>${object.name}</div>`
-        if (object.image_url)
-            html += `<img width="250px" height="250px" src=${object.image_url}>`
-        return { html }
-    }
+const handleClick = (e) => {
+console.log('click', e)
+}
 const Map = (props) => {
     return (
         <DeckGL
+            className="text-red-900"
             useDevicePixels={false}
             onViewStateChange={(o) => {
                 //console.log(o.viewState)
                 return o.viewState
             }}
             ContextProvider={MapContext.Provider}
-            getTooltip={renderTooltip}
+            getTooltip={adnan}
             controller
             initialViewState={INITIAL_VIEW_STATE}
             layers={props.layers || []}
+            onClick={handleClick}
         >
             <NavigationControl style={navControlStyle} />
             <StaticMap

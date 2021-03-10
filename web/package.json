@@ -37,6 +37,7 @@
         "react-map-gl": "^5.1.0",
         "style-ext-html-webpack-plugin": "^4.1.2",
         "supercluster": "^7.1.2",
+        "use-persisted-state": "^0.3.3",
         "use-places-autocomplete": "^1.8.1"
     },
     "devDependencies": {

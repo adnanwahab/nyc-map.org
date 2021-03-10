@@ -6,6 +6,8 @@ import { ScatterplotLayer } from 'deck.gl'
 
 import { RangeSlider } from "@blueprintjs/core";
 
+const LISTING_TYPES = ['Rentals', 'Airbnb', 'Condo', 'Officespace']
+
 const makeIconLayer = (data) => {
     const layerProps = {
         data,
@@ -75,74 +77,31 @@ const queryMongo = async (search) => {
 }
 
 
-
-
-
-const wrapperStyle = { width: 150 }
-
-const makeNameGood = (str) => {
-    return str.replace('_', ' ')
-}
-
-const emailModal = () => (
-    <>
-        <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-
-            //onClick={() => setShowModal(false)}
-        >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    {/*header*/}
-                    <form
-                        class="m-4 flex"
-                        onSubmit={() => {
-                            console.log('submit')
-                        }}
-                    >
-                        <input
-                            class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
-                            placeholder="your@mail.com"
-                        />
-                        <button class="px-8 rounded-r-lg bg-purple-400  text-gray-800 font-bold p-4 uppercase border-purple-500 border-t border-b border-r">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div
-            onClick={() => setShowModal(false)}
-            className="opacity-25 fixed inset-0 z-40 bg-black"
-        ></div>
-    </>
-)
-
-const ListingControls = (props) => {
-    const [checked, setChecked] = useState('')
+//localStorage.getItem('favorites')
+const FAVE = ['hello', 'yay']
+localStorage.setItem('favorites', JSON.stringify(FAVE))
+const favorites = FAVE;
+const ListingControls = ({selectListings}) => {
+    const [checked, setChecked] = useState('Airbnb')
     const [priceRange, setPriceRange] = useState([1500, 2000])
-    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         const call = async () => {
             if (! checked) return
             const data = await queryMongo({})
             const layer = makeIconLayer(data)
-            props.selectListings(layer)
+            selectListings(layer)
         }
         call()
     }, [checked])
 
-    localStorage.setItem('favorites', [])
+    let favoriteList = () =>
+       ( <div className="mt-2 flex items-center text-sm text-gray-500">
+            favorites:
+            {favorites.map((d) => <div>{d}</div>)}
+        </div>)
 
-    let favorites = (
-        <div className=" mt-2 flex items-center text-sm text-gray-500">
-            favorites:{' '}
-        </div>
-    )
-
-    let radio = ['Rentals', 'Airbnb', 'Condo', 'Officespace'].map((d) => (
+    let radio = LISTING_TYPES.map((d) => (
         <label key={d} className="pr-2">
             <input
                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded "
@@ -156,7 +115,7 @@ const ListingControls = (props) => {
     ))
     return (
         <div className="p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
-            {/* {favorites} */}
+                {favoriteList()}
             <div className="pb-5">
                 <img className="inline pr-2" src="/favicon.png" />
                 <span className="text-xl">Crib Finder </span>
