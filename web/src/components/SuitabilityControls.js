@@ -86,7 +86,7 @@ const SuitabilityControls = (props) => {
     const [weights, setWeights] = useState(buildWeights())
 
     useEffect(() => {
-        fetch(`/wow`)
+        fetch(`/wow.json`)
         .then((r) => r.json())
         .then((data) =>{
             console.log(data);
