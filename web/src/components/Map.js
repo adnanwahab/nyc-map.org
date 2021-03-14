@@ -64,9 +64,8 @@ const adnan = ({object}) => {
     ${object.point_count} appartments
            </div>`
 
-    else if (object.picture_url)
+    else if (object.picture_url) //<img width="100px" height="100px" src=${object.picture_url + '?im_w=1200'}/>
         html = `
-        <img width="100px" height="100px" src=${object.picture_url + '?im_w=1200'}/>
         <div class="mini-bubble-details">
                     <strong>${object.price}</strong>
                     <div>${object.name}</div>
@@ -116,7 +115,7 @@ const Map = (props) => {
             layers={props.layers || []}
             onClick={handleClick}
         >
-            <NavigationControl style={navControlStyle} />
+            {/* <NavigationControl style={navControlStyle} /> */}
             <StaticMap
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 mapStyle="mapbox://styles/mapbox/light-v9"

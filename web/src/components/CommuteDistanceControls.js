@@ -113,8 +113,6 @@ const isoChrone = async (coords, selection, minutes) => {
         '&polygons=true&access_token=' +
         token
 
-    console.log(query)
-
     let req = await fetch(query, {
         method: 'GET',
     })

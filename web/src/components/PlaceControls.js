@@ -47,7 +47,7 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
     })
 }
 
-const PlaceControls = (props) => {
+const PlaceControls = ({selected, setLayer}) => {
     const [value, setValue] = useState('')
     const setValueBounce = _.debounce(setValue, 300)
 
@@ -57,13 +57,13 @@ const PlaceControls = (props) => {
 
     useEffect(() => {
         const call = async () => {
+            if (! selected) return
             const data = await queryMongo(value)
             const layer = makeScatterLayer(data)
-            if (props.selected) props.setLayer(layer)
-            console.log('adnan', props.selected)
+            setLayer(layer)
         }
         call()
-    }, [value, props.selected])
+    }, [value, selected])
 
     return (
         <div className="p-5">

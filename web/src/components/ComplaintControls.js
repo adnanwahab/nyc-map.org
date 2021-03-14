@@ -67,17 +67,17 @@ const makeComplaintLayer = (url) => {
     }
 }
 
-const ComplaintControls = (props) => {
+const ComplaintControls = ({ selected, setLayer}) => {
     const [value, setValue] = useState('HEATING')
 
     useEffect(() => {
         const call = async () => {
-            console.log('adnan', value)
+            if (! selected) return;
             const layer = makeComplaintLayer(value)
-            props.setLayer(layer)
+            setLayer(layer)
         }
         call()
-    }, [value, props.selected])
+    }, [value, selected])
 
     return (
         <div className="p-5">

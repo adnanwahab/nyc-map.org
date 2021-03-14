@@ -5,7 +5,7 @@ import SuitabilityControls from './SuitabilityControls'
 import PlaceControls from './PlaceControls'
 
 const Accordion = (props) => {
-    let [selectedIndex, setSelectedIndex] = useState(0)
+    let [selectedIndex, setSelectedIndex] = useState(3)
 
     let controls = [
         ComplaintControls,

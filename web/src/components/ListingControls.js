@@ -24,11 +24,11 @@ const makeIconLayer = (data) => {
         getColor: () => [255, 0, 255, 255],
     }
 
-    return new IconClusterLayer({
-        ...layerProps,
-        id: 'icon-cluster',
-        sizeScale: 60,
-    })
+    // return new IconClusterLayer({
+    //     ...layerProps,
+    //     id: 'icon-cluster',
+    //     sizeScale: 60,
+    // })
 
     return new IconLayer({
         ...layerProps,
@@ -72,10 +72,8 @@ const queryMongo = async (search) => {
         body: JSON.stringify(query),
     })
     const rest = await res.json()
-    console.log(rest)
     return rest
 }
-
 
 //localStorage.getItem('favorites')
 const FAVE = ['hello', 'yay']
@@ -83,13 +81,13 @@ localStorage.setItem('favorites', JSON.stringify(FAVE))
 const favorites = FAVE;
 const ListingControls = ({selectListings}) => {
     const [checked, setChecked] = useState('Airbnb')
-    const [priceRange, setPriceRange] = useState([1500, 2000])
+    const [priceRange, setPriceRange] = useState([0, 2000])
 
     useEffect(() => {
         const call = async () => {
             if (! checked) return
             const data = await queryMongo({})
-            const layer = makeIconLayer(data)
+            const layer = makeIconLayer(data.slice(0, 50))
             selectListings(layer)
         }
         call()
@@ -115,7 +113,7 @@ const ListingControls = ({selectListings}) => {
     ))
     return (
         <div className="p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
-                {favoriteList()}
+                {/* {favoriteList()} */}
             <div className="pb-5">
                 <img className="inline pr-2" src="/favicon.png" />
                 <span className="text-xl">Crib Finder </span>
@@ -150,7 +148,11 @@ const ListingControls = ({selectListings}) => {
                 />
                 </div>
 
-                <div className="pt-5">
+                <button
+                    className="pt-5"
+                >More filters</button>
+
+                {/* <div className="pt-5">
                 <span className="float-left" size="small" color="brand">
                     Rooms
                 </span>
@@ -158,7 +160,7 @@ const ListingControls = ({selectListings}) => {
                 <div className=" pl-12">
                 <input className="focus:ring-indigo-500 focus:border-indigo-500 block m-auto w-5/12 pl-10 sm:text-sm border-gray-300 rounded-md" type="number" />
                 </div>
-            </div>
+            </div>*/}
         </div>
     </div>
     )

@@ -5,6 +5,17 @@ import {H3HexagonLayer} from '@deck.gl/geo-layers';
 
 import {H3ClusterLayer} from '@deck.gl/geo-layers';
 import { GeoJsonLayer } from 'deck.gl'
+
+import bart from '/public/suitability/bartLayer'
+import crime from '/public/suitability/crimeLayer'
+import schools from '/public/suitability/schoolsLayer'
+import travelTime from '/public/suitability/travelTimeLayer'
+
+let layers = [bart, crime, schools, travelTime].map(d =>
+    Object.entries(d).map(d => d[1]))
+
+    window.layers= layers
+
 const COLOR_SCALE = [
     // negative
     [65, 182, 196],
@@ -32,6 +43,21 @@ const colorScale = (x) => {
 
 
 const h3Layer = (data, weights) => {
+    let x = 0
+    let weightValues = Object.values(weights)
+
+    function fuck(i) {
+        x++
+        let sum = 0
+        layers.forEach((layer, i) => sum +=  weightValues[i] * (layer[x % layer.length]))
+        let result = sum / layers.length
+        //console.log(result)
+        //if (Math.random() > .95) console.log(result)
+        return result * 5
+        // return layers.reduce((prev, curr) => {
+        //     return prev + curr
+        // }, 0)
+    }
     return new GeoJsonLayer({
         id: 'commute',
         data: data,
@@ -41,7 +67,8 @@ const h3Layer = (data, weights) => {
         extruded: false,
         getElevation: (f) => Math.random() * 100,
         getStrokeColor: (f) => colorScale(weights.Crimes),
-        getFillColor: (d, i)=> [weights.Crimes * 255, weights.Schools * 255, weights.Cafes * 255],
+        getFillColor: (d, i)=> [ 50, 1, fuck(i) * 255],
+        //[weights.Crimes * 255, weights.Schools * 255, weights.Cafes * 255, console.log(d)],
         lineWidthScale: 10,
     })
 
@@ -79,36 +106,40 @@ const polygon = {
 
 let features = ['Crimes', "Schools", "Travel Times", "Cafes"]
 let buildWeights = () => {
-    return features.reduce((acc, item) => { acc[item] = Math.random(); return acc }, {})
+    return features.reduce((acc, item) => { acc[item] = 1; return acc }, {})
 }
 
-const SuitabilityControls = (props) => {
+const SuitabilityControls = ({ selected, setLayer }) => {
     const [weights, setWeights] = useState(buildWeights())
 
     useEffect(() => {
         fetch(`/wow.json`)
         .then((r) => r.json())
         .then((data) =>{
-            console.log(data);
+            if (! selected) return
             data = data.map(d => geojson2h3.h3SetToMultiPolygonFeature(d) )
-            console.log(weights)
             let layer = h3Layer(data, weights)
-            if (props.selected) props.setLayer(layer)
+            setLayer(layer)
         })
-    }, Object.values(weights).concat(props.selected))
+    }, Object.values(weights).concat(selected))
     return (
         <div className="p-5">
-        Use the sliders below to adjust the importance of each catagory
+        Use the sliders below to adjust the importance of each category <br/>
 
             {features.map((d, i) =>
-                <label>
-                    <input type="range" onChange={(e) => {
+            <>
+            <input value={weights[d] * 100} type="range"
+                    className="clear"
+                    onChange={(e) => {
                         weights[d] = (e.target.value / 100)
                         console.log(d, e.target.value)
                         setWeights({...weights})
                     }} />
+                <label className="" key={i}>
                     {d}
                 </label>
+
+                </>
             )}
         </div>
     )
