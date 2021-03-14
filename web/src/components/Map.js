@@ -1,26 +1,9 @@
 import { StaticMap } from 'react-map-gl'
 import {
     _MapContext as MapContext,
-    NavigationControl,
-    ScaleControl,
 } from 'react-map-gl'
 
-import DeckGL, {
-    ScatterplotLayer,
-    GeoJsonLayer,
-    LineLayer,
-    HexagonLayer,
-} from 'deck.gl'
-
-// const INITIAL_VIEW_STATE = {
-//   longitude: -73.91922208269459,
-//   latitude: 40.72185277744134,
-//   zoom: 11.502812637593744,
-//   pitch: 0,
-//   bearing: 0,
-//   width: 960,
-//   height: 500
-// }
+import DeckGL from 'deck.gl'
 
 const INITIAL_VIEW_STATE = {
     altitude: 1.5,
@@ -37,23 +20,6 @@ const INITIAL_VIEW_STATE = {
     zoom: 11.502812637593744,
 }
 
-const navControlStyle = {
-    left: 10,
-    top: 10,
-}
-
-const scaleControlStyle = {
-    left: 20,
-    top: 100,
-}
-
-// name: 1,
-
-// picture_url: 1,
-// review_scores_rating: "94",
-// price: 1,
-// description: 1,
-// Set your mapbox token here
 
 const adnan = ({object}) => {
     let html
@@ -92,30 +58,24 @@ const adnan = ({object}) => {
     }
 }
 
-const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
-    'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
+const MAPBOX_TOKEN = process.env.HELLO_ENV; // eslint-disable-line
+console.log(MAPBOX_TOKEN)
 
 
-const handleClick = (e) => {
-console.log('click', e)
-}
 const Map = (props) => {
     return (
         <DeckGL
             className="text-red-900"
             useDevicePixels={false}
-            onViewStateChange={(o) => {
-                //console.log(o.viewState)
-                return o.viewState
-            }}
             ContextProvider={MapContext.Provider}
             getTooltip={adnan}
+
             controller
+
+
             initialViewState={INITIAL_VIEW_STATE}
             layers={props.layers || []}
-            onClick={handleClick}
         >
-            {/* <NavigationControl style={navControlStyle} /> */}
             <StaticMap
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 mapStyle="mapbox://styles/mapbox/light-v9"

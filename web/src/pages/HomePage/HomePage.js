@@ -14,16 +14,13 @@ function Root() {
     const [listingLayer, selectListings] = useState()
     const [showLoading, setShowLoading] = useState()
 
-    // heap.identify('unique_identifier');
-
     const layers = [listingLayer, selectedLayer]
-    // console.log(layers)
     const loader = <div id="rainbow-progress-bar"></div>
 
     return (
         <div>
             {showLoading && loader}
-            <ListingControls selectListings={selectListings} />
+            <ListingControls renderListings={selectListings} />
             <VisualizationControls setLayer={selectLayer} />
             <Map layers={layers} />
         </div>

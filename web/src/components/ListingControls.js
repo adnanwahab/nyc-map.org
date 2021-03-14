@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import GL from '@luma.gl/constants'
 import { IconLayer } from '@deck.gl/layers'
-import IconClusterLayer from 'src/components/icon-cluster-layer'
-import { ScatterplotLayer } from 'deck.gl'
-
 import { RangeSlider } from "@blueprintjs/core";
 
 const LISTING_TYPES = ['Rentals', 'Airbnb', 'Condo', 'Officespace']
 
-const makeIconLayer = (data) => {
+const makeIconLayer = (data, setSelectedListing) => {
     const layerProps = {
         data,
         pickable: true,
@@ -22,6 +18,9 @@ const makeIconLayer = (data) => {
         sizeMinPixels: 20,
         sizeMaxPixels: 50,
         getColor: () => [255, 0, 255, 255],
+        onClick: (info) => {
+            setSelectedListing(info.object)
+        }
     }
 
     // return new IconClusterLayer({
@@ -42,31 +41,6 @@ const makeIconLayer = (data) => {
     })
 }
 
-const makeScatterLayer = (data) => {
-    return new ScatterplotLayer({
-        id: 'places',
-        getFillColor: (d) => {
-            return [100, 0.5, 100, 255]
-        },
-        getPosition: (d) => [+d.longitude, +d.latitude],
-
-        radiusScale: 10,
-        getRadius: 10,
-        data: data,
-        stroke: false,
-        parameters: {
-            // prevent flicker from z-fighting
-            [GL.DEPTH_TEST]: true,
-
-            // turn on additive blending to make them look more glowy
-            [GL.BLEND]: true,
-            [GL.BLEND_SRC_RGB]: GL.ONE,
-            [GL.BLEND_DST_RGB]: GL.ONE,
-            [GL.BLEND_EQUATION]: GL.FUNC_ADD,
-        },
-    })
-}
-
 const queryMongo = async (search) => {
     const query = {}
     const res = await fetch('http://localhost:8911/listings', {
@@ -77,29 +51,35 @@ const queryMongo = async (search) => {
     return rest
 }
 
-//localStorage.getItem('favorites')
-const FAVE = ['hello', 'yay']
-localStorage.setItem('favorites', JSON.stringify(FAVE))
-const favorites = FAVE;
-const ListingControls = ({selectListings}) => {
+function showToolTip(object) {
+    return <div className="p-5 top-10 left-10 absolute bg-white shadow text-black z-50">
+    <div className="mini-bubble-details">
+    <img width="100px" height="100px" src={object.picture_url + '?im_w=1200'}/>
+                <strong>{object.price}</strong>
+                <div>{object.name}</div>
+                <div>3 bd, 2 ba</div>
+                <div>1,604 sqft</div>
+                <div>Review Score: {object.review_scores_rating}</div>
+                <div className="text-red-600">Price is 300 over expected value!</div>
+                <div className="text-green-600">Price is 300 under expected value!</div>
+           </div>
+    </div>
+}
+
+const ListingControls = ({renderListings}) => {
     const [checked, setChecked] = useState('Airbnb')
     const [priceRange, setPriceRange] = useState([0, 2000])
+    const [selectedListing, setSelectedListing] = useState(null)
 
     useEffect(() => {
         const call = async () => {
             if (! checked) return
             const data = await queryMongo({})
-            const layer = makeIconLayer(data.slice(0, 50))
-            selectListings(layer)
+            const layer = makeIconLayer(data.slice(0, 50), setSelectedListing)
+            renderListings(layer)
         }
         call()
     }, [checked])
-
-    let favoriteList = () =>
-       ( <div className="mt-2 flex items-center text-sm text-gray-500">
-            favorites:
-            {favorites.map((d) => <div>{d}</div>)}
-        </div>)
 
     let radio = LISTING_TYPES.map((d) => (
         <label key={d} className="pr-2">
@@ -114,6 +94,11 @@ const ListingControls = ({selectListings}) => {
         </label>
     ))
     return (
+        <>
+        {selectedListing && showToolTip(selectedListing)}
+
+
+
         <div className="p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
                 {/* {favoriteList()} */}
             <div className="pb-5">
@@ -150,21 +135,17 @@ const ListingControls = ({selectListings}) => {
                 />
                 </div>
 
+                <div className="mt-5">
                 <button
-                    className="pt-5"
-                >More filters</button>
-
-                {/* <div className="pt-5">
-                <span className="float-left" size="small" color="brand">
-                    Rooms
-                </span>
-
-                <div className=" pl-12">
-                <input className="focus:ring-indigo-500 focus:border-indigo-500 block m-auto w-5/12 pl-10 sm:text-sm border-gray-300 rounded-md" type="number" />
+                    className="inline-flex items-center px-2.5 py-1.5 border
+                     border-gray-300 shadow-sm text-xs font-medium rounded
+                      text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
+                       focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >Rooms</button>
                 </div>
-            </div>*/}
         </div>
     </div>
+    </>
     )
 }
 
