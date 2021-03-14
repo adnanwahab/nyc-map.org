@@ -32,6 +32,8 @@ const makeIconLayer = (data) => {
 
     return new IconLayer({
         ...layerProps,
+        autoHighlight: true,
+        highlightColor: [0, 0, 128, 128],
         id: 'icon',
         getIcon: (d) => 'marker',
         sizeUnits: 'meters',
