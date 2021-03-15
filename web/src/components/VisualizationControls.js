@@ -24,7 +24,10 @@ const Accordion = (props) => {
         'Suitability',
     ].map((children, idx) => {
         return (
-            <div key={idx} className="tab w-full overflow-hidden border-t">
+            <div
+                key={idx}
+                className="tab w-full overflow-hidden border-t text-black"
+            >
                 <input
                     defaultChecked={selectedIndex === idx}
                     onClick={(e) => {
