@@ -59,10 +59,7 @@ const adnan = ({ object }) => {
 const Mapbox_access_token =
     'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
 //process.env.HELLO_ENV; // eslint-disable-line
-console.log(
-    'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
-)
-// console.log(pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ)
+
 const Map = ({ layers }) => {
     return (
         <DeckGL
