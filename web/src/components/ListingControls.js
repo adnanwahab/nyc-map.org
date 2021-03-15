@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IconLayer } from '@deck.gl/layers'
 import { RangeSlider } from '@blueprintjs/core'
+// import { Classes, Popover2 } from '@blueprintjs/popover2'
 
 const LISTING_TYPES = ['Rentals', 'Airbnb', 'Condo', 'Officespace']
 
@@ -52,6 +53,7 @@ const queryMongo = async (search) => {
 }
 
 function showToolTip(object) {
+    console.log(object)
     return (
         <div className="p-5 top-10 left-10 absolute bg-white shadow text-black z-50">
             <div className="mini-bubble-details">
@@ -60,7 +62,7 @@ function showToolTip(object) {
                     height="100px"
                     src={object.picture_url + '?im_w=1200'}
                 />
-                <strong>{object.price}</strong>
+                <strong>${parseInt(object.price.slice(1)) * 30}</strong>
                 <div>{object.name}</div>
                 <div>3 bd, 2 ba</div>
                 <div>1,604 sqft</div>
@@ -71,6 +73,7 @@ function showToolTip(object) {
                 <div className="text-green-600">
                     Price is 300 under expected value!
                 </div>
+                <a href={object.listing_url}>Link to listing</a>
             </div>
         </div>
     )
@@ -162,6 +165,20 @@ const ListingControls = ({ renderListings }) => {
                         >
                             Rooms
                         </button>
+                        {/* <Popover
+                            interactionKind={PopoverInteractionKind.CLICK}
+                            popoverClassName="bp3-popover-content-sizing"
+                            position={Position.RIGHT}
+                        >
+
+                            <div>
+                                <h5>Popover title</h5>
+                                <p>...</p>
+                                <button className="bp3-popover-dismiss">
+                                    Dismiss
+                                </button>
+                            </div>
+                        </Popover> */}
                     </div>
                 </div>
             </div>

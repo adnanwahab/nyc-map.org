@@ -64,12 +64,6 @@ console.log(
 )
 // console.log(pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ)
 const Map = ({ layers }) => {
-    const [viewport, setViewport] = useState({
-        longitude: -122.45,
-        latitude: 37.78,
-        zoom: 14,
-    })
-
     return (
         <DeckGL
             initialViewState={INITIAL_VIEW_STATE}
