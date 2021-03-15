@@ -56,8 +56,13 @@ const adnan = ({ object }) => {
     }
 }
 
-const MAPBOX_ACCESS_TOKEN = process.env.HELLO_ENV; // eslint-disable-line
-
+const Mapbox_access_token =
+    'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
+//process.env.HELLO_ENV; // eslint-disable-line
+console.log(
+    'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
+)
+// console.log(pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ)
 const Map = ({ layers }) => {
     const [viewport, setViewport] = useState({
         longitude: -122.45,
@@ -81,7 +86,8 @@ const Map = ({ layers }) => {
             /> */}
             <StaticMap
                 reuseMaps
-                mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+                mapboxApiAccessToken={Mapbox_access_token}
+                preventStyleDiffing={true}
                 preventStyleDiffing={true}
             />
         </DeckGL>

@@ -51,19 +51,18 @@ const Accordion = (props) => {
     return <div className="shadow-md">{list}</div>
 }
 
-
 const VisualizationControls = ({ setLayer }) => {
     let [showing, setShowing] = useState(true)
     return (
-        <div className="pointer-events-none	fixed inset-0 overflow-hidden z-50 text-black text-xs">
-  <div className="absolute inset-0 overflow-hidden">
-
-    {/* <div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
-    <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex" aria-labelledby="slide-over-heading">
-
-      <div className="relative w-screen max-w-xs">
-
-        {/* <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
+        <div className="Sm:Hidden Md:Block pointer-events-none	fixed inset-0 overflow-hidden z-50 text-black text-xs">
+            <div className="absolute inset-0 overflow-hidden">
+                {/* <div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
+                <section
+                    className="absolute inset-y-0 right-0 pl-10 max-w-full flex"
+                    aria-labelledby="slide-over-heading"
+                >
+                    <div className="relative w-screen max-w-xs">
+                        {/* <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
           <button onClick={() => setShowing(! showing)} className="rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
             <span className="sr-only">Close panel</span>
             <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -71,25 +70,26 @@ const VisualizationControls = ({ setLayer }) => {
             </svg>
           </button>
         </div> */}
-        <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-          <div className="px-4 sm:px-6">
-            <h2 id="slide-over-heading" className="text-lg font-medium text-gray-900">
-              Visualization Controls
-            </h2>
-          </div>
-          <div className="mt-6 relative flex-1 sm:px-6">
-            <div className="absolute inset-0 pointer-events-auto">
-                    <Accordion setLayer={setLayer} />
-              {/* <div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true"></div> */}
-
+                        <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+                            <div className="px-4 sm:px-6">
+                                <h2
+                                    id="slide-over-heading"
+                                    className="text-lg font-medium text-gray-900"
+                                >
+                                    Visualization Controls
+                                </h2>
+                            </div>
+                            <div className="mt-6 relative flex-1 sm:px-6">
+                                <div className="absolute inset-0 pointer-events-auto">
+                                    <Accordion setLayer={setLayer} />
+                                    {/* <div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true"></div> */}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-  </div>
-</div>
-
     )
 }
 
