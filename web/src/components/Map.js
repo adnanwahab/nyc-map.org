@@ -1,9 +1,7 @@
-import { StaticMap } from 'react-map-gl'
-import {
-    _MapContext as MapContext,
-} from 'react-map-gl'
-
+import ReactMapGL from 'react-map-gl'
+import { useState } from 'react'
 import DeckGL from 'deck.gl'
+import { StaticMap } from 'react-map-gl'
 
 const INITIAL_VIEW_STATE = {
     altitude: 1.5,
@@ -20,17 +18,15 @@ const INITIAL_VIEW_STATE = {
     zoom: 11.502812637593744,
 }
 
-
-const adnan = ({object}) => {
+const adnan = ({ object }) => {
     let html
-    if (! object) return null
+    if (!object) return null
 
     if (object.cluster)
-    html = `<div class="mini-bubble-details">
+        html = `<div class="mini-bubble-details">
     ${object.point_count} appartments
            </div>`
-
-    else if (object.picture_url) //<img width="100px" height="100px" src=${object.picture_url + '?im_w=1200'}/>
+    else if (object.picture_url)
         html = `
         <div class="mini-bubble-details">
                     <strong>${object.price}</strong>
@@ -44,7 +40,9 @@ const adnan = ({object}) => {
                </div>`
     else
         html = `
-        <img width="100px" height="100px" src=${object.image_url + '?im_w=1200'}/>
+        <img width="100px" height="100px" src=${
+            object.image_url + '?im_w=1200'
+        }/>
         <div class="mini-bubble-details">
                     <div>${object.name}</div>
 
@@ -52,33 +50,39 @@ const adnan = ({object}) => {
     return {
         style: {
             color: '#333',
-            'background-color': 'white'
+            'background-color': 'white',
         },
-        html
+        html,
     }
 }
 
-const MAPBOX_TOKEN = process.env.HELLO_ENV; // eslint-disable-line
-console.log(MAPBOX_TOKEN)
+const MAPBOX_ACCESS_TOKEN = process.env.HELLO_ENV; // eslint-disable-line
 
+const Map = ({ layers }) => {
+    const [viewport, setViewport] = useState({
+        longitude: -122.45,
+        latitude: 37.78,
+        zoom: 14,
+    })
 
-const Map = (props) => {
     return (
         <DeckGL
-            className="text-red-900"
-            useDevicePixels={false}
-            ContextProvider={MapContext.Provider}
-            getTooltip={adnan}
-
-            controller
-
-
             initialViewState={INITIAL_VIEW_STATE}
-            layers={props.layers || []}
+            useDevicePixels={false}
+            layers={[]}
+            controller={true}
+            // _typedArrayManagerProps: isMobile ? {overAlloc: 1, poolSize: 0} : null
         >
-            <StaticMap
+            {/*        <ReactMapGL
+                {...viewport}
+                onViewportChange={setViewport}
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 mapStyle="mapbox://styles/mapbox/light-v9"
+            /> */}
+            <StaticMap
+                reuseMaps
+                mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+                preventStyleDiffing={true}
             />
         </DeckGL>
     )
