@@ -107,7 +107,7 @@ const ListingControls = ({ renderListings }) => {
         <>
             {selectedListing && showToolTip(selectedListing)}
 
-            <div className="sm:hidden md:block p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
+            <div className="hidden md:block p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
                 {/* {favoriteList()} */}
                 <div className="pb-5">
                     <img className="inline pr-2" src="/favicon.png" />

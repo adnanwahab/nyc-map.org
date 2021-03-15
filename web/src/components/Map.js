@@ -1,5 +1,5 @@
 import ReactMapGL from 'react-map-gl'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import DeckGL from 'deck.gl'
 import { StaticMap } from 'react-map-gl'
 
@@ -74,24 +74,17 @@ const Map = ({ layers }) => {
         <DeckGL
             initialViewState={INITIAL_VIEW_STATE}
             useDevicePixels={false}
-            layers={[]}
+            layers={layers}
             controller={true}
             // _typedArrayManagerProps: isMobile ? {overAlloc: 1, poolSize: 0} : null
         >
-            {/*        <ReactMapGL
-                {...viewport}
-                onViewportChange={setViewport}
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                mapStyle="mapbox://styles/mapbox/light-v9"
-            /> */}
             <StaticMap
                 reuseMaps
                 mapboxApiAccessToken={Mapbox_access_token}
-                preventStyleDiffing={true}
                 preventStyleDiffing={true}
             />
         </DeckGL>
     )
 }
 
-export default Map
+export default React.memo(Map)

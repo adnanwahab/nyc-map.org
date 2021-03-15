@@ -53,23 +53,46 @@ const Accordion = (props) => {
 
 const VisualizationControls = ({ setLayer }) => {
     let [showing, setShowing] = useState(true)
+
     return (
-        <div className="Sm:Hidden Md:Block pointer-events-none	fixed inset-0 overflow-hidden z-50 text-black text-xs">
+        <div className="fixed inset-0 overflow-hidden z-50 pointer-events-none">
             <div className="absolute inset-0 overflow-hidden">
                 {/* <div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
                 <section
-                    className="absolute inset-y-0 right-0 pl-10 max-w-full flex"
+                    className={
+                        'absolute inset-y-0 right-0 pl-10 max-w-full flex transform-gpu transition-transform ' +
+                        (showing ? ' translate-x-20' : 'translate-x-0')
+                    }
+                    style={
+                        showing
+                            ? { transform: 'translatex(0rem)' }
+                            : { transform: 'translatex(20rem)' }
+                    }
                     aria-labelledby="slide-over-heading"
                 >
                     <div className="relative w-screen max-w-xs">
-                        {/* <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
-          <button onClick={() => setShowing(! showing)} className="rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
-            <span className="sr-only">Close panel</span>
-            <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div> */}
+                        <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
+                            <button
+                                onClick={() => setShowing(!showing)}
+                                className="pointer-events-auto rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                            >
+                                <span className="sr-only">Close panel</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 64 64"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    width="24px"
+                                    height="24px"
+                                    className={`opacity-70 rotate-${
+                                        showing ? 0 : 180
+                                    }`}
+                                >
+                                    <path d="M26.7,54.7l-4.5-4.4c-0.4-0.4-0.4-1,0-1.4L38.6,33L22.2,17c-0.4-0.4-0.4-1,0-1.5l4.5-4.4c0.4-0.4,1.1-0.4,1.5,0 l17.1,16.7l4.5,4.4c0.4,0.4,0.4,1,0,1.4L45.2,38L28.2,54.7C27.8,55.1,27.1,55.1,26.7,54.7"></path>
+                                </svg>
+                            </button>
+                        </div>
                         <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                             <div className="px-4 sm:px-6">
                                 <h2
