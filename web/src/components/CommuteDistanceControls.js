@@ -8,7 +8,6 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete'
 
 const COLOR_SCALE = [
-    // negative
     [65, 182, 196],
     [127, 205, 187],
     [199, 233, 180],
@@ -53,7 +52,7 @@ const PlacesAutocomplete = ({ setCoords }) => {
         setValue(description, false)
         clearSuggestions()
 
-        let result = getGeocode({ address: description })
+        getGeocode({ address: description })
             .then((results) => getLatLng(results[0]))
             .then(({ lat, lng }) => {
                 console.log('📍 Coordinates: ', { lat, lng })

@@ -67,7 +67,6 @@ const Map = ({ layers }) => {
             useDevicePixels={false}
             layers={layers}
             controller={true}
-            // _typedArrayManagerProps: isMobile ? {overAlloc: 1, poolSize: 0} : null
         >
             <StaticMap
                 reuseMaps

@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
+import makeFetch from './useFetch'
+
+const queryMongo = async (url) => {
+    const res = await fetch(url)
+    return res
+}
+const useFetch = makeFetch(queryMongo)
 
 const complaints = [
     'Blocked-Driveway',
@@ -27,17 +34,16 @@ export const colorRange = [
 ]
 
 const colorRamp = (n) => {
-    let len = n.toString().length
-
-    return colorRange[len]
+    return colorRange[n.toString().length]
 }
 
-const makeComplaintLayer = (url) => {
+//console.log('loading ' + )
+
+const makeComplaintLayer = (data) => {
     return () => {
-        console.log('loading ' + `data/${url}.json`)
         let layer = new H3HexagonLayer({
             id: 'h3-hexagon-layer',
-            data: `data/${url}.json`,
+            data: data,
             coverage: 1,
             elevationScale: 2,
             opacity: 0.8,
@@ -48,25 +54,19 @@ const makeComplaintLayer = (url) => {
             wireframe: false,
             getHexagon: (d) => d[0],
             getFillColor: (d) => colorRamp(d[1]),
-            elevationScale: 1,
             getElevation: (d) => d[1],
         })
-        window.l = layer
         return layer
     }
 }
 
 const ComplaintControls = ({ selected, setLayer }) => {
     const [value, setValue] = useState('HEATING')
+    const { status, data } = useFetch(`data/${value}.json`)
 
     useEffect(() => {
-        const call = async () => {
-            if (!selected) return
-            const layer = makeComplaintLayer(value)
-            setLayer(layer)
-        }
-        call()
-    }, [value, selected])
+        if (selected) setLayer(makeComplaintLayer(data))
+    }, [value, selected, status])
 
     return (
         <div className="p-5">

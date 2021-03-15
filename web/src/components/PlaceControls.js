@@ -2,26 +2,7 @@ import React, { useState, useEffect } from 'react'
 import GL from '@luma.gl/constants'
 import _ from 'lodash'
 import { ScatterplotLayer } from 'deck.gl'
-
-const useFetch = (url) => {
-    const [status, setStatus] = useState('idle')
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setStatus('fetching')
-            const res = await queryMongo(url)
-            const data = await res.json()
-            setData(data)
-            setStatus('fetched')
-            console.log('fetched')
-        }
-
-        fetchData()
-    }, [url])
-
-    return { status, data }
-}
+import makeFetch from './useFetch'
 
 const queryMongo = async (search) => {
     const res = await fetch('http://localhost:8911/mongo', {
@@ -31,6 +12,8 @@ const queryMongo = async (search) => {
     })
     return res
 }
+
+const useFetch = makeFetch(queryMongo)
 const makeScatterLayer = (data) => {
     return new ScatterplotLayer({
         id: 'places',
@@ -44,6 +27,9 @@ const makeScatterLayer = (data) => {
         lineWidthMinPixels: 1,
         stroked: true,
         opacity: 0.9,
+        autoHighlight: true,
+        highlightColor: [256, 128, 128, 128],
+        picking: true,
 
         parameters: {
             [GL.DEPTH_TEST]: true,

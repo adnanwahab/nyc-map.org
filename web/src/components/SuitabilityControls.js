@@ -11,31 +11,6 @@ let layers = [bart, crime, schools, travelTime].map((d) =>
     Object.entries(d).map((d) => d[1])
 )
 
-const COLOR_SCALE = [
-    // negative
-    [65, 182, 196],
-    [127, 205, 187],
-    [199, 233, 180],
-    [237, 248, 177],
-    [255, 255, 204],
-    [255, 237, 160],
-    [254, 217, 118],
-    [254, 178, 76],
-    [253, 141, 60],
-    [252, 78, 42],
-    [227, 26, 28],
-    [189, 0, 38],
-    [128, 0, 38],
-]
-
-const colorScale = (x) => {
-    const i = Math.round(x * 7) + 4
-    if (x < 0) {
-        return COLOR_SCALE[i] || COLOR_SCALE[0]
-    }
-    return COLOR_SCALE[i] || COLOR_SCALE[COLOR_SCALE.length - 1]
-}
-
 const h3Layer = (data, weights) => {
     let x = 0
     let weightValues = Object.values(weights)
@@ -52,7 +27,7 @@ const h3Layer = (data, weights) => {
     }
 
     return new H3HexagonLayer({
-        id: 'h3-hexagon-layer',
+        id: 'h3-hexagon-layer' + Math.random(),
         data,
         stroked: true,
         filled: true,
@@ -71,18 +46,33 @@ let buildWeights = () => {
     }, {})
 }
 
-const SuitabilityControls = ({ selected, setLayer }) => {
-    const [weights, setWeights] = useState(buildWeights())
+const useFetch = (url) => {
+    const [status, setStatus] = useState('idle')
+    const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch(`/hexes.json`)
-            .then((r) => r.json())
-            .then((data) => {
-                if (!selected) return
-                let layer = h3Layer(data, weights)
-                setLayer(layer)
-            })
-    }, Object.values(weights).concat(selected))
+        const fetchData = async () => {
+            setStatus('fetching')
+            const res = await fetch(url)
+            const data = await res.json()
+            setData(data)
+            setStatus('fetched')
+        }
+
+        fetchData()
+    }, [url])
+
+    return { status, data }
+}
+
+const SuitabilityControls = ({ selected, setLayer }) => {
+    const [weights, setWeights] = useState(buildWeights())
+    const { status, data } = useFetch('/hexes.json')
+
+    useEffect(() => {
+        console.log('wow', selected)
+        if (selected) setLayer(h3Layer(data, weights))
+    }, Object.values(weights).concat(selected).concat(status))
     return (
         <div className="p-5">
             Use the sliders below to adjust the importance of each category{' '}
