@@ -132,7 +132,7 @@ const isoChrone = async (coords, selection, minutes) => {
     })
 }
 
-const CommuteDistanceControls = (props) => {
+const CommuteDistanceControls = ({ selected, setLayer }) => {
     const options = ['Walking', 'Cycling', 'Driving']
     const [selection, setSelection] = useState(options[0])
     const [coords, setCoords] = useState([
@@ -145,25 +145,35 @@ const CommuteDistanceControls = (props) => {
     useEffect(() => {
         const call = async () => {
             const layer = await isoChrone(coords, selection, minutes)
-            if (props.selected) props.setLayer(layer)
+            if (selected) setLayer(layer)
         }
         call()
-    }, [selection, coords, minutes, props.selected])
+    }, [selection, coords, minutes, selected])
 
-    const selectedTab = "border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-    const tab = "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-    const tabs = (<>
-  <div className="hidden sm:block">
-    <div className="border-b border-gray-200">
-      <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-      {options.map((o) => (
-            <a key={o}onClick={() => setSelection(o)}  href="#" className={selection === o ? selectedTab : tab}>
-            {o}
-        </a>
-        ))}
-      </nav>
-    </div>
-  </div></>)
+    const selectedTab =
+        'border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+    const tab =
+        'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+    const tabs = (
+        <>
+            <div className="hidden sm:block">
+                <div className="border-b border-gray-200">
+                    <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                        {options.map((o) => (
+                            <a
+                                key={o}
+                                onClick={() => setSelection(o)}
+                                href="#"
+                                className={selection === o ? selectedTab : tab}
+                            >
+                                {o}
+                            </a>
+                        ))}
+                    </nav>
+                </div>
+            </div>
+        </>
+    )
     return (
         <div style={{ borderBottom: '2px solid #eaeaea' }} className="p-5">
             {tabs}
@@ -176,8 +186,6 @@ const CommuteDistanceControls = (props) => {
                 max={60}
             />
             <PlacesAutocomplete setCoords={setCoords} />
-
-
         </div>
     )
 }

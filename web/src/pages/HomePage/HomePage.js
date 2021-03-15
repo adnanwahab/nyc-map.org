@@ -4,9 +4,9 @@ import VisualizationControls from 'src/components/VisualizationControls'
 import ListingControls from 'src/components/ListingControls'
 import Map from 'src/components/Map'
 
-import "normalize.css";
-import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+//import 'normalize.css'
+import '@blueprintjs/core/lib/css/blueprint.css'
+//import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 // import "@blueprintjs/select/lib/css/blueprint-select.css";
 
 function Root() {
@@ -18,7 +18,7 @@ function Root() {
     const loader = <div id="rainbow-progress-bar"></div>
 
     return (
-        <div>
+        <div className="antialiased">
             {showLoading && loader}
             <ListingControls renderListings={selectListings} />
             <VisualizationControls setLayer={selectLayer} />

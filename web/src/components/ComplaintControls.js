@@ -17,17 +17,6 @@ const complaints = [
     'Street-Condition',
 ]
 
-// const Select = styled.select`
-//     padding: 0px 1.5rem;
-//     border-color: rgba(0, 0, 0, 0.1);
-//     border-bottom: 1px solid #333;
-//     border-color: rgba(0, 0, 0, 0.1);
-//     padding-left: 1.5rem;
-//     padding-right: 1.5rem;
-//     font-weight: 600;
-//     padding-top: 1rem;
-//     padding-bottom: 1rem;
-// `
 export const colorRange = [
     [1, 152, 189],
     [73, 227, 206],
@@ -67,12 +56,12 @@ const makeComplaintLayer = (url) => {
     }
 }
 
-const ComplaintControls = ({ selected, setLayer}) => {
+const ComplaintControls = ({ selected, setLayer }) => {
     const [value, setValue] = useState('HEATING')
 
     useEffect(() => {
         const call = async () => {
-            if (! selected) return;
+            if (!selected) return
             const layer = makeComplaintLayer(value)
             setLayer(layer)
         }

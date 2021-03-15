@@ -4,7 +4,7 @@ import ComplaintControls from './ComplaintControls'
 import SuitabilityControls from './SuitabilityControls'
 import PlaceControls from './PlaceControls'
 
-const Accordion = (props) => {
+const Accordion = ({ setLayer }) => {
     let [selectedIndex, setSelectedIndex] = useState(3)
 
     let controls = [
@@ -12,11 +12,9 @@ const Accordion = (props) => {
         CommuteDistanceControls,
         PlaceControls,
         SuitabilityControls,
-    ].map((C, idx) => {
-        return (
-            <C setLayer={props.setLayer} selected={selectedIndex === idx}></C>
-        )
-    })
+    ].map((C, idx) => (
+        <C setLayer={setLayer} selected={selectedIndex === idx} />
+    ))
     let list = [
         '311 Complaints',
         'Commute Distance',
@@ -60,7 +58,6 @@ const VisualizationControls = ({ setLayer }) => {
     return (
         <div className="hidden md:block fixed inset-0 overflow-hidden z-50 pointer-events-none">
             <div className="absolute inset-0 overflow-hidden">
-                {/* <div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div> */}
                 <section
                     className={
                         'absolute inset-y-0 right-0 pl-10 max-w-full flex transform-gpu transition-transform ' +

@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import GL from '@luma.gl/constants'
 import _ from 'lodash'
-import {
-    ScatterplotLayer,
-    GeoJsonLayer,
-    LineLayer,
-    HexagonLayer,
-} from 'deck.gl'
+import { ScatterplotLayer } from 'deck.gl'
+
+const useFetch = (url) => {
+    const [status, setStatus] = useState('idle')
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setStatus('fetching')
+            const res = await queryMongo(url)
+            const data = await res.json()
+            setData(data)
+            setStatus('fetched')
+            console.log('fetched')
+        }
+
+        fetchData()
+    }, [url])
+
+    return { status, data }
+}
 
 const queryMongo = async (search) => {
     const res = await fetch('http://localhost:8911/mongo', {
@@ -14,17 +29,13 @@ const queryMongo = async (search) => {
         body: JSON.stringify({ search }),
         //body: JSON.stringify({$text: {$search: search}})
     })
-    const rest = await res.json()
-    return rest
+    return res
 }
-const makeScatterLayer = (data, hoveredId, onHover) => {
+const makeScatterLayer = (data) => {
     return new ScatterplotLayer({
         id: 'places',
         getPosition: (d) => [d.coordinates.longitude, d.coordinates.latitude],
-
-        getFillColor: (d) => {
-            return [100, 0, 100, 255]
-        },
+        getFillColor: [100, 0, 100, 255],
         getLineColor: (d) => [0, 0, 0],
         radiusScale: 15,
         radiusMinPixels: 2,
@@ -35,10 +46,7 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
         opacity: 0.9,
 
         parameters: {
-            // prevent flicker from z-fighting
             [GL.DEPTH_TEST]: true,
-
-            // turn on additive blending to make them look more glowy
             [GL.BLEND]: true,
             [GL.BLEND_SRC_RGB]: GL.ONE,
             [GL.BLEND_DST_RGB]: GL.ONE,
@@ -47,22 +55,13 @@ const makeScatterLayer = (data, hoveredId, onHover) => {
     })
 }
 
-const PlaceControls = ({selected, setLayer}) => {
+const PlaceControls = ({ selected, setLayer }) => {
     const [value, setValue] = useState('')
     const setValueBounce = _.debounce(setValue, 300)
-
-    const onChange = (e) => {
-        setValueBounce(e.target.value)
-    }
+    const { status, data } = useFetch(value)
 
     useEffect(() => {
-        const call = async () => {
-            if (! selected) return
-            const data = await queryMongo(value)
-            const layer = makeScatterLayer(data)
-            setLayer(layer)
-        }
-        call()
+        if (selected) setLayer(makeScatterLayer(data))
     }, [value, selected])
 
     return (
@@ -72,7 +71,7 @@ const PlaceControls = ({selected, setLayer}) => {
                 type="search"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 placeholder="search"
-                onChange={onChange}
+                onChange={(e) => setValueBounce(e.target.value)}
             />
         </div>
     )
