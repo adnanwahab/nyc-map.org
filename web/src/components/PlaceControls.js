@@ -48,7 +48,7 @@ const PlaceControls = ({ selected, setLayer }) => {
 
     useEffect(() => {
         if (selected) setLayer(makeScatterLayer(data))
-    }, [value, selected])
+    }, [value, selected, status])
 
     return (
         <div className="p-5">
