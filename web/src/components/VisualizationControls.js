@@ -1,48 +1,83 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import CommuteDistanceControls from './CommuteDistanceControls'
 import ComplaintControls from './ComplaintControls'
 import SuitabilityControls from './SuitabilityControls'
 import PlaceControls from './PlaceControls'
+import ListingControls from 'src/components/ListingControls'
 
-const Accordion = ({ setLayer }) => {
-    let [selectedIndex, setSelectedIndex] = useState(3)
+let blurb = () => {
+    return (
+        <div className="overflow-hidden">
+            <p>
+                Data Attribution Morphocode Explorer makes use of a variety of
+                public data sources and third-party databases. You can find more
+                information about the terms governing their use on the
+                Attribution page.
+            </p>
+            <p>
+                Disclaimer The data and the associated metadata are provided
+                "as-is", without express or implied warranty of completeness,
+                accuracy, or fitness for a particular purpose. Read full
+                disclaimer
+            </p>
+        </div>
+    )
+}
+
+let blurbs = [
+    `Cribfinder is a spacial analysis tool`,
+    `The layer aggregates data within the boundary of each hexagon cell
+    `,
+
+    `Suitability analysis is a GIS-based multi-criteria decision making process.
+    Each aspect of the landscape has characteristics that are in some degree either suitable or unsuitable for the activities being planned.
+    Use the sliders below to adjust the importance of each category`,
+
+    `Access to transit within walking distances of places where people live and work is crucial for maintaining the economic vitality and quality of life in cities.`,
+]
+
+const Accordion = ({ setLayer, scrollTop }) => {
+    let [selectedIndex, setSelectedIndex] = useState(0)
 
     let controls = [
+        ListingControls,
         ComplaintControls,
-        CommuteDistanceControls,
-        PlaceControls,
         SuitabilityControls,
+        PlaceControls,
+        CommuteDistanceControls,
+
+        blurb,
     ].map((C, idx) => (
         <C setLayer={setLayer} selected={selectedIndex === idx} />
     ))
+
+    let SIZE = 400
+
+    let fraction = Math.floor(scrollTop / SIZE)
+
+    if (selectedIndex !== fraction) setSelectedIndex(fraction)
     let list = [
+        'Listings',
         '311 Complaints',
-        'Commute Distance',
-        'Places',
         'Suitability',
+        'Places',
+        'Commute Distance',
+        'blurb',
     ].map((children, idx) => {
         return (
-            <div
-                key={idx}
-                className="tab w-full overflow-hidden border-t text-black"
-            >
-                <input
-                    defaultChecked={selectedIndex === idx}
-                    onClick={(e) => {
-                        setSelectedIndex(idx)
-                    }}
-                    className="absolute opacity-0"
-                    id={children}
-                    type="radio"
-                    name="tabs2"
-                />
-                <label
-                    className="block p-5 leading-normal cursor-pointer"
-                    htmlFor={children}
+            <div key={idx} className="tab w-full border-b text-black">
+                <div
+                    style={{ height: `${SIZE}px` }}
+                    className={`overflow-scroll leading-normal ${
+                        Math.floor(fraction) === idx
+                            ? 'opacity-100'
+                            : 'opacity-50'
+                    }`}
                 >
-                    {children}
-                </label>
-                <div className="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                    <h3 className="block p-5 leading-normal cursor-pointer bg-white border-b">
+                        {children}
+                    </h3>
+                    <p className="lh-copy">{blurbs[idx]}</p>
                     {controls[idx]}
                 </div>
             </div>
@@ -54,6 +89,12 @@ const Accordion = ({ setLayer }) => {
 
 const VisualizationControls = ({ setLayer }) => {
     let [showing, setShowing] = useState(true)
+    let [scrollTop, setScrollTop] = useState(0)
+    let myRef = useRef(null)
+
+    let onScroll = () => {
+        setScrollTop(myRef.current.scrollTop)
+    }
 
     return (
         <div className="hidden md:block fixed inset-0 overflow-hidden z-50 pointer-events-none">
@@ -70,7 +111,7 @@ const VisualizationControls = ({ setLayer }) => {
                     }
                     aria-labelledby="slide-over-heading"
                 >
-                    <div className="relative w-screen max-w-xs">
+                    <div className="relative w-screen max-w-sm">
                         <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
                             <button
                                 onClick={() => setShowing(!showing)}
@@ -94,18 +135,33 @@ const VisualizationControls = ({ setLayer }) => {
                             </button>
                         </div>
                         <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-                            <div className="px-4 sm:px-6">
-                                <h2
-                                    id="slide-over-heading"
-                                    className="text-lg font-medium text-gray-900"
-                                >
-                                    Visualization Controls
-                                </h2>
+                            <div className="px-4 sm:px-6 border-b">
+                                <div className="pb-5">
+                                    <img
+                                        className="inline pr-2"
+                                        src="/favicon.png"
+                                    />
+                                    <span className="text-xl">
+                                        Crib Finder{' '}
+                                    </span>
+                                    <span className="text-xs">
+                                        Data Driven Apartment Hunting
+                                    </span>
+                                </div>
                             </div>
                             <div className="mt-6 relative flex-1 sm:px-6">
-                                <div className="absolute inset-0 pointer-events-auto">
-                                    <Accordion setLayer={setLayer} />
-                                    {/* <div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true"></div> */}
+                                <div
+                                    className="absolute inset-0 pointer-events-auto overflow-scroll"
+                                    onScroll={onScroll}
+                                    ref={myRef}
+                                >
+                                    <div className="h-full" aria-hidden="true">
+                                        {' '}
+                                        <Accordion
+                                            setLayer={setLayer}
+                                            scrollTop={scrollTop}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -117,8 +173,3 @@ const VisualizationControls = ({ setLayer }) => {
 }
 
 export default VisualizationControls
-
-///
-{
-    /*  */
-}

@@ -70,13 +70,10 @@ const SuitabilityControls = ({ selected, setLayer }) => {
     const { status, data } = useFetch('/hexes.json')
 
     useEffect(() => {
-        console.log('wow', selected)
         if (selected) setLayer(h3Layer(data, weights))
     }, Object.values(weights).concat(selected).concat(status))
     return (
         <div className="p-5">
-            Use the sliders below to adjust the importance of each category{' '}
-            <br />
             {features.map((d, i) => (
                 <div key={i}>
                     <input

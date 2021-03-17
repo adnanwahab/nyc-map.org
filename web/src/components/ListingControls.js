@@ -53,9 +53,8 @@ const queryMongo = async (search) => {
 }
 
 function showToolTip(object) {
-    console.log(object)
     return (
-        <div className="p-5 top-10 left-10 absolute bg-white shadow text-black z-50">
+        <div className="p-5 top-10 left-10 fixed bg-white shadow text-black z-50">
             <div className="mini-bubble-details">
                 <img
                     width="100px"
@@ -79,7 +78,7 @@ function showToolTip(object) {
     )
 }
 
-const ListingControls = ({ renderListings }) => {
+const ListingControls = ({ setLayer, selected }) => {
     const [checked, setChecked] = useState('Airbnb')
     const [priceRange, setPriceRange] = useState([0, 2000])
     const [selectedListing, setSelectedListing] = useState(null)
@@ -89,10 +88,10 @@ const ListingControls = ({ renderListings }) => {
             if (!checked) return
             const data = await queryMongo({})
             const layer = makeIconLayer(data.slice(0, 50), setSelectedListing)
-            renderListings(layer)
+            if (selected) setLayer(layer)
         }
         call()
-    }, [checked])
+    }, [checked, setLayer])
 
     let radio = LISTING_TYPES.map((d) => (
         <label key={d} className="pr-2">
@@ -110,15 +109,9 @@ const ListingControls = ({ renderListings }) => {
         <>
             {selectedListing && showToolTip(selectedListing)}
 
-            <div className="hidden md:block p-5 bottom-10 left-10 absolute bg-white shadow h-60 w-96 text-black z-50">
+            <div className="p-5 bg-white shadow h-60 w-96 text-black">
                 {/* {favoriteList()} */}
-                <div className="pb-5">
-                    <img className="inline pr-2" src="/favicon.png" />
-                    <span className="text-xl">Crib Finder </span>
-                    <span className="text-xs">
-                        Data Driven Appartment Hunting
-                    </span>
-                </div>
+
                 <div
                     className="pb-5"
                     className="text-xs"

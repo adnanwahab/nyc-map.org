@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import VisualizationControls from 'src/components/VisualizationControls'
-import ListingControls from 'src/components/ListingControls'
 import Map from 'src/components/Map'
 
 //import 'normalize.css'
@@ -20,7 +19,6 @@ function Root() {
     return (
         <div className="antialiased">
             {showLoading && loader}
-            <ListingControls renderListings={selectListings} />
             <VisualizationControls setLayer={selectLayer} />
             <Map layers={layers} />
         </div>

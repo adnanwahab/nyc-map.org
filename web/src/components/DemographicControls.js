@@ -1,9 +1,9 @@
+
 import React, { useState, useEffect } from 'react'
 import GL from '@luma.gl/constants'
 import _ from 'lodash'
 import { ScatterplotLayer } from 'deck.gl'
 import makeFetch from './useFetch'
-import { ItemRenderer, MultiSelect } from '@blueprintjs/select'
 
 const queryMongo = async (search) => {
     const res = await fetch('http://localhost:8911/mongo', {
@@ -28,10 +28,9 @@ const makeScatterLayer = (data) => {
         lineWidthMinPixels: 1,
         stroked: true,
         opacity: 0.9,
-
         autoHighlight: true,
         highlightColor: [256, 128, 128, 128],
-        pickable: true,
+        picking: true,
 
         parameters: {
             [GL.DEPTH_TEST]: true,
@@ -43,7 +42,7 @@ const makeScatterLayer = (data) => {
     })
 }
 
-const PlaceControls = ({ selected, setLayer }) => {
+const DemographicControls = ({ selected, setLayer }) => {
     const [value, setValue] = useState('')
     const setValueBounce = _.debounce(setValue, 300)
     const { status, data } = useFetch(value)
@@ -54,7 +53,7 @@ const PlaceControls = ({ selected, setLayer }) => {
 
     return (
         <div className="p-5">
-            <input
+             <input
                 type="search"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 placeholder="search"
@@ -64,4 +63,4 @@ const PlaceControls = ({ selected, setLayer }) => {
     )
 }
 
-export default PlaceControls
+export default DemographicControls
