@@ -74,7 +74,7 @@ const Accordion = ({ setLayer, scrollTop }) => {
                             : 'opacity-50'
                     }`}
                 >
-                    <h3 className="block p-5 leading-normal cursor-pointer bg-white border-b">
+                    <h3 className="block leading-normal bg-white border-b">
                         {children}
                     </h3>
                     <p className="lh-copy">{blurbs[idx]}</p>
