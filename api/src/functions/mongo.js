@@ -28,12 +28,13 @@ function queryDatabase(db, collection) {
         _id: 0,
     }
     return db
+        .db('test')
         .collection('places')
         .find({})
         .project(project)
         .toArray()
-        .then(() => {
-            return { statusCode: 200, body: 'success' }
+        .then((result) => {
+            return result
         })
         .catch((err) => {
             console.log('=> an error occurred: ', err)
@@ -41,17 +42,26 @@ function queryDatabase(db, collection) {
         })
 }
 
-export const handler = async (event, context, callback) => {
+export const handler = async (event, context) => {
     context.callbackWaitsForEmptyEventLoop = false
 
-    connectToDatabase(MONGODB_URI)
+    let result = await connectToDatabase(MONGODB_URI)
         .then((db) => queryDatabase(db))
         .then((result) => {
-            console.log('=> returning result: ', result)
-            callback(null, result)
+            //console.log('=> returning result: ', result)
+            //callback(null, result)
+            return result
         })
         .catch((err) => {
             console.log('=> an error occurred: ', err)
-            callback(err)
+            return err
         })
+
+    return {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+        statusCode: 200,
+        body: result,
+    }
 }
