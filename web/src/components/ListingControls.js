@@ -80,7 +80,7 @@ const ListingControls = ({ setLayer, selected }) => {
         </label>
     ))
     return (
-        <div className="p-5 bg-white shadow h-60 w-96 text-black">
+        <div className="p-5 bg-white h-60 w-96 text-black">
             <div
                 className="text-xs"
                 direction="row"
