@@ -105,8 +105,7 @@ export const handler = async (event, context) => {
         .find({})
         .limit(1e3)
         .project(projection)
-        //.limit(500)
-        .toArray()
+    //.limit(500)
     // TODO only return the bare minimum we need to render (no mongo _id, no health inspection data )
     // console.log(items)
     // close connection
@@ -117,6 +116,6 @@ export const handler = async (event, context) => {
             'Access-Control-Allow-Origin': '*',
         },
         statusCode: 200,
-        body: JSON.stringify(items),
+        body: JSON.stringify(items.toArray()),
     }
 }
