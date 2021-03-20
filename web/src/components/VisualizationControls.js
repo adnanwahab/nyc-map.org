@@ -93,7 +93,6 @@ const Accordion = ({ setLayer, scrollTop }) => {
 }
 
 const VisualizationControls = ({ setLayer }) => {
-    let [showing, setShowing] = useState(true)
     let [scrollTop, setScrollTop] = useState(0)
     let myRef = useRef(null)
 
@@ -102,77 +101,42 @@ const VisualizationControls = ({ setLayer }) => {
     }
 
     return (
-        <div className="hidden md:block fixed inset-0 overflow-hidden z-50 pointer-events-none">
-            <div className="absolute inset-0 overflow-hidden">
-                <section
-                    className={
-                        'absolute inset-y-0 right-0 pl-10 max-w-full flex transform-gpu transition-transform ' +
-                        (showing ? ' translate-x-20' : 'translate-x-0')
-                    }
-                    style={
-                        showing
-                            ? { transform: 'translatex(0rem)' }
-                            : { transform: 'translatex(20rem)' }
-                    }
-                    aria-labelledby="slide-over-heading"
-                >
-                    <div className="relative w-screen max-w-sm">
-                        <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4 hidden">
-                            <button
-                                onClick={() => setShowing(!showing)}
-                                className="pointer-events-auto rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                            >
-                                <span className="sr-only">Close panel</span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 64 64"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    width="24px"
-                                    height="24px"
-                                    className={`opacity-70 rotate-${
-                                        showing ? 0 : 180
-                                    }`}
-                                >
-                                    <path d="M26.7,54.7l-4.5-4.4c-0.4-0.4-0.4-1,0-1.4L38.6,33L22.2,17c-0.4-0.4-0.4-1,0-1.5l4.5-4.4c0.4-0.4,1.1-0.4,1.5,0 l17.1,16.7l4.5,4.4c0.4,0.4,0.4,1,0,1.4L45.2,38L28.2,54.7C27.8,55.1,27.1,55.1,26.7,54.7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="h-full flex flex-col pt-6 bg-white shadow-xl overflow-y-scroll">
-                            <div className="px-4 sm:px-6">
-                                <div className="pb-5">
-                                    <img
-                                        className="inline pr-2"
-                                        src="/favicon.png"
-                                    />
-                                    <span className="text-xl pr-3">
-                                        Crib Finder
-                                    </span>
-                                    <span className="text-xs">
-                                        Data Driven Apartment Hunting
-                                    </span>
-                                </div>
+        <div className="hidden md:block fixed inset-0 overflow-hidden z-50">
+            <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex transform-gpu transition-transform">
+                <div className="relative w-screen max-w-sm">
+                    <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 sm:-ml-10 sm:pr-4 flex">
+                        {/* add legend here */}
+                    </div>
+                    <div className="h-full flex flex-col pt-6 bg-white shadow-xl overflow-y-scroll">
+                        <div className="px-4 sm:px-6">
+                            <div className="pb-5">
+                                <img
+                                    className="inline pr-2"
+                                    src="/favicon.png"
+                                />
+                                <span className="text-xl pr-3">
+                                    Crib Finder
+                                </span>
+                                <span className="text-xs">
+                                    Data Driven Apartment Hunting
+                                </span>
                             </div>
-                            <div className="relative flex-1 sm:px-6">
-                                <div
-                                    className="absolute inset-0 pointer-events-auto overflow-scroll"
-                                    onScroll={onScroll}
-                                    ref={myRef}
-                                >
-                                    <div className="h-full" aria-hidden="true">
-                                        {' '}
-                                        <Accordion
-                                            setLayer={setLayer}
-                                            scrollTop={scrollTop}
-                                        />
-                                    </div>
-                                </div>
+                        </div>
+                        <div className="relative flex-1 sm:px-6">
+                            <div
+                                className="absolute inset-0 pointer-events-auto overflow-scroll"
+                                onScroll={onScroll}
+                                ref={myRef}
+                            >
+                                <Accordion
+                                    setLayer={setLayer}
+                                    scrollTop={scrollTop}
+                                />
                             </div>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     )
 }
