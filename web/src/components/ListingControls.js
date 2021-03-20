@@ -65,7 +65,7 @@ const ListingControls = ({ setLayer, selected }) => {
             if (selected) setLayer(layer)
         }
         call()
-    }, [checked, setLayer])
+    }, [checked, setLayer, selected])
 
     let radio = LISTING_TYPES.map((d) => (
         <label key={d} className="pr-2">
@@ -80,74 +80,55 @@ const ListingControls = ({ setLayer, selected }) => {
         </label>
     ))
     return (
-        <>
-            <div className="p-5 bg-white shadow h-60 w-96 text-black">
-                {/* {favoriteList()} */}
-
-                <div
-                    className="pb-5"
-                    className="text-xs"
-                    direction="row"
-                    align="center"
-                    pad="small"
-                    gap="small"
+        <div className="p-5 bg-white shadow h-60 w-96 text-black">
+            <div
+                className="text-xs"
+                direction="row"
+                align="center"
+                pad="small"
+                gap="small"
+            >
+                <span className="float-left">Type</span>
+                <form
+                    className="inline"
+                    onChange={(e) => setChecked(e.target.name)}
                 >
-                    <span className="float-left">Type</span>
-                    <form
-                        className="inline"
-                        onChange={(e) => setChecked(e.target.name)}
-                    >
-                        {radio}
-                    </form>
+                    {radio}
+                </form>
+            </div>
+
+            <div className="pt-5">
+                <span className="float-left" size="small" color="brand">
+                    Price
+                </span>
+
+                <div className="9/12 pl-12">
+                    <RangeSlider
+                        min={0}
+                        max={3000}
+                        stepSize={100}
+                        labelStepSize={500}
+                        value={priceRange}
+                        onChange={(value) => {
+                            console.log(value)
+                            setPriceRange(value)
+                        }}
+                        vertical={false}
+                    />
                 </div>
 
-                <div className="pt-5">
-                    <span className="float-left" size="small" color="brand">
-                        Price
-                    </span>
-
-                    <div className="9/12 pl-12">
-                        <RangeSlider
-                            min={0}
-                            max={3000}
-                            stepSize={100}
-                            labelStepSize={500}
-                            value={priceRange}
-                            onChange={(value) => {
-                                console.log(value)
-                                setPriceRange(value)
-                            }}
-                            vertical={false}
-                        />
-                    </div>
-
-                    <div className="mt-5">
-                        <button
-                            className="inline-flex items-center px-2.5 py-1.5 border
+                <div className="mt-5">
+                    <button
+                        className="inline-flex items-center px-2.5 py-1.5 border
                      border-gray-300 shadow-sm text-xs font-medium rounded
                       text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
                        focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Rooms
-                        </button>
-                        {/* <Popover
-                            interactionKind={PopoverInteractionKind.CLICK}
-                            popoverClassName="bp3-popover-content-sizing"
-                            position={Position.RIGHT}
-                        >
-
-                            <div>
-                                <h5>Popover title</h5>
-                                <p>...</p>
-                                <button className="bp3-popover-dismiss">
-                                    Dismiss
-                                </button>
-                            </div>
-                        </Popover> */}
-                    </div>
+                    >
+                        Rooms
+                    </button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

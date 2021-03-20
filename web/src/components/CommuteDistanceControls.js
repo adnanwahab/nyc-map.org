@@ -131,7 +131,7 @@ const isoChrone = async (coords, selection, minutes) => {
     })
 }
 
-const CommuteDistanceControls = ({ selected, setLayer }) => {
+const CommuteDistanceControls = ({ selected, setLayer, className }) => {
     const options = ['Walking', 'Cycling', 'Driving']
     const [selection, setSelection] = useState(options[0])
     const [coords, setCoords] = useState([
@@ -174,7 +174,7 @@ const CommuteDistanceControls = ({ selected, setLayer }) => {
         </>
     )
     return (
-        <div style={{ borderBottom: '2px solid #eaeaea' }} className="p-5">
+        <div className={className}>
             {tabs}
             <span className="py-5">Max Travel Time: {minutes} minutes</span>
             <input

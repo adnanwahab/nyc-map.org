@@ -60,7 +60,7 @@ const makeComplaintLayer = (data) => {
     }
 }
 
-const ComplaintControls = ({ selected, setLayer }) => {
+const ComplaintControls = ({ selected, setLayer, className }) => {
     const [value, setValue] = useState('HEATING')
     const { status, data } = useFetch(`data/${value}.json`)
 
@@ -69,21 +69,14 @@ const ComplaintControls = ({ selected, setLayer }) => {
     }, [value, selected, status])
 
     return (
-        <div className="p-5">
-            <select
-                value={value}
-                onChange={(e) => console.log(e) || setValue(e.target.value)}
-            >
+        <div className={className}>
+            <select value={value} onChange={(e) => setValue(e.target.value)}>
                 {complaints.map((d) => (
                     <option key={d}>{d}</option>
                 ))}
             </select>
             <div className="info-panel__InfoPanelContent-cbpqj4-0 fjyHRS">
                 <div>
-                    <p>
-                        The layer aggregates data within the boundary of each
-                        hexagon cell
-                    </p>
                     <div className="layout">
                         <div
                             className="legend"

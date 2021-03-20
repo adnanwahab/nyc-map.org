@@ -9,8 +9,8 @@ let blurb = () => {
     return (
         <div className="overflow-hidden">
             <p>
-                Data Attribution Morphocode Explorer makes use of a variety of
-                public data sources and third-party databases. You can find more
+                Data Attribution Crib Finder makes use of a variety of public
+                data sources and third-party databases. You can find more
                 information about the terms governing their use on the
                 Attribution page.
             </p>
@@ -24,8 +24,17 @@ let blurb = () => {
     )
 }
 
-let blurbs = [
-    `Cribfinder is a spacial analysis tool`,
+let titles = [
+    'Browse Listings',
+    '311 Complaints',
+    'Suitability Analysis',
+    'Places to go',
+    'Commute Distance?',
+    'Data Attribution',
+]
+
+let content = [
+    `A pedshed represents the area within walking distance from a central point. It is often visualized as a circle with a radius of 0.25 miles — the equivalent of a 5-minute walk. Learn more`,
     `The layer aggregates data within the boundary of each hexagon cell
     `,
 
@@ -37,52 +46,36 @@ let blurbs = [
 ]
 
 const Accordion = ({ setLayer, scrollTop }) => {
-    let [selectedIndex, setSelectedIndex] = useState(0)
+    let [selectedIndex, setSelectedIndex] = useState(0),
+        SIZE = 400,
+        fraction = Math.floor(scrollTop / SIZE)
 
-    let controls = [
+    if (selectedIndex !== fraction) setSelectedIndex(fraction)
+    let list = [
         ListingControls,
         ComplaintControls,
         SuitabilityControls,
         PlaceControls,
         CommuteDistanceControls,
-
         blurb,
-    ].map((C, idx) => (
-        <C setLayer={setLayer} selected={selectedIndex === idx} />
-    ))
-
-    let SIZE = 400
-
-    let fraction = Math.floor(scrollTop / SIZE)
-
-    if (selectedIndex !== fraction) setSelectedIndex(fraction)
-    let list = [
-        'Listings',
-        '311 Complaints',
-        'Suitability',
-        'Places',
-        'Commute Distance',
-        'blurb',
-    ].map((children, idx) => {
-        return (
-            <div key={idx} className="tab w-full border-b text-black">
-                <div
-                    style={{ height: `${SIZE}px` }}
-                    className={`overflow-scroll leading-normal ${
-                        Math.floor(fraction) === idx
-                            ? 'opacity-100'
-                            : 'opacity-50'
-                    }`}
-                >
-                    <h3 className="block leading-normal bg-white border-b">
-                        {children}
-                    </h3>
-                    <p className="lh-copy">{blurbs[idx]}</p>
-                    {controls[idx]}
-                </div>
+    ].map((Child, idx) => (
+        <div key={idx} className="tab w-full text-black">
+            <div
+                style={{ height: `${SIZE}px` }}
+                className={`overflow-scroll leading-normal opacity-${
+                    selectedIndex === idx ? '100' : '50'
+                }`}
+            >
+                <h3 className="px-5 pt-5 border-t text-xl">{titles[idx]}</h3>
+                <p className="p-5 text-sm border-b">{content[idx]}</p>
+                <Child
+                    className="p-5"
+                    setLayer={setLayer}
+                    selected={selectedIndex === idx}
+                />
             </div>
-        )
-    })
+        </div>
+    ))
 
     return <div className="shadow-md">{list}</div>
 }
@@ -112,7 +105,7 @@ const VisualizationControls = ({ setLayer }) => {
                     aria-labelledby="slide-over-heading"
                 >
                     <div className="relative w-screen max-w-sm">
-                        <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
+                        <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4 hidden">
                             <button
                                 onClick={() => setShowing(!showing)}
                                 className="pointer-events-auto rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
@@ -134,22 +127,20 @@ const VisualizationControls = ({ setLayer }) => {
                                 </svg>
                             </button>
                         </div>
-                        <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-                            <div className="px-4 sm:px-6 border-b">
+                        <div className="h-full flex flex-col pt-6 bg-white shadow-xl overflow-y-scroll">
+                            <div className="px-4 sm:px-6">
                                 <div className="pb-5">
                                     <img
                                         className="inline pr-2"
                                         src="/favicon.png"
                                     />
-                                    <span className="text-xl">
-                                        Crib Finder{' '}
-                                    </span>
+                                    <span className="text-xl">Crib Finder</span>
                                     <span className="text-xs">
                                         Data Driven Apartment Hunting
                                     </span>
                                 </div>
                             </div>
-                            <div className="mt-6 relative flex-1 sm:px-6">
+                            <div className="relative flex-1 sm:px-6">
                                 <div
                                     className="absolute inset-0 pointer-events-auto overflow-scroll"
                                     onScroll={onScroll}

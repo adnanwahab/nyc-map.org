@@ -43,7 +43,7 @@ const makeScatterLayer = (data) => {
     })
 }
 
-const PlaceControls = ({ selected, setLayer }) => {
+const PlaceControls = ({ selected, setLayer, className }) => {
     const [value, setValue] = useState('')
     const setValueBounce = _.debounce(setValue, 300)
     const { status, data } = useFetch(value)
@@ -53,7 +53,7 @@ const PlaceControls = ({ selected, setLayer }) => {
     }, [value, selected, status])
 
     return (
-        <div className="p-5">
+        <div className={className}>
             <input
                 type="search"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
