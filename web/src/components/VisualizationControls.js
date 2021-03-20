@@ -7,20 +7,34 @@ import ListingControls from 'src/components/ListingControls'
 
 let blurb = () => {
     return (
-        <div className="overflow-hidden">
-            <p>
-                Data Attribution Crib Finder makes use of a variety of public
-                data sources and third-party databases. You can find more
-                information about the terms governing their use on the
-                Attribution page.
-            </p>
-            <p>
-                Disclaimer The data and the associated metadata are provided
-                "as-is", without express or implied warranty of completeness,
-                accuracy, or fitness for a particular purpose. Read full
-                disclaimer
-            </p>
-        </div>
+        <>
+            <div className="overflow-hidden p-5">
+                <h3>Data Attribution</h3>
+                <p>
+                    Data Attribution Crib Finder makes use of a variety of
+                    public data sources and third-party databases. You can find
+                    more information about the terms governing their use on the
+                    <a href="">Attribution page</a>.
+                </p>
+                <h3>Disclaimer</h3>
+                <p>
+                    The data and the associated metadata are provided "as-is",
+                    without express or implied warranty of completeness,
+                    accuracy, or fitness for a particular purpose. Read full
+                    disclaimer
+                </p>
+            </div>
+            <div className="flex">
+                <button
+                    className="inline-flex items-center px-2.5 py-1.5 border
+                     border-gray-300 shadow-sm text-xs font-medium rounded
+                      text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
+                       focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Contact
+                </button>
+            </div>
+        </>
     )
 }
 
