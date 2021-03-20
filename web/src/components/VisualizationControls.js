@@ -48,7 +48,7 @@ let titles = [
 ]
 
 let content = [
-    `A pedshed represents the area within walking distance from a central point. It is often visualized as a circle with a radius of 0.25 miles — the equivalent of a 5-minute walk. Learn more`,
+    'Crib Finder is a urban analysis tool designed for discovering the best place in New York City for you to live. Use a single, powerful, interactive interface and explore pricing and spatial insights faster than ever.',
     `The layer aggregates data within the boundary of each hexagon cell
     `,
 
