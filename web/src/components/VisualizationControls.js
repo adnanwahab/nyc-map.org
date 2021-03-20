@@ -76,9 +76,7 @@ const Accordion = ({ setLayer, scrollTop }) => {
         <div key={idx} className="tab w-full text-black">
             <div
                 style={{ height: `${SIZE}px` }}
-                className={`overflow-scroll leading-normal opacity-${
-                    selectedIndex === idx ? '100' : '50'
-                }`}
+                className={`opacity-${selectedIndex === idx ? '100' : '50'}`}
             >
                 <h3 className="px-5 pt-5 border-t text-xl">{titles[idx]}</h3>
                 <p className="p-5 text-sm border-b">{content[idx]}</p>
