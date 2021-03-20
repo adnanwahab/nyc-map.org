@@ -3,7 +3,7 @@ const MongoClient = require('mongodb').MongoClient
 const url =
     'mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority'
 
-const client = new MongoClient(url, { useUnifiedTopology: true })
+
 
 const projection = {
     //   accommodates: "2"
@@ -89,6 +89,7 @@ const projection = {
 }
 
 export const handler = async (event, context) => {
+    const client = new MongoClient(url, { useUnifiedTopology: true })
     console.log('GRABBING LISTINGS FROM MONGO')
 
     const query = event.body
