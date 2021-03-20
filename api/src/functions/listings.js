@@ -1,10 +1,3 @@
-const MongoClient = require('mongodb').MongoClient
-
-const url =
-    'mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority'
-
-
-
 const projection = {
     //   accommodates: "2"
     // amenities: "["Hot water", "Extra pillows and blankets", "Oven", "Cleaning before checkout", "Iron", "Long term stays allowed", "TV", "Baking sheet", "Wifi", "Refrigerator", "Dedicated workspace", "Air conditioning", "Ethernet connection", "Keypad", "Free street parking", "Smoke alarm", "Bathtub", "Heating", "Dishes and silverware", "Fire extinguisher", "Essentials", "Paid parking off premises", "Bed linens", "Hair dryer", "Coffee maker", "Cooking basics", "Luggage dropoff allowed", "Stove", "Hangers", "Kitchen", "Carbon monoxide alarm"]"
@@ -88,35 +81,53 @@ const projection = {
     _id: 0,
 }
 
-export const handler = async (event, context) => {
-    const client = new MongoClient(url, { useUnifiedTopology: true })
-    console.log('GRABBING LISTINGS FROM MONGO')
+const MongoClient = require('mongodb').MongoClient
 
-    const query = event.body
-    // connect to your cluster
-    const client = await MongoClient.connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    // specify the DB's name
-    const db = client.db('test') // execute find query
+const MONGODB_URI =
+    'mongodb+srv://poop:poop@cluster0.rucmp.mongodb.net/test?retryWrites=true&w=majority'
 
-    const items = await db
-        .collection('airbnb_listings')
-        .find({})
-        .limit(1e3)
-        .project(projection)
-    //.limit(500)
-    // TODO only return the bare minimum we need to render (no mongo _id, no health inspection data )
-    // console.log(items)
-    // close connection
-    client.close()
+let cachedDb = null
 
-    return {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
-        statusCode: 200,
-        body: JSON.stringify(items.toArray()),
+function connectToDatabase(uri) {
+    console.log('=> connect to database')
+    if (cachedDb) {
+        console.log('=> using cached database instance')
+        return Promise.resolve(cachedDb)
     }
+    return MongoClient.connect(uri).then((db) => {
+        cachedDb = db
+        return cachedDb
+    })
+}
+
+function queryDatabase(db) {
+    console.log('=> query database')
+
+    return db
+        .collection('listings')
+        .find({})
+        .project(projection)
+        .toArray()
+        .then(() => {
+            return { statusCode: 200, body: 'success' }
+        })
+        .catch((err) => {
+            console.log('=> an error occurred: ', err)
+            return { statusCode: 500, body: 'error' }
+        })
+}
+
+export const handler = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false
+
+    connectToDatabase(MONGODB_URI)
+        .then((db) => queryDatabase(db))
+        .then((result) => {
+            console.log('=> returning result: ', result)
+            callback(null, result)
+        })
+        .catch((err) => {
+            console.log('=> an error occurred: ', err)
+            callback(err)
+        })
 }
