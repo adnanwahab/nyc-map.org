@@ -148,7 +148,9 @@ const VisualizationControls = ({ setLayer }) => {
                                         className="inline pr-2"
                                         src="/favicon.png"
                                     />
-                                    <span className="text-xl">Crib Finder</span>
+                                    <span className="text-xl pr-3">
+                                        Crib Finder
+                                    </span>
                                     <span className="text-xs">
                                         Data Driven Apartment Hunting
                                     </span>
