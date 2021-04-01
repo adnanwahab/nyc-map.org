@@ -20,8 +20,8 @@ let blurb = () => {
                 <p>
                     The data and the associated metadata are provided "as-is",
                     without express or implied warranty of completeness,
-                    accuracy, or fitness for a particular purpose. Read full
-                    disclaimer
+                    accuracy, or fitness for a particular purpose.
+                    <a href="">Read full disclaimer</a>
                 </p>
             </div>
             <div className="flex">
