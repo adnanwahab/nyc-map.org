@@ -7,7 +7,7 @@
 
 [web]
   port = 8910
-  apiProxyPath = "/.netlify/functions"
+  apiProxyPath = "/api"
   includeEnvironmentVariables = ['HELLO_WORLD']
 [api]
   port = 8911
