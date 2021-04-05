@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import React, { useState } from 'react'
 
-import VisualizationControls from './src/components/VisualizationControls'
-import Map from './src/components/Map'
-import ListingModal from './src/components/ListingModal'
-import MapContext from './src/components/MapContext'
+import VisualizationControls from '../components/VisualizationControls'
+import Map from '../components/Map'
+import ListingModal from '../components/ListingModal'
+import MapContext from '../components/MapContext'
 
 import '@blueprintjs/core/lib/css/blueprint.css'
 

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 
 import { H3HexagonLayer } from '@deck.gl/geo-layers'
 
-import bart from '../../../public/data/suitability/bartLayer'
-import crime from '../../../public/data/suitability/crimeLayer'
-import schools from '../../../public/data/suitability/schoolsLayer'
-import travelTime from '../../../public/data/suitability/travelTimeLayer'
+import bart from '../public/data/suitability/bartLayer'
+import crime from '../public/data/suitability/crimeLayer'
+import schools from '../public/data/suitability/schoolsLayer'
+import travelTime from '../public/data/suitability/travelTimeLayer'
 
 let layers = [bart, crime, schools, travelTime].map((d) =>
     Object.entries(d).map((d) => d[1])
