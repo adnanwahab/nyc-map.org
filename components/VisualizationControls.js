@@ -101,7 +101,7 @@ const VisualizationControls = ({ setLayer }) => {
     }
 
     return (
-        <div className="hidden md:block fixed inset-0 overflow-hidden z-50">
+        <div className="hidden md:block fixed inset-0 overflow-hidden z-50 pointer-events-none">
             <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex transform-gpu transition-transform">
                 <div className="relative w-screen max-w-sm">
                     <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 sm:-ml-10 sm:pr-4 flex">
