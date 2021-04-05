@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "src/*": ["./src/*"]
-    }
-  },
-  "include": ["src/**/*", "../.redwood/index.d.ts", "scrape-example-fn.js", "street_easy.js", "mongo.js", "listings.js"]
-}
