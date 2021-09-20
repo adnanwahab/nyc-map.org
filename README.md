@@ -1,78 +1,34 @@
-# Redwood
-
-> **WARNING:** RedwoodJS software has not reached a stable version 1.0 and should not be considered suitable for production use. In the "make it work; make it right; make it fast" paradigm, Redwood is in the later stages of the "make it work" phase.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
-- [Tutorial](https://redwoodjs.com/tutorial/welcome-to-redwood): getting started and complete overview guide.
-- [Docs](https://redwoodjs.com/docs/introduction): using the Redwood Router, handling assets and files, list of command-line tools, and more.
-- [Redwood Community](https://community.redwoodjs.com): get help, share tips and tricks, and collaborate on everything about RedwoodJS.
 
-### Setup
+First, run the development server:
 
-We use Yarn as our package manager. To get the dependencies installed, just do this in the root directory:
-
-```terminal
-yarn install
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-### Fire it up
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```terminal
-yarn redwood dev
-```
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-Your browser should open automatically to `http://localhost:8910` to see the web app. Lambda functions run on `http://localhost:8911` and are also proxied to `http://localhost:8910/.redwood/functions/*`.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## inspiration
+## Learn More
 
-https://experience.arcgis.com/experience/ba953db7d541423a8e67ae1cf52bc698
+To learn more about Next.js, take a look at the following resources:
 
-https://deck.gl/ - state of the art mapping framework that combines React and mapboxGL
-Also https://gumroad.com/d/b3b16a20670ba56da7c68bd8c532b006 is a course I bought on mapping
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-https://explorer.morphocode.com/ amazing UI
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-https://pioneer.app/
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-
-https://observablehq.com/@bmschmidt/regl-dot-density another type of mapping tech we could use but maybe for 2nd map since deckgl is already p good
-
-
-
-https://observablehq.com/@visnup/restaurants cool data analysis from march
-
-
-
-
-
-https://pudding.cool/archives/ great inspiration (filter by map)
-
-
-
-
-
-https://observablehq.com/@enjalot this guy has lots of cool mapping examples too
-
-
-
-
-
-https://onemilliontweetmap.com/?center=25.48295117535531,-0.17578125&zoom=2&search=j&timeStep=0&timeSelector=0&hashtag1=&hashtag2=sad&sidebar=yes&rendering=sentiment&hashtagBattle=0&timeRange=0&timeRange=25&heatmap=1&sun=0&cluster=0 cool example
-
-
-
-another cool demo https://blog.mapbox.com/building-with-building-footprints-22ac88b863bf
-
-
-
-another AMAZING UI example https://pudding.cool/2018/12/3d-cities-story/ (more article style than app)
-
-
-
-https://pudding.cool/2018/12/3d-cities-story/ how it was made (would be good for optimization but we dont need to worry about that rn)
-
-
-
-i think i have more but thats a good start lol
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
