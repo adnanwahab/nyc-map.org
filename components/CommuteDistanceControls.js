@@ -33,8 +33,6 @@ const colorScale = (x) => {
 }
 
 const PlacesAutocomplete = ({ setCoords }) => {
-    console.log('hi')
-    return <div>hi</div>
     const {
         ready,
         value,
