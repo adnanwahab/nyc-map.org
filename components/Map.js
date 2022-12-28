@@ -56,8 +56,7 @@ const adnan = ({ object }) => {
     }
 }
 
-const Mapbox_access_token =
-    'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNpenExZHF0ZTAxMXYzMm40cWRxZXY1d3IifQ.TdYuekJQSG1eh6dDpywTxQ'
+const Mapbox_access_token = 'pk.eyJ1IjoiYXdhaGFiIiwiYSI6ImNrdjc3NW11aTJncmIzMXExcXRiNDNxZWYifQ.tqFU7uVd6mbhHtjYsjtvlg'
 //process.env.HELLO_ENV; // eslint-disable-line
 
 const Map = ({ layers }) => {
