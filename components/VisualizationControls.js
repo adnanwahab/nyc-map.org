@@ -39,8 +39,9 @@ let blurb = () => {
 }
 
 let titles = [
-    'Browse Listings',
+
     '311 Complaints',
+    'Browse Listings',
     'Suitability Analysis',
     'Places to go',
     'Commute Distance?',
@@ -66,8 +67,9 @@ const Accordion = ({ setLayer, scrollTop }) => {
 
     if (selectedIndex !== fraction) setSelectedIndex(fraction)
     let list = [
-        ListingControls,
+
         ComplaintControls,
+        ListingControls,
         SuitabilityControls,
         PlaceControls,
         CommuteDistanceControls,
