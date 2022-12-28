@@ -41,7 +41,7 @@ const PlacesAutocomplete = ({ setCoords }) => {
         clearSuggestions,
     } = usePlacesAutocomplete({
         requestOptions: {},
-        debounce: 300,
+        debounce: 16,
     })
     const ref = useOnclickOutside(() => clearSuggestions())
 
@@ -85,7 +85,7 @@ const PlacesAutocomplete = ({ setCoords }) => {
                 type="search"
                 value={value}
                 onChange={handleInput}
-                disabled={!ready}
+                // disabled={!ready}
                 placeholder="Where are you going?"
                 className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
             />

@@ -32,6 +32,10 @@ const makeScatterLayer = (data) => {
         autoHighlight: true,
         highlightColor: [256, 128, 128, 128],
         pickable: true,
+        onClick: function (datum) {
+            //lift state up to ToolTip w/o events because correct pattern for UI
+            console.log('datum', datum)
+        },
 
         parameters: {
             [GL.DEPTH_TEST]: true,

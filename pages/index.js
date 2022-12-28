@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import VisualizationControls from '../components/VisualizationControls'
 import Map from '../components/Map'
-import ListingModal from '../components/ListingModal'
+import Tooltip from '../components/Tooltip'
 import MapContext from '../components/MapContext'
 
 import '@blueprintjs/core/lib/css/blueprint.css'
@@ -24,7 +24,7 @@ function Root() {
         <div className="antialiased">
             {showLoading && loader}
             <MapContext.Provider value={stuff}>
-                <ListingModal object={listing} />
+                <Tooltip object={listing} />
                 <VisualizationControls setLayer={selectLayer} />
                 <Map layers={[selectedLayer]} />
             </MapContext.Provider>
