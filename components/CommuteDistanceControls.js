@@ -177,7 +177,7 @@ const CommuteDistanceControls = ({ selected, setLayer, className }) => {
     return (
         <div className={className}>
             {tabs}
-            <span className="py-5">Max Travel Time: {minutes} minutes</span>
+            <span className="py-5">Travel Time: {minutes} minutes</span>
             <input
                 type="range"
                 onChange={(e) => setDebouncedMinutes(e.target.value)}

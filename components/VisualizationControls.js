@@ -39,7 +39,6 @@ let blurb = () => {
 }
 
 let titles = [
-
     '311 Complaints',
     'Browse Listings',
     'Suitability Analysis',
